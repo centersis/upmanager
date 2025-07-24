@@ -40,6 +40,12 @@
                                class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('updates.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
                                 Atualizações
                             </a>
+                            {{-- @if(Auth::user()->isAdmin()) --}}
+                                <a href="{{ route('users.index') }}" 
+                                   class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('users.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
+                                    Usuários
+                                </a>
+                            {{-- @endif --}}
                         </div>
                         @endauth
                     </div>

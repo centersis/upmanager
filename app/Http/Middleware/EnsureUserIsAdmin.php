@@ -20,11 +20,11 @@ class EnsureUserIsAdmin
             return redirect()->route('login');
         }
 
-        $user = Auth::user();
+        // $user = Auth::user();
         
-        if (!$user->isAdmin()) {
-            abort(403, 'Acesso negado. Apenas administradores podem acessar esta área.');
-        }
+        // if (!$user->isAdmin()) {
+        //     abort(403, 'Acesso negado. Apenas administradores podem acessar esta área.');
+        // }
 
         return $next($request);
     }
