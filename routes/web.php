@@ -8,6 +8,8 @@ use App\Domains\Update\Http\Controllers\UpdateWebController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Image upload route for TinyMCE - Not needed anymore (using base64)
+
 // Customer CRUD Routes
 Route::get('/customers', [CustomerWebController::class, 'index'])->name('customers.index');
 Route::get('/customers/create', [CustomerWebController::class, 'create'])->name('customers.create');

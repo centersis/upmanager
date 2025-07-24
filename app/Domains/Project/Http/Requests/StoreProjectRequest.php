@@ -15,6 +15,7 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'group_id' => 'nullable|exists:groups,id',
             'status' => 'sometimes|string|max:50',
             'hash' => 'nullable|string|unique:projects,hash',
             'customer_ids' => 'array',

@@ -16,6 +16,7 @@ class UpdateProjectRequest extends FormRequest
         $projectId = $this->route('project')?->id;
         return [
             'name' => 'sometimes|string|max:255',
+            'group_id' => 'sometimes|nullable|exists:groups,id',
             'status' => 'sometimes|string|max:50',
             'hash' => 'sometimes|string|unique:projects,hash,' . $projectId,
             'customer_ids' => 'array',

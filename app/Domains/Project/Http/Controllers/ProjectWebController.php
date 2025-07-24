@@ -4,6 +4,7 @@ namespace App\Domains\Project\Http\Controllers;
 
 use App\Domains\Project\Services\ProjectService;
 use App\Domains\Customer\Services\CustomerService;
+use App\Domains\Group\Entities\Group;
 use App\Domains\Project\Http\Requests\StoreProjectRequest;
 use App\Domains\Project\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
@@ -24,9 +25,10 @@ class ProjectWebController extends Controller
 
     public function create()
     {
-        $customers = $this->customerService->getAllCustomers();
+        $customers = $this->customerService->getAllCustomers()->load('projects');
+        $groups = Group::active()->orderBy('name')->get();
         
-        return view('projects.create', compact('customers'));
+        return view('projects.create', compact('customers', 'groups'));
     }
 
     public function store(StoreProjectRequest $request)
@@ -65,13 +67,14 @@ class ProjectWebController extends Controller
     public function edit($id)
     {
         $project = $this->projectService->getProjectById($id);
-        $customers = $this->customerService->getAllCustomers();
+        $customers = $this->customerService->getAllCustomers()->load('projects');
+        $groups = Group::active()->orderBy('name')->get();
         
         if (!$project) {
             abort(404, 'Projeto não encontrado');
         }
         
-        return view('projects.edit', compact('project', 'customers'));
+        return view('projects.edit', compact('project', 'customers', 'groups'));
     }
 
     public function update(UpdateProjectRequest $request, $id)
