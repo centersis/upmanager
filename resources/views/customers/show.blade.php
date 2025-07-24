@@ -1,0 +1,167 @@
+@extends('layouts.app')
+
+@section('title', $customer->name . ' - UPMANAGER')
+
+@section('content')
+<div class="mb-8">
+    <nav class="flex" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-4">
+            <li>
+                <div>
+                    <a href="{{ route('customers.index') }}" class="text-gray-400 hover:text-gray-500">
+                        Clientes
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="flex-shrink-0 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="ml-4 text-sm font-medium text-gray-500">{{ $customer->name }}</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">{{ $customer->name }}</h1>
+            <div class="mt-2 flex items-center space-x-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $customer->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                    {{ $customer->status === 'active' ? 'Ativo' : 'Inativo' }}
+                </span>
+                <span class="text-sm text-gray-500">Cliente desde {{ $customer->created_at->format('d/m/Y') }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Projetos</dt>
+                        <dd class="text-lg font-medium text-gray-900">{{ $customer->projects->count() }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Total de Updates</dt>
+                        <dd class="text-lg font-medium text-gray-900">{{ $customer->projects->sum(fn($project) => $project->updates->count()) }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Total de Visualizações</dt>
+                        <dd class="text-lg font-medium text-gray-900">{{ $customer->projects->sum(fn($project) => $project->updates->sum('views')) }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Projects -->
+<div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-6">Projetos do Cliente</h3>
+        
+        @forelse($customer->projects as $project)
+        <div class="mb-8 last:mb-0">
+            <div class="border border-gray-200 rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-xl font-semibold text-gray-900">
+                        <a href="{{ route('projects.show', $project->id) }}" class="hover:text-blue-600">
+                            {{ $project->name }}
+                        </a>
+                    </h4>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $project->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                        {{ $project->status === 'active' ? 'Ativo' : 'Inativo' }}
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600">{{ $project->updates->count() }} atualização(ões) • Hash: <code class="bg-gray-100 px-2 py-1 rounded text-xs">{{ substr($project->hash, 0, 8) }}...</code></p>
+                </div>
+
+                @if($project->updates->count() > 0)
+                <div class="space-y-3">
+                    <h5 class="text-sm font-medium text-gray-900">Últimas Atualizações:</h5>
+                    @foreach($project->updates->sortByDesc('created_at')->take(3) as $update)
+                    <div class="flex items-center justify-between py-2 px-3 bg-gray-50 rounded">
+                        <div>
+                            <a href="{{ route('updates.show', $update->id) }}" class="text-sm font-medium text-gray-900 hover:text-blue-600">
+                                {{ $update->title }}
+                            </a>
+                            <p class="text-xs text-gray-500">{{ $update->created_at->format('d/m/Y') }}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $update->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                                {{ $update->status === 'published' ? 'Publicado' : 'Rascunho' }}
+                            </span>
+                            <p class="text-xs text-gray-500 mt-1">{{ $update->views }} visualizações</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @else
+                <div class="text-center py-4 text-gray-500">
+                    <p class="text-sm">Nenhuma atualização encontrada para este projeto</p>
+                </div>
+                @endif
+            </div>
+        </div>
+        @empty
+        <div class="text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhum projeto encontrado</h3>
+            <p class="mt-1 text-sm text-gray-500">Este cliente ainda não possui projetos.</p>
+        </div>
+        @endforelse
+    </div>
+</div>
+@endsection 
