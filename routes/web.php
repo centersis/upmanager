@@ -50,3 +50,15 @@ Route::middleware(['auth', 'verified', 'active'])->group(function () {
     Route::put('/updates/{id}', [UpdateWebController::class, 'update'])->name('updates.update');
     Route::delete('/updates/{id}', [UpdateWebController::class, 'destroy'])->name('updates.destroy');
 });
+
+// Admin only routes - require admin role
+Route::middleware(['auth', 'verified', 'active', 'admin'])->group(function () {
+    // User Management Routes
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+});
