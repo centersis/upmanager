@@ -8,11 +8,29 @@ use App\Domains\Update\Http\Controllers\UpdateWebController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Customer CRUD Routes
 Route::get('/customers', [CustomerWebController::class, 'index'])->name('customers.index');
+Route::get('/customers/create', [CustomerWebController::class, 'create'])->name('customers.create');
+Route::post('/customers', [CustomerWebController::class, 'store'])->name('customers.store');
 Route::get('/customers/{id}', [CustomerWebController::class, 'show'])->name('customers.show');
+Route::get('/customers/{id}/edit', [CustomerWebController::class, 'edit'])->name('customers.edit');
+Route::put('/customers/{id}', [CustomerWebController::class, 'update'])->name('customers.update');
+Route::delete('/customers/{id}', [CustomerWebController::class, 'destroy'])->name('customers.destroy');
 
+// Project CRUD Routes
 Route::get('/projects', [ProjectWebController::class, 'index'])->name('projects.index');
+Route::get('/projects/create', [ProjectWebController::class, 'create'])->name('projects.create');
+Route::post('/projects', [ProjectWebController::class, 'store'])->name('projects.store');
 Route::get('/projects/{id}', [ProjectWebController::class, 'show'])->name('projects.show');
+Route::get('/projects/{id}/edit', [ProjectWebController::class, 'edit'])->name('projects.edit');
+Route::put('/projects/{id}', [ProjectWebController::class, 'update'])->name('projects.update');
+Route::delete('/projects/{id}', [ProjectWebController::class, 'destroy'])->name('projects.destroy');
 
+// Update CRUD Routes
 Route::get('/updates', [UpdateWebController::class, 'index'])->name('updates.index');
+Route::get('/updates/create', [UpdateWebController::class, 'create'])->name('updates.create');
+Route::post('/updates', [UpdateWebController::class, 'store'])->name('updates.store');
 Route::get('/updates/{id}', [UpdateWebController::class, 'show'])->name('updates.show');
+Route::get('/updates/{id}/edit', [UpdateWebController::class, 'edit'])->name('updates.edit');
+Route::put('/updates/{id}', [UpdateWebController::class, 'update'])->name('updates.update');
+Route::delete('/updates/{id}', [UpdateWebController::class, 'destroy'])->name('updates.destroy');

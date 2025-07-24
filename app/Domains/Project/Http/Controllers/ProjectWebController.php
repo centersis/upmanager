@@ -3,12 +3,16 @@
 namespace App\Domains\Project\Http\Controllers;
 
 use App\Domains\Project\Services\ProjectService;
+use App\Domains\Customer\Services\CustomerService;
+use App\Domains\Project\Http\Requests\StoreProjectRequest;
+use App\Domains\Project\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 
 class ProjectWebController extends Controller
 {
     public function __construct(
-        private ProjectService $projectService
+        private ProjectService $projectService,
+        private CustomerService $customerService
     ) {}
 
     public function index()
@@ -16,6 +20,35 @@ class ProjectWebController extends Controller
         $projects = $this->projectService->getAllProjects();
         
         return view('projects.index', compact('projects'));
+    }
+
+    public function create()
+    {
+        $customers = $this->customerService->getAllCustomers();
+        
+        return view('projects.create', compact('customers'));
+    }
+
+    public function store(StoreProjectRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            $project = $this->projectService->createProject($data);
+            
+            // Associar clientes se fornecidos
+            if (isset($data['customer_ids']) && !empty($data['customer_ids'])) {
+                $project->customers()->sync($data['customer_ids']);
+            }
+            
+            return redirect()
+                ->route('projects.show', $project->id)
+                ->with('success', 'Projeto criado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao criar projeto: ' . $e->getMessage());
+        }
     }
 
     public function show($id)
@@ -27,5 +60,64 @@ class ProjectWebController extends Controller
         }
         
         return view('projects.show', compact('project'));
+    }
+
+    public function edit($id)
+    {
+        $project = $this->projectService->getProjectById($id);
+        $customers = $this->customerService->getAllCustomers();
+        
+        if (!$project) {
+            abort(404, 'Projeto não encontrado');
+        }
+        
+        return view('projects.edit', compact('project', 'customers'));
+    }
+
+    public function update(UpdateProjectRequest $request, $id)
+    {
+        try {
+            $data = $request->validated();
+            $project = $this->projectService->updateProject($id, $data);
+            
+            if (!$project) {
+                abort(404, 'Projeto não encontrado');
+            }
+            
+            // Atualizar associações de clientes
+            if (isset($data['customer_ids'])) {
+                $project->customers()->sync($data['customer_ids']);
+            }
+            
+            return redirect()
+                ->route('projects.show', $project->id)
+                ->with('success', 'Projeto atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao atualizar projeto: ' . $e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $deleted = $this->projectService->deleteProject($id);
+            
+            if (!$deleted) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Projeto não encontrado');
+            }
+            
+            return redirect()
+                ->route('projects.index')
+                ->with('success', 'Projeto excluído com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Erro ao excluir projeto: ' . $e->getMessage());
+        }
     }
 } 

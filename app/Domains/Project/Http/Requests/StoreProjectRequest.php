@@ -16,7 +16,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'status' => 'sometimes|string|max:50',
-            'hash' => 'required|string|unique:projects,hash',
+            'hash' => 'nullable|string|unique:projects,hash',
             'customer_ids' => 'array',
             'customer_ids.*' => 'exists:customers,id',
         ];

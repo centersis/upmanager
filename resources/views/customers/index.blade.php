@@ -3,9 +3,20 @@
 @section('title', 'Clientes - UPMANAGER')
 
 @section('content')
-<div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">Clientes</h1>
-    <p class="mt-2 text-sm text-gray-600">Gerencie todos os seus clientes</p>
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900">Clientes</h1>
+        <p class="mt-2 text-sm text-gray-600">Gerencie todos os seus clientes</p>
+    </div>
+    <div>
+        <a href="{{ route('customers.create') }}" 
+           class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Novo Cliente
+        </a>
+    </div>
 </div>
 
 <div class="bg-white shadow rounded-lg">
