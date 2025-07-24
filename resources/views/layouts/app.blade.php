@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,29 +17,84 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center">
-                        <a href="{{ route('dashboard') }}" class="flex items-center">
-                            <span class="text-2xl font-bold text-blue-600">UPMANAGER</span>
+                        <a href="{{ route('dashboard') }}" class="text-xl font-bold text-gray-900">
+                            UPMANAGER
                         </a>
-                        <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
-                            <a href="{{ route('dashboard') }}" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm {{ request()->routeIs('dashboard') ? 'border-blue-500 text-blue-600' : '' }}">
+                        
+                        <!-- Navigation Links -->
+                        @auth
+                        <div class="hidden md:ml-8 md:flex md:space-x-4">
+                            <a href="{{ route('dashboard') }}" 
+                               class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
                                 Dashboard
                             </a>
-                            <a href="{{ route('customers.index') }}" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm {{ request()->routeIs('customers.*') ? 'border-blue-500 text-blue-600' : '' }}">
+                            <a href="{{ route('customers.index') }}" 
+                               class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('customers.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
                                 Clientes
                             </a>
-                            <a href="{{ route('projects.index') }}" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm {{ request()->routeIs('projects.*') ? 'border-blue-500 text-blue-600' : '' }}">
+                            <a href="{{ route('projects.index') }}" 
+                               class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('projects.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
                                 Projetos
                             </a>
-                            <a href="{{ route('updates.index') }}" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm {{ request()->routeIs('updates.*') ? 'border-blue-500 text-blue-600' : '' }}">
+                            <a href="{{ route('updates.index') }}" 
+                               class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('updates.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
                                 Atualizações
                             </a>
                         </div>
+                        @endauth
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="flex items-center space-x-4">
+                        @auth
+                            <!-- User Info -->
+                            <div class="hidden md:flex md:items-center md:space-x-2">
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ Auth::user()->role_display }}</p>
+                                </div>
+                                <div class="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-blue-600">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Logout -->
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" 
+                                        class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
+                                    Sair
+                                </button>
+                            </form>
+                        @else
+                            <!-- Login/Register Links -->
+                            <div class="flex items-center space-x-2">
+                                <a href="{{ route('login') }}" 
+                                   class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                    </svg>
+                                    Login
+                                </a>
+                                <a href="{{ route('register') }}" 
+                                   class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                    </svg>
+                                    Cadastrar
+                                </a>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="flex-1">
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 @if(session('success'))
@@ -318,4 +373,4 @@
         };
     </script>
 </body>
-</html> 
+</html>
