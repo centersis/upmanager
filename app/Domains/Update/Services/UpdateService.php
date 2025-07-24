@@ -13,12 +13,12 @@ class UpdateService
 
     public function getAllUpdates()
     {
-        return $this->updateRepository->all();
+        return $this->updateRepository->all()->load('project')->sortByDesc('created_at');
     }
 
     public function getUpdateById(int $id)
     {
-        return $this->updateRepository->find($id);
+        return $this->updateRepository->find($id)->load('project');
     }
 
     public function createUpdate(array $data)

@@ -13,12 +13,14 @@ class ProjectService
 
     public function getAllProjects()
     {
-        return $this->projectRepository->all();
+        return $this->projectRepository->all()->load(['customers', 'updates' => function($query) {
+            $query->latest()->limit(1);
+        }]);
     }
 
     public function getProjectById(int $id)
     {
-        return $this->projectRepository->find($id);
+        return $this->projectRepository->find($id)->load(['customers', 'updates']);
     }
 
     public function createProject(array $data)
