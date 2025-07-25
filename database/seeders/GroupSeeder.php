@@ -9,47 +9,56 @@ class GroupSeeder extends Seeder
 {
     public function run(): void
     {
+        // Criar grupos padrão
         $groups = [
             [
-                'name' => 'E-commerce',
-                'description' => 'Projetos de lojas virtuais e plataformas de vendas online',
-                'color' => '#10B981', // Green
+                'name' => 'Desenvolvimento Web',
+                'description' => 'Projetos de desenvolvimento de websites e aplicações web',
+                'color' => '#3B82F6',
                 'is_active' => true,
             ],
             [
-                'name' => 'CRM',
-                'description' => 'Sistemas de gestão de relacionamento com cliente',
-                'color' => '#3B82F6', // Blue
+                'name' => 'Mobile Apps',
+                'description' => 'Desenvolvimento de aplicativos móveis iOS e Android',
+                'color' => '#10B981',
                 'is_active' => true,
             ],
             [
-                'name' => 'Mobile App',
-                'description' => 'Aplicativos móveis para iOS e Android',
-                'color' => '#8B5CF6', // Purple
+                'name' => 'Design & UX',
+                'description' => 'Projetos de design gráfico e experiência do usuário',
+                'color' => '#F59E0B',
                 'is_active' => true,
             ],
             [
-                'name' => 'Website',
-                'description' => 'Sites institucionais e landing pages',
-                'color' => '#F59E0B', // Yellow
+                'name' => 'Marketing Digital',
+                'description' => 'Campanhas de marketing digital e redes sociais',
+                'color' => '#EF4444',
                 'is_active' => true,
             ],
             [
-                'name' => 'Sistema Interno',
-                'description' => 'Sistemas internos e ferramentas administrativas',
-                'color' => '#EF4444', // Red
+                'name' => 'Infraestrutura',
+                'description' => 'Projetos de infraestrutura de TI e DevOps',
+                'color' => '#8B5CF6',
                 'is_active' => true,
             ],
             [
-                'name' => 'API',
-                'description' => 'APIs e serviços de integração',
-                'color' => '#6B7280', // Gray
+                'name' => 'Consultoria',
+                'description' => 'Projetos de consultoria e assessoria técnica',
+                'color' => '#06B6D4',
                 'is_active' => true,
             ],
         ];
 
         foreach ($groups as $groupData) {
-            Group::create($groupData);
+            Group::firstOrCreate(
+                ['name' => $groupData['name']],
+                $groupData
+            );
+        }
+
+        // Criar alguns grupos adicionais usando factory
+        if (app()->environment('local')) {
+            Group::factory()->count(3)->create();
         }
     }
 }

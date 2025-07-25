@@ -66,9 +66,16 @@
 
             <!-- Grupo -->
             <div>
-                <label for="group_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Grupo do Projeto
-                </label>
+                <div class="flex items-center justify-between mb-2">
+                    <label for="group_id" class="block text-sm font-medium text-gray-700">
+                        Grupo do Projeto
+                    </label>
+                    <a href="{{ route('groups.index') }}" 
+                       class="text-xs text-blue-600 hover:text-blue-700 underline"
+                       target="_blank">
+                        Gerenciar Grupos
+                    </a>
+                </div>
                 <select 
                     name="group_id" 
                     id="group_id" 

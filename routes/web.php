@@ -62,6 +62,15 @@ Route::middleware(['auth', 'verified', 'active'])->group(function () {
     Route::get('/updates/{id}/edit', [UpdateWebController::class, 'edit'])->name('updates.edit');
     Route::put('/updates/{id}', [UpdateWebController::class, 'update'])->name('updates.update');
     Route::delete('/updates/{id}', [UpdateWebController::class, 'destroy'])->name('updates.destroy');
+
+    // Group CRUD Routes
+    Route::get('/groups', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'index'])->name('groups.index');
+    Route::get('/groups/create', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'store'])->name('groups.store');
+    Route::get('/groups/{id}', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'show'])->name('groups.show');
+    Route::get('/groups/{id}/edit', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'edit'])->name('groups.edit');
+    Route::put('/groups/{id}', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'update'])->name('groups.update');
+    Route::delete('/groups/{id}', [\App\Domains\Group\Http\Controllers\GroupWebController::class, 'destroy'])->name('groups.destroy');
 });
 
 // Admin only routes - require admin role
