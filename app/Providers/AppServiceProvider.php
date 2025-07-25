@@ -21,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureRoutes();
+        
+        // Configure pagination view
+        \Illuminate\Pagination\Paginator::defaultView('pagination::tailwind');
+        \Illuminate\Pagination\Paginator::defaultSimpleView('pagination::simple-tailwind');
+        
+        // Register Shared views (layouts, components, etc.)
+        $this->loadViewsFrom(app_path('Shared/Resources/views'), 'shared');
     }
 
     /**

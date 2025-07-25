@@ -20,7 +20,7 @@ class ProjectWebController extends Controller
     {
         $projects = $this->projectService->getAllProjects();
         
-        return view('projects.index', compact('projects'));
+        return view('project::index', compact('projects'));
     }
 
     public function create()
@@ -28,7 +28,7 @@ class ProjectWebController extends Controller
         $customers = $this->customerService->getAllCustomers()->load('projects');
         $groups = Group::active()->orderBy('name')->get();
         
-        return view('projects.create', compact('customers', 'groups'));
+        return view('project::create', compact('customers', 'groups'));
     }
 
     public function store(StoreProjectRequest $request)
@@ -61,7 +61,7 @@ class ProjectWebController extends Controller
             abort(404, 'Projeto não encontrado');
         }
         
-        return view('projects.show', compact('project'));
+        return view('project::show', compact('project'));
     }
 
     public function edit($id)
@@ -74,7 +74,7 @@ class ProjectWebController extends Controller
             abort(404, 'Projeto não encontrado');
         }
         
-        return view('projects.edit', compact('project', 'customers', 'groups'));
+        return view('project::edit', compact('project', 'customers', 'groups'));
     }
 
     public function update(UpdateProjectRequest $request, $id)

@@ -27,6 +27,6 @@ class DashboardController extends Controller
             ->sortByDesc('created_at')
             ->take(5);
 
-        return view('dashboard', compact('stats', 'recentUpdates'));
+        return view('shared::dashboard', compact('stats', 'recentUpdates'));
     }
 } 

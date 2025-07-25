@@ -15,6 +15,7 @@ class ProjectServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        // Register Project domain views
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'project');
     }
 } 

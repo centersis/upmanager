@@ -14,7 +14,7 @@ class ProjectService
     public function getAllProjects()
     {
         return $this->projectRepository->all()->load(['group', 'customers', 'updates' => function($query) {
-            $query->latest()->limit(1);
+            $query->latest();
         }]);
     }
 

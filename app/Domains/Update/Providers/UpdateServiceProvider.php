@@ -15,6 +15,7 @@ class UpdateServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        // Register Update domain views
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'update');
     }
 } 

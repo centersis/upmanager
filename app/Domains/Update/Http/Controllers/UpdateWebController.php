@@ -21,7 +21,7 @@ class UpdateWebController extends Controller
     {
         $updates = $this->updateService->getAllUpdates();
         
-        return view('updates.index', compact('updates'));
+        return view('update::index', compact('updates'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class UpdateWebController extends Controller
         $projects = $this->projectService->getAllProjects();
         $customers = $this->customerService->getAllCustomers();
         
-        return view('updates.create', compact('projects', 'customers'));
+        return view('update::create', compact('projects', 'customers'));
     }
 
     public function store(StoreUpdateRequest $request)
@@ -103,7 +103,7 @@ class UpdateWebController extends Controller
         // Incrementar visualizações
         $this->updateService->incrementUpdateViews($id);
         
-        return view('updates.show', compact('update'));
+        return view('update::show', compact('update'));
     }
 
     public function edit($id)
@@ -116,7 +116,7 @@ class UpdateWebController extends Controller
             abort(404, 'Atualização não encontrada');
         }
         
-        return view('updates.edit', compact('update', 'projects', 'customers'));
+        return view('update::edit', compact('update', 'projects', 'customers'));
     }
 
     public function update(UpdateUpdateRequest $request, $id)

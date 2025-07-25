@@ -7,6 +7,7 @@ use App\Domains\Customer\Entities\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Update extends Model
 {
@@ -27,5 +28,16 @@ class Update extends Model
     protected static function newFactory()
     {
         return \App\Domains\Update\Database\Factories\UpdateFactory::new();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->hash)) {
+                $model->hash = Str::uuid()->toString();
+            }
+        });
     }
 } 

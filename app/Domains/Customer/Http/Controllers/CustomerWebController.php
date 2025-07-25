@@ -17,12 +17,12 @@ class CustomerWebController extends Controller
     {
         $customers = $this->customerService->getAllCustomers();
         
-        return view('customers.index', compact('customers'));
+        return view('customer::index', compact('customers'));
     }
 
     public function create()
     {
-        return view('customers.create');
+        return view('customer::create');
     }
 
     public function store(StoreCustomerRequest $request)
@@ -52,7 +52,7 @@ class CustomerWebController extends Controller
         // Carregar projetos do cliente
         $customer->load('projects.updates');
         
-        return view('customers.show', compact('customer'));
+        return view('customer::show', compact('customer'));
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class CustomerWebController extends Controller
             abort(404, 'Cliente não encontrado');
         }
         
-        return view('customers.edit', compact('customer'));
+        return view('customer::edit', compact('customer'));
     }
 
     public function update(UpdateCustomerRequest $request, $id)

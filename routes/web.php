@@ -8,15 +8,22 @@ use App\Domains\Update\Http\Controllers\UpdateWebController;
 
 // Public routes
 Route::get('/login', function () {
-    return view('auth.login');
+    return view('auth::login');
 })->name('login')->middleware('guest');
 
 Route::get('/register', function () {
-    return view('auth.register');
+    return view('auth::register');
 })->name('register')->middleware('guest');
 
 // Authentication routes
 require __DIR__.'/auth.php';
+
+// Public routes - no authentication required
+Route::get('/project/{projectHash}', [App\Http\Controllers\PublicController::class, 'projectUpdates'])->name('public.project');
+Route::get('/update/{updateHash}', [App\Http\Controllers\PublicController::class, 'updateDetail'])->name('public.update');
+Route::get('/customer/{customerHash}/updates', [App\Http\Controllers\PublicController::class, 'customerUpdates'])->name('public.customer');
+Route::get('/customer/{customerHash}/project/{projectHash}', [App\Http\Controllers\PublicController::class, 'customerProjectUpdates'])->name('public.customer.project');
+Route::get('/iframe/{customerHash}/{projectHash}', [App\Http\Controllers\PublicController::class, 'iframe'])->name('public.iframe');
 
 // Protected routes - require authentication and active user
 Route::middleware(['auth', 'verified', 'active'])->group(function () {

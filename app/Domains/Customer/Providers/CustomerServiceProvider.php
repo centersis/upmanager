@@ -15,6 +15,7 @@ class CustomerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        // Register Customer domain views
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'customer');
     }
 } 

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
@@ -35,5 +36,16 @@ class Project extends Model
     protected static function newFactory()
     {
         return \App\Domains\Project\Database\Factories\ProjectFactory::new();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->hash)) {
+                $model->hash = Str::uuid()->toString();
+            }
+        });
     }
 } 
