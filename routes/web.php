@@ -8,7 +8,7 @@ use App\Domains\Update\Http\Controllers\UpdateWebController;
 
 // Public routes
 Route::get('/', function () {
-    return view('shared::welcome');
+    return redirect()->route('dashboard');
 })->name('home');
 
 Route::get('/login', function () {

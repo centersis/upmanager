@@ -155,6 +155,19 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
                                 </a>
+
+                                <div x-data="{copied:false}" class="inline-flex items-center">
+                                    <button type="button"
+                                        data-link="{{ route('public.update', $update->hash) }}"
+                                        @click="navigator.clipboard.writeText($event.target.dataset.link).then(() => { copied=true; setTimeout(() => copied=false, 2000); });"
+                                        class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h13M8 12h13M8 17h13M3 7h.01M3 12h.01M3 17h.01" />
+                                        </svg>
+                                        <span x-show="!copied">Copiar Link</span>
+                                        <span x-show="copied" x-transition.opacity.duration.300ms>Copiado!</span>
+                                    </button>
+                                </div>
                              @endif
                         </div>
                         
