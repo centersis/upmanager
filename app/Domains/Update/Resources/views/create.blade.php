@@ -188,26 +188,7 @@
                 @enderror
             </div>
 
-            <!-- Descrição -->
-            <div>
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                    Descrição
-                </label>
-                <textarea 
-                    name="description" 
-                    id="description" 
-                    class="tinymce"
-                    placeholder="Descrição detalhada da atualização"
-                >{{ old('description') }}</textarea>
-                <p class="mt-1 text-xs text-gray-500">
-                    <strong>Editor Rico:</strong> Use o editor para formatar texto, inserir imagens (convertidas automaticamente para base64) e vídeos do YouTube.
-                    <br><strong>Imagens:</strong> Arraste e solte, copie e cole, ou use o botão de imagem. Máximo 2MB por imagem.
-                    <br><strong>Formatos suportados:</strong> JPEG, PNG, GIF, WebP
-                </p>
-                @error('description')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+
 
             <!-- Status -->
             <div>
@@ -359,10 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleCustomerField();
     updateCustomerOptions();
     
-    // Initialize TinyMCE
-    if (typeof initTinyMCE === 'function') {
-        initTinyMCE('#description');
-    }
+
 });
 </script>
 @endsection 

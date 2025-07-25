@@ -2,6 +2,7 @@
 
 namespace App\Domains\User\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
@@ -15,5 +16,10 @@ class UserServiceProvider extends ServiceProvider
     {
         // Register User domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'user');
+        
+        // Register User domain routes
+        Route::middleware('web')->group(function () {
+            $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+        });
     }
 } 

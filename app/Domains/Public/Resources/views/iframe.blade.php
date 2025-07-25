@@ -31,9 +31,9 @@
                     </span>
                 </div>
                 
-                @if($update->description)
+                @if($update->caption)
                     <p class="text-xs text-gray-600 mb-2 line-clamp-2">
-                        {{ Str::limit(strip_tags($update->description), 100) }}
+                        {{ $update->caption }}
                     </p>
                 @endif
 

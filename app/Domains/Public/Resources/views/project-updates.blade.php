@@ -62,13 +62,7 @@
                         </h3>
                         
                         @if($update->caption)
-                            <p class="text-gray-600 mb-3">{{ $update->caption }}</p>
-                        @endif
-                        
-                        @if($update->description)
-                            <div class="text-gray-700 mb-4 line-clamp-3">
-                                {{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($update->description))), 200) }}
-                            </div>
+                            <p class="text-gray-600 mb-4">{{ $update->caption }}</p>
                         @endif
                         
                         <div class="flex items-center space-x-4 text-sm text-gray-500">

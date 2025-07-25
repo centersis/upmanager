@@ -106,20 +106,7 @@
                 </button>
             </form>
 
-            <!-- Register Link -->
-            @if (Route::has('register'))
-                <div class="text-center mt-6 pt-6 border-t border-gray-200">
-                    <p class="text-sm text-gray-600">
-                        Não tem uma conta? 
-                        <a 
-                            href="{{ route('register') }}" 
-                            class="font-medium text-blue-600 hover:text-blue-500 hover:underline"
-                        >
-                            Cadastre-se aqui
-                        </a>
-                    </p>
-                </div>
-            @endif
+
         </div>
 
         <!-- Footer -->

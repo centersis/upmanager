@@ -60,8 +60,7 @@
                                 </span>
                             </div>
                             
-                            <p class="text-lg text-gray-700 font-medium mb-2">{{ $update->caption }}</p>
-                            <p class="text-gray-600 mb-4">{{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($update->description))), 200) }}</p>
+                            <p class="text-lg text-gray-700 font-medium mb-4">{{ $update->caption }}</p>
                             
                             <div class="flex items-center space-x-6 text-sm text-gray-500">
                                 <div class="flex items-center">

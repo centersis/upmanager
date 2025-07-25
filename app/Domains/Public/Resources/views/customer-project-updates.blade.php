@@ -105,10 +105,6 @@
                             @if($update->caption)
                                 <p class="text-gray-600 mb-3 text-sm">{{ $update->caption }}</p>
                             @endif
-                            
-                            <div class="prose prose-sm max-w-none text-gray-700">
-                                {!! Str::limit(strip_tags($update->description), 300) !!}
-                            </div>
                         </div>
                     </div>
                     

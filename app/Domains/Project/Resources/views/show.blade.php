@@ -167,7 +167,6 @@
                                     </div>
                                     <div class="mt-2 text-sm text-gray-700">
                                         <p class="font-medium">{{ $update->caption }}</p>
-                                        <p class="mt-1">{{ Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($update->description))), 150) }}</p>
                                     </div>
                                     <div class="mt-2 flex items-center space-x-4 text-sm text-gray-500">
                                         <span class="flex items-center">
