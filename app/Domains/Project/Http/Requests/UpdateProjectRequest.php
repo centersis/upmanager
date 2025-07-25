@@ -18,7 +18,7 @@ class UpdateProjectRequest extends FormRequest
             'name' => 'sometimes|string|max:255',
             'group_id' => 'sometimes|nullable|exists:groups,id',
             'status' => 'sometimes|string|max:50',
-            'hash' => 'sometimes|string|unique:projects,hash,' . $projectId,
+
             'customer_ids' => 'array',
             'customer_ids.*' => 'exists:customers,id',
         ];

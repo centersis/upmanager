@@ -207,24 +207,7 @@
                 @enderror
             </div>
 
-            <!-- Hash -->
-            <div>
-                <label for="hash" class="block text-sm font-medium text-gray-700 mb-2">
-                    Hash da Atualização
-                </label>
-                <input 
-                    type="text" 
-                    name="hash" 
-                    id="hash" 
-                    value="{{ old('hash', $update->hash) }}"
-                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('hash') border-red-300 @enderror"
-                    placeholder="Hash único da atualização"
-                >
-                <p class="mt-1 text-xs text-gray-500">Hash único para identificar a atualização</p>
-                @error('hash')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+
 
             <!-- Buttons -->
             <div class="flex items-center justify-between pt-6 border-t border-gray-200">

@@ -20,7 +20,7 @@ class StoreUpdateRequest extends FormRequest
             'title' => 'required|string|max:255',
             'caption' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'hash' => 'nullable|string',
+
             'status' => 'sometimes|string|max:50',
             'is_global' => 'sometimes|boolean',
         ];
