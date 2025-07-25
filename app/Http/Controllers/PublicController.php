@@ -85,14 +85,10 @@ class PublicController extends Controller
             ->with(['customers', 'group'])
             ->firstOrFail();
 
-        // Get updates for this specific project, optionally filtered by customer
+        // Get updates for this specific project filtered by customer
         $updates = Update::where('project_id', $project->id)
             ->where('status', 'published')
-            ->where(function ($query) use ($customer) {
-                // Show updates that are global or specifically for this customer
-                $query->where('is_global', true)
-                      ->orWhere('customer_id', $customer->id);
-            })
+            ->where('customer_id', $customer->id)
             ->with(['project', 'customer'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -119,11 +115,7 @@ class PublicController extends Controller
         // Get last 5 updates for this specific project/customer
         $updates = Update::where('project_id', $project->id)
             ->where('status', 'published')
-            ->where(function ($query) use ($customer) {
-                // Show updates that are global or specifically for this customer
-                $query->where('is_global', true)
-                      ->orWhere('customer_id', $customer->id);
-            })
+            ->where('customer_id', $customer->id)
             ->with(['project', 'customer'])
             ->orderBy('created_at', 'desc')
             ->limit(5)

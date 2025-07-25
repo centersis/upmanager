@@ -24,7 +24,6 @@ class UpdateSeeder extends Seeder
                 'views' => 15,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false, // Específica para este projeto
             ],
             [
                 'project_id' => 1,
@@ -35,12 +34,12 @@ class UpdateSeeder extends Seeder
                 'views' => 8,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             
             // CRM System (Project ID: 2)
             [
                 'project_id' => 2,
+                'customer_id' => 1, // Acme Corp
                 'title' => 'Dashboard de vendas atualizado',
                 'caption' => 'Novos gráficos e métricas',
                 'description' => 'Implementado novo dashboard com gráficos interativos, métricas de conversão e relatórios de performance de vendas.',
@@ -50,6 +49,7 @@ class UpdateSeeder extends Seeder
             ],
             [
                 'project_id' => 2,
+                'customer_id' => 1, // Acme Corp
                 'title' => 'Integração com WhatsApp Business',
                 'caption' => 'Comunicação direta com clientes',
                 'description' => 'Adicionada integração com WhatsApp Business API para comunicação direta com leads e clientes através da plataforma.',
@@ -61,6 +61,7 @@ class UpdateSeeder extends Seeder
             // Mobile App (Project ID: 3)
             [
                 'project_id' => 3,
+                'customer_id' => 3, // Global Industries
                 'title' => 'Otimização de performance',
                 'caption' => 'App 40% mais rápido',
                 'description' => 'Implementadas otimizações que resultaram em 40% de melhoria na velocidade de carregamento. Reduzido uso de memória em 25%.',
@@ -70,6 +71,7 @@ class UpdateSeeder extends Seeder
             ],
             [
                 'project_id' => 3,
+                'customer_id' => 3, // Global Industries
                 'title' => 'Nova funcionalidade de notificações push',
                 'caption' => 'Engajamento melhorado',
                 'description' => 'Sistema de notificações push personalizadas baseado no comportamento do usuário. Inclui segmentação avançada.',
@@ -81,6 +83,7 @@ class UpdateSeeder extends Seeder
             // Analytics Dashboard (Project ID: 4)
             [
                 'project_id' => 4,
+                'customer_id' => 4, // Digital Innovations
                 'title' => 'Relatórios em tempo real',
                 'caption' => 'Dados atualizados instantaneamente',
                 'description' => 'Implementado sistema de relatórios em tempo real com WebSockets. Dados são atualizados automaticamente sem necessidade de refresh.',
@@ -92,6 +95,7 @@ class UpdateSeeder extends Seeder
             // API Gateway (Project ID: 6)
             [
                 'project_id' => 6,
+                'customer_id' => 2, // TechStart Solutions
                 'title' => 'Implementação de rate limiting',
                 'caption' => 'Proteção contra abuso da API',
                 'description' => 'Adicionado sistema de rate limiting por IP e por usuário. Configuração flexível de limites baseados no plano do cliente.',
@@ -101,13 +105,13 @@ class UpdateSeeder extends Seeder
             ],
             [
                 'project_id' => 6,
+                'customer_id' => 3, // Global Industries
                 'title' => 'Documentação interativa da API',
                 'caption' => 'Swagger UI implementado',
                 'description' => 'Criada documentação interativa usando Swagger UI. Desenvolvedores podem testar endpoints diretamente na documentação.',
                 'views' => 25,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             
             // Atualizações Globais (aplicam-se a todos os projetos do grupo)
@@ -120,7 +124,6 @@ class UpdateSeeder extends Seeder
                 'views' => 45,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => true, // GLOBAL - aplica a todos do grupo E-commerce
             ],
             [
                 'project_id' => 2, // CRM base
@@ -131,7 +134,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => true, // GLOBAL - aplica a todos os CRMs
             ],
 
             // Mais atualizações para testar paginação
@@ -144,7 +146,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -155,7 +156,6 @@ class UpdateSeeder extends Seeder
                 'views' => 19,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -166,7 +166,6 @@ class UpdateSeeder extends Seeder
                 'views' => 35,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -177,7 +176,6 @@ class UpdateSeeder extends Seeder
                 'views' => 42,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -188,7 +186,6 @@ class UpdateSeeder extends Seeder
                 'views' => 16,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -199,7 +196,6 @@ class UpdateSeeder extends Seeder
                 'views' => 23,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -210,7 +206,6 @@ class UpdateSeeder extends Seeder
                 'views' => 31,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -221,7 +216,6 @@ class UpdateSeeder extends Seeder
                 'views' => 67,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -232,7 +226,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -243,7 +236,6 @@ class UpdateSeeder extends Seeder
                 'views' => 18,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -254,7 +246,6 @@ class UpdateSeeder extends Seeder
                 'views' => 14,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -265,7 +256,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -276,7 +266,6 @@ class UpdateSeeder extends Seeder
                 'views' => 22,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -287,7 +276,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -298,7 +286,6 @@ class UpdateSeeder extends Seeder
                 'views' => 55,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -309,7 +296,6 @@ class UpdateSeeder extends Seeder
                 'views' => 27,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -320,7 +306,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -331,7 +316,6 @@ class UpdateSeeder extends Seeder
                 'views' => 21,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -342,7 +326,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -353,7 +336,6 @@ class UpdateSeeder extends Seeder
                 'views' => 39,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -364,7 +346,6 @@ class UpdateSeeder extends Seeder
                 'views' => 30,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -375,7 +356,6 @@ class UpdateSeeder extends Seeder
                 'views' => 44,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -386,7 +366,6 @@ class UpdateSeeder extends Seeder
                 'views' => 17,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -397,7 +376,6 @@ class UpdateSeeder extends Seeder
                 'views' => 52,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -408,7 +386,6 @@ class UpdateSeeder extends Seeder
                 'views' => 24,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -419,7 +396,6 @@ class UpdateSeeder extends Seeder
                 'views' => 15,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -430,7 +406,6 @@ class UpdateSeeder extends Seeder
                 'views' => 36,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -441,7 +416,6 @@ class UpdateSeeder extends Seeder
                 'views' => 40,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -462,7 +436,6 @@ class UpdateSeeder extends Seeder
                 'views' => 13,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // === ATUALIZAÇÕES ADICIONAIS PARA ATINGIR 20+ POR PROJETO ===
@@ -477,7 +450,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -488,7 +460,6 @@ class UpdateSeeder extends Seeder
                 'views' => 35,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -499,7 +470,6 @@ class UpdateSeeder extends Seeder
                 'views' => 42,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -510,7 +480,6 @@ class UpdateSeeder extends Seeder
                 'views' => 31,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -521,7 +490,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -532,7 +500,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -543,7 +510,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -554,7 +520,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -565,7 +530,6 @@ class UpdateSeeder extends Seeder
                 'views' => 24,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 1,
@@ -576,7 +540,6 @@ class UpdateSeeder extends Seeder
                 'views' => 19,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // CRM System (ID: 2) - Mais 11 atualizações
@@ -589,7 +552,6 @@ class UpdateSeeder extends Seeder
                 'views' => 45,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -600,7 +562,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -611,7 +572,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -622,7 +582,6 @@ class UpdateSeeder extends Seeder
                 'views' => 27,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -633,7 +592,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -644,7 +602,6 @@ class UpdateSeeder extends Seeder
                 'views' => 34,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -655,7 +612,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -666,7 +622,6 @@ class UpdateSeeder extends Seeder
                 'views' => 36,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -677,7 +632,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -688,7 +642,6 @@ class UpdateSeeder extends Seeder
                 'views' => 25,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 2,
@@ -699,7 +652,6 @@ class UpdateSeeder extends Seeder
                 'views' => 31,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // Mobile App (ID: 3) - Mais 12 atualizações
@@ -712,7 +664,6 @@ class UpdateSeeder extends Seeder
                 'views' => 44,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -723,7 +674,6 @@ class UpdateSeeder extends Seeder
                 'views' => 37,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -734,7 +684,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -745,7 +694,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -756,7 +704,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -767,7 +714,6 @@ class UpdateSeeder extends Seeder
                 'views' => 39,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -778,7 +724,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -789,7 +734,6 @@ class UpdateSeeder extends Seeder
                 'views' => 35,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -800,7 +744,6 @@ class UpdateSeeder extends Seeder
                 'views' => 42,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -811,7 +754,6 @@ class UpdateSeeder extends Seeder
                 'views' => 30,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -822,7 +764,6 @@ class UpdateSeeder extends Seeder
                 'views' => 27,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 3,
@@ -833,7 +774,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // Analytics Dashboard (ID: 4) - Mais 13 atualizações
@@ -846,7 +786,6 @@ class UpdateSeeder extends Seeder
                 'views' => 47,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -857,7 +796,6 @@ class UpdateSeeder extends Seeder
                 'views' => 34,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -868,7 +806,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -879,7 +816,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -890,7 +826,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -901,7 +836,6 @@ class UpdateSeeder extends Seeder
                 'views' => 36,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -912,7 +846,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -923,7 +856,6 @@ class UpdateSeeder extends Seeder
                 'views' => 45,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -934,7 +866,6 @@ class UpdateSeeder extends Seeder
                 'views' => 31,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -945,7 +876,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -956,7 +886,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -967,7 +896,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 4,
@@ -978,7 +906,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // Legacy System Migration (ID: 5) - 20 atualizações (estava zerado)
@@ -991,7 +918,6 @@ class UpdateSeeder extends Seeder
                 'views' => 52,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1002,7 +928,6 @@ class UpdateSeeder extends Seeder
                 'views' => 48,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1013,7 +938,6 @@ class UpdateSeeder extends Seeder
                 'views' => 31,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1024,7 +948,6 @@ class UpdateSeeder extends Seeder
                 'views' => 44,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1035,7 +958,6 @@ class UpdateSeeder extends Seeder
                 'views' => 37,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1046,7 +968,6 @@ class UpdateSeeder extends Seeder
                 'views' => 39,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1057,7 +978,6 @@ class UpdateSeeder extends Seeder
                 'views' => 42,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1068,7 +988,6 @@ class UpdateSeeder extends Seeder
                 'views' => 35,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1079,7 +998,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1090,7 +1008,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1101,7 +1018,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1112,7 +1028,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1123,7 +1038,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1134,7 +1048,6 @@ class UpdateSeeder extends Seeder
                 'views' => 45,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1145,7 +1058,6 @@ class UpdateSeeder extends Seeder
                 'views' => 29,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1156,7 +1068,6 @@ class UpdateSeeder extends Seeder
                 'views' => 34,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1167,7 +1078,6 @@ class UpdateSeeder extends Seeder
                 'views' => 36,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1178,7 +1088,6 @@ class UpdateSeeder extends Seeder
                 'views' => 47,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1189,7 +1098,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 5,
@@ -1200,7 +1108,6 @@ class UpdateSeeder extends Seeder
                 'views' => 30,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
 
             // API Gateway (ID: 6) - Mais 13 atualizações
@@ -1213,7 +1120,6 @@ class UpdateSeeder extends Seeder
                 'views' => 43,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1224,7 +1130,6 @@ class UpdateSeeder extends Seeder
                 'views' => 37,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1235,7 +1140,6 @@ class UpdateSeeder extends Seeder
                 'views' => 39,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1246,7 +1150,6 @@ class UpdateSeeder extends Seeder
                 'views' => 34,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1257,7 +1160,6 @@ class UpdateSeeder extends Seeder
                 'views' => 41,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1268,7 +1170,6 @@ class UpdateSeeder extends Seeder
                 'views' => 28,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1279,7 +1180,6 @@ class UpdateSeeder extends Seeder
                 'views' => 32,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1290,7 +1190,6 @@ class UpdateSeeder extends Seeder
                 'views' => 26,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1301,7 +1200,6 @@ class UpdateSeeder extends Seeder
                 'views' => 35,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1312,7 +1210,6 @@ class UpdateSeeder extends Seeder
                 'views' => 38,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1323,7 +1220,6 @@ class UpdateSeeder extends Seeder
                 'views' => 40,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1334,7 +1230,6 @@ class UpdateSeeder extends Seeder
                 'views' => 33,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
             [
                 'project_id' => 6,
@@ -1345,18 +1240,14 @@ class UpdateSeeder extends Seeder
                 'views' => 42,
                 'hash' => Str::uuid()->toString(),
                 'status' => 'published',
-                'is_global' => false,
             ],
         ];
 
         foreach ($updates as $updateData) {
             // Definir is_global como false por padrão se não especificado
-            if (!isset($updateData['is_global'])) {
-                $updateData['is_global'] = false;
             }
             
             // Se não tem customer_id definido e não é global, usar o primeiro cliente do projeto
-            if (!isset($updateData['customer_id']) && !$updateData['is_global']) {
                 $project = \App\Domains\Project\Entities\Project::find($updateData['project_id']);
                 if ($project && $project->customers->isNotEmpty()) {
                     $updateData['customer_id'] = $project->customers->first()->id;

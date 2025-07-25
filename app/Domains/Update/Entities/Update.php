@@ -13,7 +13,7 @@ class Update extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['project_id', 'customer_id', 'title', 'caption', 'description', 'views', 'hash', 'status', 'is_global'];
+    protected $fillable = ['project_id', 'customer_id', 'title', 'caption', 'description', 'views', 'hash', 'status'];
 
     public function project(): BelongsTo
     {

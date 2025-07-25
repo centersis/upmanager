@@ -36,53 +36,33 @@ class UpdateWebController extends Controller
     {
         try {
             $data = $request->validated();
-            $isGlobal = $data['is_global'] ?? false;
+            $customerIds = $data['customer_ids'];
+            $createdUpdates = [];
             
-            if ($isGlobal) {
-                // Criar uma atualização global
-                if (empty($data['hash'])) {
-                    $data['hash'] = uniqid('upd_', true);
-                }
+            // Criar uma atualização para cada cliente selecionado
+            foreach ($customerIds as $customerId) {
+                $updateData = $data;
+                $updateData['customer_id'] = $customerId;
                 
-                $data['customer_id'] = null;
-                $data['is_global'] = true;
-                unset($data['customer_ids']);
+                // Gerar hash único para cada atualização
+                $updateData['hash'] = uniqid('upd_', true);
                 
-                $update = $this->updateService->createUpdate($data);
+                unset($updateData['customer_ids']);
                 
+                $update = $this->updateService->createUpdate($updateData);
+                $createdUpdates[] = $update;
+            }
+            
+            $count = count($createdUpdates);
+            
+            if ($count === 1) {
                 return redirect()
-                    ->route('updates.show', $update->id)
-                    ->with('success', 'Atualização global criada com sucesso!');
+                    ->route('updates.show', $createdUpdates[0]->id)
+                    ->with('success', 'Atualização criada com sucesso!');
             } else {
-                // Criar múltiplas atualizações (uma para cada cliente)
-                $customerIds = $data['customer_ids'] ?? [];
-                $createdUpdates = [];
-                
-                foreach ($customerIds as $customerId) {
-                    $updateData = $data;
-                    $updateData['customer_id'] = $customerId;
-                    $updateData['is_global'] = false;
-                    
-                    // Gerar hash único para cada atualização
-                    $updateData['hash'] = uniqid('upd_', true);
-                    
-                    unset($updateData['customer_ids']);
-                    
-                    $update = $this->updateService->createUpdate($updateData);
-                    $createdUpdates[] = $update;
-                }
-                
-                $count = count($createdUpdates);
-                
-                if ($count === 1) {
-                    return redirect()
-                        ->route('updates.show', $createdUpdates[0]->id)
-                        ->with('success', 'Atualização criada com sucesso!');
-                } else {
-                    return redirect()
-                        ->route('updates.index')
-                        ->with('success', "Foram criadas {$count} atualizações com sucesso!");
-                }
+                return redirect()
+                    ->route('updates.index')
+                    ->with('success', "Foram criadas {$count} atualizações com sucesso!");
             }
         } catch (\Exception $e) {
             return redirect()

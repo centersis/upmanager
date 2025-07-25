@@ -2,6 +2,55 @@
 
 @section('title', 'Editar ' . $update->title . ' - UPMANAGER')
 
+@section('head')
+    <!-- Bootstrap CSS (required for Summernote) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (required for Summernote icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for Summernote */
+        .note-editor {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+        }
+        .note-editor .note-editing-area img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .note-editor .note-editing-area iframe {
+            max-width: 100%;
+            height: 315px;
+            border-radius: 4px;
+        }
+        .note-editor .note-editing-area table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .note-editor .note-editing-area table td, 
+        .note-editor .note-editing-area table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .note-editor .note-editing-area table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .source-editor {
+            display: none;
+        }
+        .note-toolbar {
+            background-color: #f8f9fa;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Breadcrumb -->
@@ -85,47 +134,8 @@
                 @enderror
             </div>
 
-            <!-- Tipo de Atualização -->
+            <!-- Cliente -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-3">
-                    Tipo de Atualização
-                </label>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <input 
-                            type="radio" 
-                            name="is_global" 
-                            value="1" 
-                            id="global_update"
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                            {{ old('is_global', $update->is_global ? '1' : '0') == '1' ? 'checked' : '' }}
-                            onchange="toggleCustomerField()"
-                        >
-                        <label for="global_update" class="ml-2 block text-sm text-gray-700">
-                            <strong>Atualização Global</strong>
-                            <span class="block text-xs text-gray-500">Aplicável a todos os clientes do projeto</span>
-                        </label>
-                    </div>
-                    <div class="flex items-center">
-                        <input 
-                            type="radio" 
-                            name="is_global" 
-                            value="0" 
-                            id="specific_update"
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                            {{ old('is_global', $update->is_global ? '1' : '0') == '0' ? 'checked' : '' }}
-                            onchange="toggleCustomerField()"
-                        >
-                        <label for="specific_update" class="ml-2 block text-sm text-gray-700">
-                            <strong>Atualização Específica</strong>
-                            <span class="block text-xs text-gray-500">Aplicável apenas a um cliente específico</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cliente (condicional) -->
-            <div id="customer_field" style="display: {{ old('is_global', $update->is_global ? '1' : '0') == '0' ? 'block' : 'none' }};">
                 <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-2">
                     Cliente <span class="text-red-500">*</span>
                 </label>
@@ -133,15 +143,24 @@
                     name="customer_id" 
                     id="customer_id" 
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('customer_id') border-red-300 @enderror"
+                    required
                 >
                     <option value="">Selecione um cliente</option>
                     @foreach($customers as $customer)
-                        <option value="{{ $customer->id }}" {{ old('customer_id', $update->customer_id) == $customer->id ? 'selected' : '' }}>
+                        <option 
+                            value="{{ $customer->id }}" 
+                            {{ old('customer_id', $update->customer_id) == $customer->id ? 'selected' : '' }}
+                            data-customer-id="{{ $customer->id }}"
+                        >
                             {{ $customer->name }}
+                            ({{ $customer->status === 'active' ? 'Ativo' : 'Inativo' }})
                         </option>
                     @endforeach
                 </select>
-                <p class="mt-1 text-xs text-gray-500">Apenas clientes associados ao projeto selecionado estarão disponíveis</p>
+                <p class="mt-1 text-xs text-gray-500">
+                    Selecione o cliente para quem esta atualização é direcionada. 
+                    <strong>Nota:</strong> Para alterar para múltiplos clientes, considere criar uma nova atualização.
+                </p>
                 @error('customer_id')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -184,7 +203,29 @@
                 @enderror
             </div>
 
-
+            <!-- Descrição -->
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                    Descrição
+                </label>
+                <!-- Editor Controls -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <small class="text-muted">Use a barra de ferramentas para formatar o texto. Para inserir tabelas e vídeos, use os botões na toolbar.</small>
+                </div>
+                
+                <!-- Summernote Editor -->
+                <div id="editor-container">
+                    <textarea id="summernote-editor" name="description_editor" style="display: none;">{{ old('description', $update->description) }}</textarea>
+                </div>
+                
+                <input type="hidden" name="description" id="description" value="{{ old('description', $update->description) }}">
+                <div id="debug-info" class="mt-2 p-2 bg-light rounded" style="font-size: 12px; color: #666;">
+                    <strong>Debug:</strong> <span id="debug-status">Carregando editor...</span>
+                </div>
+                @error('description')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
 
             <!-- Status -->
             <div>
@@ -231,95 +272,170 @@
     </div>
 </div>
 
+@section('scripts')
+<!-- jQuery (required for Summernote) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS (required for Summernote) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Summernote JS -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
+<!-- Summernote PT-BR -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-pt-BR.min.js"></script>
+
 <script>
-function toggleCustomerField() {
-    const isGlobal = document.getElementById('global_update').checked;
-    const customerField = document.getElementById('customer_field');
-    const customerCheckboxes = document.querySelectorAll('input[name="customer_ids[]"]');
-    
-    if (isGlobal) {
-        customerField.style.display = 'none';
-        // Uncheck all customer checkboxes and remove required
-        customerCheckboxes.forEach(checkbox => {
-            checkbox.checked = false;
-            checkbox.removeAttribute('required');
-        });
-    } else {
-        customerField.style.display = 'block';
-        // Don't set individual checkboxes as required, we'll validate manually
-        customerCheckboxes.forEach(checkbox => {
-            checkbox.removeAttribute('required');
-        });
+// Custom function for YouTube video insertion
+function insertYouTubeVideo() {
+    const url = prompt('Digite a URL do vídeo do YouTube:');
+    if (url) {
+        let videoId = '';
+        
+        // Extract video ID from various YouTube URL formats
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        
+        if (match && match[2].length === 11) {
+            videoId = match[2];
+        } else {
+            alert('URL do YouTube inválida');
+            return;
+        }
+        
+        const embedCode = `<div class="embed-responsive embed-responsive-16by9 mb-3"><iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="width:100%;height:315px;"></iframe></div>`;
+        $('#summernote-editor').summernote('pasteHTML', embedCode);
     }
 }
 
 function updateCustomerOptions() {
     const projectSelect = document.getElementById('project_id');
-    const customerOptions = document.querySelectorAll('.customer-option');
+    const customerSelect = document.getElementById('customer_id');
     const selectedOption = projectSelect.options[projectSelect.selectedIndex];
     
-    if (selectedOption.value === '') {
-        // Show all customer options
-        customerOptions.forEach(option => {
-            option.style.display = 'flex';
-        });
-        return;
-    }
-    
-    const projectCustomers = selectedOption.dataset.customers.split(',').filter(id => id !== '');
-    
-    // Show/hide customer options based on project selection
-    customerOptions.forEach(option => {
+    // Enable/disable customer options based on project selection
+    Array.from(customerSelect.options).forEach(option => {
+        if (option.value === '') return; // Skip the placeholder option
+        
         const customerId = option.dataset.customerId;
         
-        if (projectCustomers.includes(customerId)) {
-            option.style.display = 'flex';
+        if (selectedOption.value === '') {
+            // Show all customers if no project selected
+            option.disabled = false;
+            option.style.display = 'block';
         } else {
-            option.style.display = 'none';
-            // Uncheck hidden options
-            const checkbox = option.querySelector('input[type="checkbox"]');
-            if (checkbox) {
-                checkbox.checked = false;
+            const projectCustomers = selectedOption.dataset.customers.split(',').filter(id => id !== '');
+            
+            if (projectCustomers.includes(customerId)) {
+                option.disabled = false;
+                option.style.display = 'block';
+            } else {
+                option.disabled = true;
+                option.style.display = 'none';
             }
         }
     });
 }
 
-// Add validation for at least one customer selected
-function validateCustomerSelection() {
-    const isGlobal = document.getElementById('global_update').checked;
-    
-    // If it's global, no need to validate customers
-    if (isGlobal) return true;
-    
-    // Check if at least one customer is selected and visible
-    const visibleCustomers = document.querySelectorAll('.customer-option[style*="flex"] input[name="customer_ids[]"]:checked');
-    
-    if (visibleCustomers.length === 0) {
-        // Find the first visible customer option to focus
-        const firstVisibleCustomer = document.querySelector('.customer-option[style*="flex"] input[name="customer_ids[]"]');
-        if (firstVisibleCustomer) {
-            firstVisibleCustomer.focus();
-            // Add visual feedback
-            firstVisibleCustomer.parentElement.parentElement.style.border = '2px solid #ef4444';
-            setTimeout(() => {
-                firstVisibleCustomer.parentElement.parentElement.style.border = '';
-            }, 3000);
-        }
-        
-        alert('Por favor, selecione pelo menos um cliente para a atualização específica.');
-        return false;
+function updateDebugStatus(message) {
+    const debugStatus = document.getElementById('debug-status');
+    if (debugStatus) {
+        debugStatus.textContent = message;
     }
-    
-    return true;
+    console.log('Debug:', message);
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    toggleCustomerField();
+// Initialize Summernote
+function initializeSummernote() {
+    updateDebugStatus('Inicializando Summernote...');
+    
+    // Initialize Summernote with official configuration
+    $('#summernote-editor').summernote({
+        height: 300,
+        minHeight: 200,
+        maxHeight: 600,
+        focus: false,
+        lang: 'pt-BR',
+        placeholder: 'Digite a descrição detalhada da atualização...',
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+            ['custom', ['youtube']]
+        ],
+        buttons: {
+            youtube: function(context) {
+                const ui = $.summernote.ui;
+                const button = ui.button({
+                    contents: '<i class="fa fa-youtube-play"></i> YouTube',
+                    tooltip: 'Inserir vídeo do YouTube',
+                    click: function() {
+                        insertYouTubeVideo();
+                    }
+                });
+                return button.render();
+            }
+        },
+        callbacks: {
+            onImageUpload: function(files) {
+                // Handle image upload with base64 conversion
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#summernote-editor').summernote('insertImage', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            },
+            onChange: function(contents, $editable) {
+                // Update hidden input when content changes
+                const descriptionInput = document.getElementById('description');
+                if (descriptionInput) {
+                    descriptionInput.value = contents;
+                }
+            }
+        }
+    });
+    
+    updateDebugStatus('✅ Summernote inicializado com sucesso!');
+    
+    // Ensure content is saved before form submission
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function() {
+            const descriptionInput = document.getElementById('description');
+            if (descriptionInput) {
+                descriptionInput.value = $('#summernote-editor').summernote('code');
+                updateDebugStatus('Conteúdo salvo antes do envio');
+            }
+        });
+    }
+    
+    // Hide debug info after successful initialization
+    setTimeout(function() {
+        const debugInfo = document.getElementById('debug-info');
+        if (debugInfo) {
+            debugInfo.style.display = 'none';
+        }
+    }, 3000);
+}
+
+// Start initialization when DOM is ready
+$(document).ready(function() {
+    updateDebugStatus('DOM carregado, iniciando Summernote...');
+    
+    // Initialize Summernote
+    initializeSummernote();
+    
+    // Initialize customer options functionality
     updateCustomerOptions();
     
-
+    document.getElementById('project_id').addEventListener('change', updateCustomerOptions);
 });
 </script>
 @endsection 

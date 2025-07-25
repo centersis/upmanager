@@ -2,6 +2,89 @@
 
 @section('title', $update->title . ' - UPMANAGER')
 
+@section('head')
+    <style>
+        /* Content display styles */
+        .content-display {
+            line-height: 1.6;
+        }
+        .content-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
+        .content-display iframe {
+            max-width: 100%;
+            height: 315px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .content-display table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+        .content-display table td, 
+        .content-display table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .content-display table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .content-display blockquote {
+            border-left: 4px solid #e2e8f0;
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #6b7280;
+            font-style: italic;
+        }
+        .content-display code {
+            background-color: #f3f4f6;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .content-display pre {
+            background-color: #f3f4f6;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .content-display pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .content-display ul, .content-display ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content-display li {
+            margin: 4px 0;
+        }
+        .content-display h1, .content-display h2, .content-display h3, 
+        .content-display h4, .content-display h5, .content-display h6 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        .content-display h1 { font-size: 2rem; }
+        .content-display h2 { font-size: 1.75rem; }
+        .content-display h3 { font-size: 1.5rem; }
+        .content-display h4 { font-size: 1.25rem; }
+        .content-display h5 { font-size: 1.125rem; }
+        .content-display h6 { font-size: 1rem; }
+        .content-display p {
+            margin: 12px 0;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Breadcrumb -->
@@ -102,22 +185,16 @@
 
         <!-- Content -->
         <div class="px-6 py-8">
-            <div class="prose max-w-none">
-                <div class="text-gray-900 leading-relaxed">
-                    {!! $update->description !!}
+                            <div class="prose max-w-none">
+                    <div class="content-display text-gray-900 leading-relaxed">
+                        {!! $update->description !!}
+                    </div>
                 </div>
-            </div>
         </div>
 
         <!-- Footer with metadata -->
         <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
-            <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div>
-                    <dt class="text-sm font-medium text-gray-500">Hash da Atualização</dt>
-                    <dd class="mt-1">
-                        <code class="text-sm bg-white px-2 py-1 rounded border">{{ $update->hash }}</code>
-                    </dd>
-                </div>
+            <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">                
                 <div>
                     <dt class="text-sm font-medium text-gray-500">Última Atualização</dt>
                     <dd class="mt-1 text-sm text-gray-900">{{ $update->updated_at->format('d/m/Y \à\s H:i') }}</dd>
@@ -152,11 +229,7 @@
                         <span>Criado em {{ $update->project->created_at->format('d/m/Y') }}</span>
                     </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <span class="font-medium text-gray-500">Hash do Projeto:</span>
-                            <code class="ml-2 text-xs bg-gray-100 px-1 rounded">{{ $update->project->hash }}</code>
-                        </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">                        
                         <div>
                             <span class="font-medium text-gray-500">Total de Atualizações:</span>
                             <span class="ml-2 text-gray-900">{{ $update->project->updates->count() }}</span>

@@ -9,6 +9,8 @@
     
     <!-- TinyMCE CDN -->
     <script src="https://cdn.tiny.cloud/1/eluedarnrevptvryk2bf4e1bbuyoootthlbqazdmz8f4leab/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    @yield('head')
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <div class="min-h-screen">
@@ -371,5 +373,7 @@
             }
         };
     </script>
+    
+    @yield('scripts')
 </body>
 </html>

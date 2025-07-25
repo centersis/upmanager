@@ -80,13 +80,7 @@
             </div>
             
             <div class="mt-6">
-                <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div>
-                        <dt class="text-sm font-medium text-gray-500">Hash do Projeto</dt>
-                        <dd class="mt-1">
-                            <code class="text-sm bg-gray-100 px-2 py-1 rounded">{{ $project->hash }}</code>
-                        </dd>
-                    </div>
+                <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">                    
                     <div>
                         <dt class="text-sm font-medium text-gray-500">Total de Clientes</dt>
                         <dd class="mt-1 text-2xl font-semibold text-gray-900">{{ $project->customers->count() }}</dd>

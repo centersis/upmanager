@@ -15,14 +15,12 @@ class UpdateUpdateRequest extends FormRequest
     {
         return [
             'project_id' => 'sometimes|exists:projects,id',
-            'customer_id' => 'sometimes|nullable|exists:customers,id',
+            'customer_id' => 'sometimes|required|exists:customers,id',
             'title' => 'sometimes|string|max:255',
             'caption' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-
             'status' => 'sometimes|string|max:50',
             'views' => 'sometimes|integer|min:0',
-            'is_global' => 'sometimes|boolean',
         ];
     }
 } 

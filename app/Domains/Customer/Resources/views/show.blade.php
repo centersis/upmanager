@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="mb-4">
-                                                    <p class="text-sm text-gray-600">{{ $project->updates->count() }} {{ $project->updates->count() === 1 ? 'atualização' : 'atualizações' }} • Hash: <code class="bg-gray-100 px-2 py-1 rounded text-xs">{{ substr($project->hash, 0, 8) }}...</code></p>
+                                                    <p class="text-sm text-gray-600">{{ $project->updates->count() }} {{ $project->updates->count() === 1 ? 'atualização' : 'atualizações' }}</p>
                 </div>
 
                 @if($project->updates->count() > 0)
