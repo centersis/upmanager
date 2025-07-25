@@ -7,13 +7,14 @@ use App\Domains\Project\Http\Controllers\ProjectWebController;
 use App\Domains\Update\Http\Controllers\UpdateWebController;
 
 // Public routes
+Route::get('/', function () {
+    return view('shared::welcome');
+})->name('home');
+
 Route::get('/login', function () {
     return view('auth::login');
 })->name('login')->middleware('guest');
 
-Route::get('/register', function () {
-    return view('auth::register');
-})->name('register')->middleware('guest');
 
 // Authentication routes
 require __DIR__.'/auth.php';
@@ -28,7 +29,12 @@ Route::get('/iframe/{customerHash}/{projectHash}', [App\Http\Controllers\PublicC
 // Protected routes - require authentication and active user
 Route::middleware(['auth', 'verified', 'active'])->group(function () {
     // Dashboard
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Profile
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [\App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Customer CRUD Routes
     Route::get('/customers', [CustomerWebController::class, 'index'])->name('customers.index');

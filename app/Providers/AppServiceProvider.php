@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         
         // Register Shared views (layouts, components, etc.)
         $this->loadViewsFrom(app_path('Shared/Resources/views'), 'shared');
+
+        // Register Auth domain views (para resolver auth::*)
+        $this->loadViewsFrom(app_path('Domains/Auth/Resources/views'), 'auth');
     }
 
     /**

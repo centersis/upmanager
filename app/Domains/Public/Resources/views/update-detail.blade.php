@@ -74,37 +74,6 @@
         </div>
     </div>
 
-    <!-- Project Info -->
-    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="text-sm font-medium text-blue-900">Projeto: {{ $update->project->name }}</h3>
-                <div class="mt-1 flex items-center space-x-4">
-                    @if($update->project->group)
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                            {{ $update->project->group->name }}
-                        </span>
-                    @endif
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {{ ucfirst($update->project->status) }}
-                    </span>
-                </div>
-            </div>
-            <div class="text-right">
-                @if($update->project->customers->count() > 0)
-                    <div class="text-xs text-blue-700 mb-1">Clientes:</div>
-                    <div class="flex flex-wrap gap-1 justify-end">
-                        @foreach($update->project->customers as $customer)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                {{ $customer->name }}
-                            </span>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-
     <!-- Update Content -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-6">

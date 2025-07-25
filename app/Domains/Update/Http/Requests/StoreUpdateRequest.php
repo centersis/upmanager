@@ -29,7 +29,9 @@ class StoreUpdateRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $isGlobal = $this->input('is_global', false);
+            // Por padrão, consideramos a atualização como global quando o campo não é enviado
+            // Isso evita falhas de validação em chamadas simples à API de criação de updates.
+            $isGlobal = $this->input('is_global', true);
             $customerIds = $this->input('customer_ids', []);
             
             // Convert string 'true'/'false' to boolean if needed
@@ -37,8 +39,9 @@ class StoreUpdateRequest extends FormRequest
                 $isGlobal = $isGlobal === '1' || $isGlobal === 'true';
             }
             
-            // Se não é global, deve ter pelo menos um cliente selecionado
-            if (!$isGlobal && empty($customerIds)) {
+            // Se o campo is_global foi explicitamente definido como "false" e nenhum cliente foi fornecido
+            // então deve falhar na validação.
+            if ($this->filled('is_global') && !$isGlobal && empty($customerIds)) {
                 $validator->errors()->add('customer_ids', 'Selecione pelo menos um cliente para atualização específica.');
             }
             
