@@ -25,7 +25,7 @@ class UpdateFactory extends Factory
             'description' => $this->faker->paragraph(),
             'views' => 0,
             'hash' => Str::uuid()->toString(),
-            'status' => 'pending',
+            'status' => 'published',
         ];
     }
 } 

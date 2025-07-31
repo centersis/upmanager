@@ -15,7 +15,18 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'status' => 'sometimes|string|max:50',
+            'status' => 'sometimes|string|in:active,inactive',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'O nome do cliente é obrigatório.',
+            'name.string' => 'O nome do cliente deve ser um texto válido.',
+            'name.max' => 'O nome do cliente não pode ter mais de 255 caracteres.',
+            'status.string' => 'O status deve ser um texto válido.',
+            'status.in' => 'O status deve ser: active ou inactive.',
         ];
     }
 } 

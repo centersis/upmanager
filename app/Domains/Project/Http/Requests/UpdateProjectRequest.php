@@ -13,14 +13,26 @@ class UpdateProjectRequest extends FormRequest
 
     public function rules(): array
     {
-        $projectId = $this->route('project')?->id;
         return [
-            'name' => 'sometimes|string|max:255',
+            'name' => 'sometimes|required|string|max:255',
             'group_id' => 'sometimes|nullable|exists:groups,id',
-            'status' => 'sometimes|string|max:50',
-
-            'customer_ids' => 'array',
+            'status' => 'sometimes|string|in:active,inactive',
+            'customer_ids' => 'sometimes|array',
             'customer_ids.*' => 'exists:customers,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'O nome do projeto é obrigatório.',
+            'name.string' => 'O nome do projeto deve ser um texto válido.',
+            'name.max' => 'O nome do projeto não pode ter mais de 255 caracteres.',
+            'group_id.exists' => 'O grupo selecionado não existe.',
+            'status.string' => 'O status deve ser um texto válido.',
+            'status.in' => 'O status deve ser: active ou inactive.',
+            'customer_ids.array' => 'Os clientes devem ser fornecidos como uma lista.',
+            'customer_ids.*.exists' => 'Um ou mais clientes selecionados não existem.',
         ];
     }
 } 

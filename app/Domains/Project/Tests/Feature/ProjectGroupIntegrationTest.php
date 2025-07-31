@@ -94,7 +94,7 @@ class ProjectGroupIntegrationTest extends TestCase
         $updateData = [
             'name' => $project->name,
             'group_id' => $group2->id,
-            'status' => $project->status,
+            'status' => 'active',
             'customer_ids' => [$customer->id],
         ];
 
@@ -117,8 +117,8 @@ class ProjectGroupIntegrationTest extends TestCase
 
         $updateData = [
             'name' => $project->name,
-            'group_id' => '', // Remove group
-            'status' => $project->status,
+            'group_id' => null, // Remove group
+            'status' => 'active',
             'customer_ids' => [$customer->id],
         ];
 
