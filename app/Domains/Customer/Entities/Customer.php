@@ -6,6 +6,7 @@ use App\Domains\Project\Entities\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Customer extends Model
@@ -17,6 +18,11 @@ class Customer extends Model
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class, 'projects_customers');
+    }
+
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(CustomerContact::class);
     }
 
     protected static function newFactory()

@@ -16,6 +16,10 @@ class StoreCustomerRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'status' => 'sometimes|string|in:active,inactive',
+            'contacts' => 'sometimes|array',
+            'contacts.*.name' => 'required_with:contacts.*|string|max:255',
+            'contacts.*.phone' => 'nullable|string|max:20',
+            'contacts.*.email' => 'nullable|email|max:255',
         ];
     }
 
@@ -27,6 +31,14 @@ class StoreCustomerRequest extends FormRequest
             'name.max' => 'O nome do cliente não pode ter mais de 255 caracteres.',
             'status.string' => 'O status deve ser um texto válido.',
             'status.in' => 'O status deve ser: active ou inactive.',
+            'contacts.array' => 'Os contatos devem ser um array válido.',
+            'contacts.*.name.required_with' => 'O nome do contato é obrigatório.',
+            'contacts.*.name.string' => 'O nome do contato deve ser um texto válido.',
+            'contacts.*.name.max' => 'O nome do contato não pode ter mais de 255 caracteres.',
+            'contacts.*.phone.string' => 'O telefone deve ser um texto válido.',
+            'contacts.*.phone.max' => 'O telefone não pode ter mais de 20 caracteres.',
+            'contacts.*.email.email' => 'O email deve ter um formato válido.',
+            'contacts.*.email.max' => 'O email não pode ter mais de 255 caracteres.',
         ];
     }
 } 

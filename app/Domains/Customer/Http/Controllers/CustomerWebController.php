@@ -49,8 +49,8 @@ class CustomerWebController extends Controller
             abort(404, 'Cliente não encontrado');
         }
 
-        // Carregar projetos do cliente
-        $customer->load('projects.updates');
+        // Carregar projetos e contatos do cliente
+        $customer->load(['projects.updates', 'contacts']);
         
         return view('customer::show', compact('customer'));
     }
@@ -62,6 +62,9 @@ class CustomerWebController extends Controller
         if (!$customer) {
             abort(404, 'Cliente não encontrado');
         }
+        
+        // Carregar contatos do cliente
+        $customer->load('contacts');
         
         return view('customer::edit', compact('customer'));
     }

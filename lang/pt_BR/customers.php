@@ -25,6 +25,18 @@ return [
     'created_at' => 'Criado em',
     'updated_at' => 'Atualizado em',
     
+    // Contacts
+    'contacts' => 'Contatos',
+    'add_contact' => 'Adicionar Contato',
+    'remove_contact' => 'Remover Contato',
+    'contact_name' => 'Nome do Contato',
+    'contact_phone' => 'Telefone',
+    'contact_email' => 'E-mail',
+    'contact_name_placeholder' => 'Digite o nome do contato',
+    'contact_phone_placeholder' => '(11) 99999-9999',
+    'contact_email_placeholder' => 'contato@exemplo.com',
+    'no_contacts' => 'Nenhum contato adicionado.',
+    
     // Messages
     'created_success' => 'Cliente criado com sucesso!',
     'updated_success' => 'Cliente atualizado com sucesso!',

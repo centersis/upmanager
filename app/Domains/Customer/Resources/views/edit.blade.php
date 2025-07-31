@@ -95,6 +95,92 @@
                 @enderror
             </div>
 
+            <!-- Contatos -->
+            <div>
+                <div class="flex items-center justify-between mb-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                        {{ __('customers.contacts') }}
+                    </label>
+                    <button type="button" 
+                            id="add-contact" 
+                            class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        {{ __('customers.add_contact') }}
+                    </button>
+                </div>
+                
+                <div id="contacts-container" class="space-y-4">  
+                    @php
+                        $contacts = old('contacts', $customer->contacts->toArray());
+                    @endphp
+                    
+                    @if($contacts)
+                        @foreach($contacts as $index => $contact)  
+                            <div class="contact-item border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-medium text-gray-700">{{ __('customers.contacts') }} #{{ $index + 1 }}</h4>
+                                    <div class="flex items-center space-x-2">
+                                        <label class="inline-flex items-center text-xs text-red-600">
+                                            <input type="checkbox" name="contacts[{{ $index }}][_destroy]" value="1" class="mr-1">
+                                            {{ __('customers.remove_contact') }}
+                                        </label>
+                                        <button type="button" class="remove-contact text-red-600 hover:text-red-800">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                @if(isset($contact['id']))
+                                    <input type="hidden" name="contacts[{{ $index }}][id]" value="{{ $contact['id'] }}">
+                                @endif
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-600 mb-1">{{ __('customers.contact_name') }} <span class="text-red-500">*</span></label>
+                                        <input type="text" 
+                                               name="contacts[{{ $index }}][name]" 
+                                               value="{{ $contact['name'] ?? '' }}"
+                                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('contacts.'.$index.'.name') border-red-300 @enderror"
+                                               placeholder="{{ __('customers.contact_name_placeholder') }}">
+                                        @error('contacts.'.$index.'.name')
+                                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-600 mb-1">{{ __('customers.contact_phone') }}</label>
+                                        <input type="text" 
+                                               name="contacts[{{ $index }}][phone]" 
+                                               value="{{ $contact['phone'] ?? '' }}"
+                                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('contacts.'.$index.'.phone') border-red-300 @enderror"
+                                               placeholder="{{ __('customers.contact_phone_placeholder') }}">
+                                        @error('contacts.'.$index.'.phone')
+                                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-600 mb-1">{{ __('customers.contact_email') }}</label>
+                                        <input type="email" 
+                                               name="contacts[{{ $index }}][email]" 
+                                               value="{{ $contact['email'] ?? '' }}"
+                                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('contacts.'.$index.'.email') border-red-300 @enderror"
+                                               placeholder="{{ __('customers.contact_email_placeholder') }}">
+                                        @error('contacts.'.$index.'.email')
+                                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                
+                <div id="no-contacts" class="text-center py-8 text-gray-500 text-sm {{ $contacts ? 'hidden' : '' }}">
+                    {{ __('customers.no_contacts') }}
+                </div>
+            </div>
+
             <!-- Buttons -->
             <div class="flex items-center justify-between pt-6 border-t border-gray-200">
                 <a href="{{ route('customers.show', $customer->id) }}" 
@@ -116,4 +202,94 @@
         </form>
     </div>
 </div>
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addContactBtn = document.getElementById('add-contact');
+    const contactsContainer = document.getElementById('contacts-container');
+    const noContactsDiv = document.getElementById('no-contacts');
+    let contactIndex = {{ count($contacts) }};
+
+    // Traduções
+    const translations = {
+        contacts: '{{ __('customers.contacts') }}',
+        contactName: '{{ __('customers.contact_name') }}',
+        contactPhone: '{{ __('customers.contact_phone') }}',
+        contactEmail: '{{ __('customers.contact_email') }}',
+        contactNamePlaceholder: '{{ __('customers.contact_name_placeholder') }}',
+        contactPhonePlaceholder: '{{ __('customers.contact_phone_placeholder') }}',
+        contactEmailPlaceholder: '{{ __('customers.contact_email_placeholder') }}'
+    };
+
+    addContactBtn.addEventListener('click', function() {
+        addContact();
+    });
+
+    // Delegação de eventos para remover contatos
+    contactsContainer.addEventListener('click', function(e) {
+        if (e.target.closest('.remove-contact')) {
+            e.target.closest('.contact-item').remove();
+            updateContactNumbers();
+            toggleNoContactsMessage();
+        }
+    });
+
+    function addContact() {
+        const contactHtml = `
+            <div class="contact-item border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-sm font-medium text-gray-700">${translations.contacts} #${contactIndex + 1}</h4>
+                    <button type="button" class="remove-contact text-red-600 hover:text-red-800">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">${translations.contactName} <span class="text-red-500">*</span></label>
+                        <input type="text" 
+                               name="contacts[${contactIndex}][name]" 
+                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="${translations.contactNamePlaceholder}">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">${translations.contactPhone}</label>
+                        <input type="text" 
+                               name="contacts[${contactIndex}][phone]" 
+                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="${translations.contactPhonePlaceholder}">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">${translations.contactEmail}</label>
+                        <input type="email" 
+                               name="contacts[${contactIndex}][email]" 
+                               class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="${translations.contactEmailPlaceholder}">
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        contactsContainer.insertAdjacentHTML('beforeend', contactHtml);
+        contactIndex++;
+        toggleNoContactsMessage();
+    }
+
+    function updateContactNumbers() {
+        const contactItems = contactsContainer.querySelectorAll('.contact-item');
+        contactItems.forEach((item, index) => {
+            const title = item.querySelector('h4');
+            title.textContent = `${translations.contacts} #${index + 1}`;
+        });
+    }
+
+    function toggleNoContactsMessage() {
+        const hasContacts = contactsContainer.children.length > 0;
+        noContactsDiv.classList.toggle('hidden', hasContacts);
+    }
+});
+</script>
+@endpush 

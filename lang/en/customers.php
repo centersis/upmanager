@@ -56,6 +56,18 @@ return [
     'phone' => 'Phone',
     'phone_placeholder' => 'Enter client phone',
     
+    // Contacts
+    'contacts' => 'Contacts',
+    'add_contact' => 'Add Contact',
+    'remove_contact' => 'Remove Contact',
+    'contact_name' => 'Contact Name',
+    'contact_phone' => 'Phone',
+    'contact_email' => 'Email',
+    'contact_name_placeholder' => 'Enter contact name',
+    'contact_phone_placeholder' => '(11) 99999-9999',
+    'contact_email_placeholder' => 'contact@example.com',
+    'no_contacts' => 'No contacts added.',
+    
     'get_started' => 'Get started by creating a new client.',
     
     // Empty states
