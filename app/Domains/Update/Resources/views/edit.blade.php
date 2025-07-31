@@ -40,6 +40,17 @@
             background-color: #f5f5f5;
             font-weight: bold;
         }
+        .note-editor .note-editing-area video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .note-editor .note-editing-area iframe {
+            max-width: 100%;
+            height: 315px;
+            border-radius: 4px;
+        }
 
     </style>
 @endsection
@@ -369,6 +380,13 @@ function initializeSummernote() {
                         descriptionInput.value = $('#summernote-editor').summernote('code');
                     }
                 }
+            },
+            
+            // Configuração de vídeo
+            videoAttributes: {
+                'controls': '',
+                'class': 'video-fluid',
+                'style': 'max-width: 100%; height: auto;'
             }
         });
         

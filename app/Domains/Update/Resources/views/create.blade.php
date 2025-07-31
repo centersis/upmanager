@@ -20,6 +20,38 @@
             min-height: 300px;
             padding: 12px;
         }
+        .note-editor .note-editing-area img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .note-editor .note-editing-area video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .note-editor .note-editing-area iframe {
+            max-width: 100%;
+            height: 315px;
+            border-radius: 4px;
+        }
+        .note-editor .note-editing-area table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .note-editor .note-editing-area table td, 
+        .note-editor .note-editing-area table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .note-editor .note-editing-area table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
 
     </style>
 @endsection
@@ -274,7 +306,7 @@ function initializeSummernoteRobust() {
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
-                ['insert', ['link', 'picture']],
+                ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ],
             
@@ -300,6 +332,13 @@ function initializeSummernoteRobust() {
                         descriptionInput.value = contents;
                     }
                 }
+            },
+            
+            // Configuração de vídeo
+            videoAttributes: {
+                'controls': '',
+                'class': 'video-fluid',
+                'style': 'max-width: 100%; height: auto;'
             }
         });
         
