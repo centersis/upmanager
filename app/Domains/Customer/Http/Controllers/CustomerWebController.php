@@ -5,7 +5,7 @@ namespace App\Domains\Customer\Http\Controllers;
 use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Customer\Http\Requests\StoreCustomerRequest;
 use App\Domains\Customer\Http\Requests\UpdateCustomerRequest;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class CustomerWebController extends Controller
 {

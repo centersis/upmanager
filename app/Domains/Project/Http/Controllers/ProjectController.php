@@ -6,7 +6,7 @@ use App\Domains\Project\Entities\Project;
 use App\Domains\Project\Http\Requests\StoreProjectRequest;
 use App\Domains\Project\Http\Requests\UpdateProjectRequest;
 use App\Domains\Project\Services\ProjectService;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class ProjectController extends Controller
 {

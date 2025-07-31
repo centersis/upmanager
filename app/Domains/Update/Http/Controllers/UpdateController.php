@@ -6,7 +6,7 @@ use App\Domains\Update\Entities\Update;
 use App\Domains\Update\Http\Requests\StoreUpdateApiRequest;
 use App\Domains\Update\Http\Requests\UpdateUpdateApiRequest;
 use App\Domains\Update\Services\UpdateService;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class UpdateController extends Controller
 {

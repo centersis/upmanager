@@ -140,7 +140,7 @@ Arquivo: `app/Domains/Task/Http/Controllers/TaskWebController.php`
 
 namespace App\Domains\Task\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 use App\Domains\Task\Services\TaskService;
 // ... imports
 
@@ -168,7 +168,7 @@ Arquivo: `app/Domains/Task/Http/Controllers/TaskController.php`
 
 namespace App\Domains\Task\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 use App\Domains\Task\Services\TaskService;
 // ... imports
 

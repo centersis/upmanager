@@ -7,7 +7,7 @@ use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Group\Entities\Group;
 use App\Domains\Project\Http\Requests\StoreProjectRequest;
 use App\Domains\Project\Http\Requests\UpdateProjectRequest;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class ProjectWebController extends Controller
 {

@@ -7,7 +7,7 @@ use App\Domains\Project\Services\ProjectService;
 use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Update\Http\Requests\StoreUpdateRequest;
 use App\Domains\Update\Http\Requests\UpdateUpdateRequest;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class UpdateWebController extends Controller
 {

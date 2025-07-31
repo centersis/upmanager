@@ -2,7 +2,7 @@
 
 namespace App\Domains\Dashboard\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Project\Services\ProjectService;
 use App\Domains\Update\Services\UpdateService;

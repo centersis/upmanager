@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Domains\User\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // User Management Routes - Admin only

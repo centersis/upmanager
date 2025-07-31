@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Domains\Public\Http\Controllers;
 
 use App\Domains\Project\Entities\Project;
 use App\Domains\Update\Entities\Update;
 use App\Domains\Customer\Entities\Customer;
+use App\Shared\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller

@@ -5,7 +5,7 @@ namespace App\Domains\Group\Http\Controllers;
 use App\Domains\Group\Services\GroupService;
 use App\Domains\Group\Http\Requests\StoreGroupRequest;
 use App\Domains\Group\Http\Requests\UpdateGroupRequest;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
 class GroupController extends Controller

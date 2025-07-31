@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PublicController;
+use App\Domains\Public\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes - no authentication required

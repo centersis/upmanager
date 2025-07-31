@@ -6,7 +6,7 @@ use App\Domains\Customer\Entities\Customer;
 use App\Domains\Customer\Http\Requests\StoreCustomerRequest;
 use App\Domains\Customer\Http\Requests\UpdateCustomerRequest;
 use App\Domains\Customer\Services\CustomerService;
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
