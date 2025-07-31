@@ -4,6 +4,7 @@ namespace App\Domains\Update\Database\Factories;
 
 use App\Domains\Update\Entities\Update;
 use App\Domains\Project\Entities\Project;
+use App\Domains\Customer\Entities\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,7 @@ class UpdateFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
+            'customer_id' => Customer::factory(),
             'title' => $this->faker->sentence(4),
             'caption' => $this->faker->sentence(6),
             'description' => $this->faker->paragraph(),

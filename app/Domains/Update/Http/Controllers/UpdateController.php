@@ -3,8 +3,8 @@
 namespace App\Domains\Update\Http\Controllers;
 
 use App\Domains\Update\Entities\Update;
-use App\Domains\Update\Http\Requests\StoreUpdateRequest;
-use App\Domains\Update\Http\Requests\UpdateUpdateRequest;
+use App\Domains\Update\Http\Requests\StoreUpdateApiRequest;
+use App\Domains\Update\Http\Requests\UpdateUpdateApiRequest;
 use App\Domains\Update\Services\UpdateService;
 use App\Http\Controllers\Controller;
 
@@ -20,9 +20,12 @@ class UpdateController extends Controller
         return response()->json($updates);
     }
 
-    public function store(StoreUpdateRequest $request)
+    public function store(StoreUpdateApiRequest $request)
     {
-        $update = $this->updateService->createUpdate($request->validated());
+        $data = $request->validated();
+        $data['hash'] = uniqid('upd_', true);
+        
+        $update = $this->updateService->createUpdate($data);
         return response()->json($update, 201);
     }
 
@@ -32,7 +35,7 @@ class UpdateController extends Controller
         return response()->json($update);
     }
 
-    public function update(UpdateUpdateRequest $request, Update $update)
+    public function update(UpdateUpdateApiRequest $request, Update $update)
     {
         $updatedUpdate = $this->updateService->updateUpdate($update->id, $request->validated());
         return response()->json($updatedUpdate);

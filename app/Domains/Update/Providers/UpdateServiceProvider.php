@@ -4,6 +4,7 @@ namespace App\Domains\Update\Providers;
 
 use App\Domains\Update\Repositories\UpdateRepository;
 use App\Domains\Update\Repositories\UpdateRepositoryInterface;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class UpdateServiceProvider extends ServiceProvider
@@ -17,5 +18,14 @@ class UpdateServiceProvider extends ServiceProvider
     {
         // Register Update domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'update');
+        
+        // Register Update domain routes
+        Route::middleware('web')->group(function () {
+            $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+        });
+        
+        Route::middleware('api')->prefix('api')->group(function () {
+            $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
+        });
     }
 } 

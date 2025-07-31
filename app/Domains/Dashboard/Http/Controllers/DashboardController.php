@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Domains\Dashboard\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Project\Services\ProjectService;
 use App\Domains\Update\Services\UpdateService;
@@ -27,6 +28,6 @@ class DashboardController extends Controller
             ->sortByDesc('created_at')
             ->take(5);
 
-        return view('shared::dashboard', compact('stats', 'recentUpdates'));
+        return view('dashboard::index', compact('stats', 'recentUpdates'));
     }
 } 

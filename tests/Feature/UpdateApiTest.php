@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Domains\Customer\Entities\Customer;
 use App\Domains\Project\Entities\Project;
 use App\Domains\Update\Entities\Update;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,11 +16,13 @@ class UpdateApiTest extends TestCase
     public function test_can_create_update(): void
     {
         $project = Project::factory()->create();
+        $customer = Customer::factory()->create();
+        
         $payload = [
             'project_id' => $project->id,
+            'customer_id' => $customer->id,
             'title' => 'Bug fixes',
             'caption' => 'Correções gerais',
-            'hash' => Str::uuid()->toString(),
         ];
 
         $response = $this->postJson('/api/updates', $payload);

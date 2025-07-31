@@ -1,14 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Domains\Customer\Http\Controllers\CustomerController;
-use App\Domains\Project\Http\Controllers\ProjectController;
-use App\Domains\Update\Http\Controllers\UpdateController;
 
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('projects', ProjectController::class);
-    Route::apiResource('updates', UpdateController::class);
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+| Domain-specific API routes are now loaded through their respective
+| ServiceProviders. Check each domain's ServiceProvider for API route loading.
+|
+*/
 
-    // Groups API routes
-    Route::apiResource('groups', \App\Domains\Group\Http\Controllers\GroupController::class);
-    Route::get('groups-active', [\App\Domains\Group\Http\Controllers\GroupController::class, 'active']); 
+// Example: Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// }); 

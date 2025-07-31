@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domains\Auth\Providers;
+namespace App\Domains\Dashboard\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+class DashboardServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
@@ -14,10 +14,10 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Register Auth domain views
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'auth');
+        // Register Dashboard domain views
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'dashboard');
         
-        // Register Auth domain routes
+        // Register Dashboard domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
         });
