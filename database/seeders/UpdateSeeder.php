@@ -1244,10 +1244,8 @@ class UpdateSeeder extends Seeder
         ];
 
         foreach ($updates as $updateData) {
-            // Definir is_global como false por padrão se não especificado
-            }
-            
-            // Se não tem customer_id definido e não é global, usar o primeiro cliente do projeto
+            // Se não tem customer_id definido, usar o primeiro cliente do projeto
+            if (!isset($updateData['customer_id'])) {
                 $project = \App\Domains\Project\Entities\Project::find($updateData['project_id']);
                 if ($project && $project->customers->isNotEmpty()) {
                     $updateData['customer_id'] = $project->customers->first()->id;
