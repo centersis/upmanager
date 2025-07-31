@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace App\Domains\Project\Tests\Feature;
 
 use App\Domains\Customer\Entities\Customer;
 use App\Domains\Project\Entities\Project;

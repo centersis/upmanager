@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace App\Domains\Group\Tests\Feature;
 
 use App\Domains\Group\Entities\Group;
 use App\Models\User;

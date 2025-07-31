@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace App\Domains\Project\Tests\Feature;
 
 use App\Domains\Customer\Entities\Customer;
 use App\Domains\Group\Entities\Group;
@@ -23,22 +23,31 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_project_create_page_shows_groups(): void
     {
-        $group = Group::factory()->create(['name' => 'Test Group']);
+        $group = Group::factory()->active()->create(['name' => 'Test Group']);
+        
+        // Garantir que o grupo foi criado como ativo
+        $this->assertDatabaseHas('groups', ['name' => 'Test Group', 'is_active' => true]);
 
         $response = $this->actingAs($this->user)->get(route('projects.create'));
 
         $response->assertStatus(200)
-            ->assertSee('Test Group')
             ->assertSee('Novo Grupo')
             ->assertSee('Gerenciar Grupos');
+            
+        // Verificar se o grupo aparece no select (pode estar como option value ou text)
+        $response->assertSee('Test Group', false);
     }
 
     public function test_project_edit_page_shows_groups(): void
     {
-        $group = Group::factory()->create(['name' => 'Test Group']);
+        $group = Group::factory()->active()->create(['name' => 'Test Group']);
         $customer = Customer::factory()->create();
         $project = Project::factory()->create(['group_id' => $group->id]);
         $project->customers()->attach($customer->id);
+        
+        // Garantir que os dados foram criados
+        $this->assertDatabaseHas('groups', ['name' => 'Test Group', 'is_active' => true]);
+        $this->assertDatabaseHas('projects', ['id' => $project->id, 'group_id' => $group->id]);
 
         $response = $this->actingAs($this->user)->get(route('projects.edit', $project->id));
 
@@ -52,7 +61,7 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_can_create_project_with_group(): void
     {
-        $group = Group::factory()->create();
+        $group = Group::factory()->active()->create();
         $customer = Customer::factory()->create();
 
         $projectData = [
@@ -75,8 +84,8 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_can_update_project_group(): void
     {
-        $group1 = Group::factory()->create(['name' => 'Group 1']);
-        $group2 = Group::factory()->create(['name' => 'Group 2']);
+        $group1 = Group::factory()->active()->create(['name' => 'Group 1']);
+        $group2 = Group::factory()->active()->create(['name' => 'Group 2']);
         $customer = Customer::factory()->create();
         
         $project = Project::factory()->create(['group_id' => $group1->id]);
@@ -100,7 +109,7 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_can_remove_group_from_project(): void
     {
-        $group = Group::factory()->create();
+        $group = Group::factory()->active()->create();
         $customer = Customer::factory()->create();
         
         $project = Project::factory()->create(['group_id' => $group->id]);
@@ -124,7 +133,7 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_group_relationship_is_loaded_correctly(): void
     {
-        $group = Group::factory()->create(['name' => 'Development']);
+        $group = Group::factory()->active()->create(['name' => 'Development']);
         $customer = Customer::factory()->create();
         
         $project = Project::factory()->create(['group_id' => $group->id]);
@@ -142,7 +151,7 @@ class ProjectGroupIntegrationTest extends TestCase
 
     public function test_deleting_group_with_projects_should_fail(): void
     {
-        $group = Group::factory()->create();
+        $group = Group::factory()->active()->create();
         $customer = Customer::factory()->create();
         
         $project = Project::factory()->create(['group_id' => $group->id]);
@@ -178,7 +187,7 @@ class ProjectGroupIntegrationTest extends TestCase
     public function test_group_validation_works_in_api(): void
     {
         // Create a group with same name first
-        Group::factory()->create(['name' => 'Duplicate Name']);
+        Group::factory()->active()->create(['name' => 'Duplicate Name']);
 
         $groupData = [
             'name' => 'Duplicate Name',
