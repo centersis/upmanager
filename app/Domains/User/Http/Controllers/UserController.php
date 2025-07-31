@@ -2,7 +2,7 @@
 
 namespace App\Domains\User\Http\Controllers;
 
-use App\Models\User;
+use App\Domains\User\Entities\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;

@@ -5,7 +5,7 @@ namespace App\Domains\Project\Tests\Feature;
 use App\Domains\Customer\Entities\Customer;
 use App\Domains\Group\Entities\Group;
 use App\Domains\Project\Entities\Project;
-use App\Models\User;
+use App\Domains\User\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -90,7 +90,7 @@ php -l database/seeders/UpdateSeeder.php
 ### **✅ Seeders Verificados e Funcionais:**
 
 #### **1. AdminUserSeeder**
-- **Import:** `App\Models\User` (correto - modelo base do Laravel)
+- **Import:** `App\Domains\User\Entities\User` (reorganizado para estrutura de domínios)
 - **Status:** ✅ Funcionando
 - **Função:** Cria usuário administrador padrão
 

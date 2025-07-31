@@ -2,7 +2,7 @@
 
 namespace App\Domains\Auth\Tests\Feature;
 
-use App\Models\User;
+use App\Domains\User\Entities\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
