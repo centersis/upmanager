@@ -19,6 +19,9 @@ class CustomerServiceProvider extends ServiceProvider
         // Register Customer domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'customer');
         
+        // Register Customer domain migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
         // Register Customer domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');

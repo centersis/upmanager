@@ -19,6 +19,9 @@ class ProjectServiceProvider extends ServiceProvider
         // Register Project domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'project');
         
+        // Register Project domain migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
         // Register Project domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');

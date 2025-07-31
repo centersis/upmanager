@@ -8,6 +8,7 @@ return [
     App\Domains\Group\Providers\GroupServiceProvider::class,
     App\Domains\Project\Providers\ProjectServiceProvider::class,
     App\Domains\Public\Providers\PublicServiceProvider::class,
+    App\Domains\System\Providers\SystemServiceProvider::class,
     App\Domains\Update\Providers\UpdateServiceProvider::class,
     App\Domains\User\Providers\UserServiceProvider::class,
 ];

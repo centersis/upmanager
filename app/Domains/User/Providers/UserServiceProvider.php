@@ -17,6 +17,9 @@ class UserServiceProvider extends ServiceProvider
         // Register User domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'user');
         
+        // Register User domain migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
         // Register User domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');

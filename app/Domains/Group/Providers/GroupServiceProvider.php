@@ -20,6 +20,9 @@ class GroupServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'group');
         
+        // Register Group domain migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
         // Register Group domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');

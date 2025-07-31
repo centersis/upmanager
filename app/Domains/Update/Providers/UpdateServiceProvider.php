@@ -19,6 +19,9 @@ class UpdateServiceProvider extends ServiceProvider
         // Register Update domain views
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'update');
         
+        // Register Update domain migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
         // Register Update domain routes
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
