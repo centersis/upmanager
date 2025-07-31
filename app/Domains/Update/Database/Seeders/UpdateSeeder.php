@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Domains\Update\Database\Seeders;
 
 use App\Domains\Project\Entities\Project;
 use App\Domains\Update\Entities\Update;
