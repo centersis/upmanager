@@ -5,14 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Redefinir Senha - UPMANAGER</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/logo.svg') }}">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         <!-- Logo -->
-        <div class="mb-6">
-            <h1 class="text-4xl font-bold text-gray-900">UPMANAGER</h1>
-            <p class="text-center text-gray-600 mt-2">Sistema de Gerenciamento de Atualizações</p>
+        <div class="mb-6 text-center">
+            <div class="flex items-center justify-center mb-2">
+                <img src="{{ asset('img/logo.svg') }}" alt="UpManager" class="h-12 w-auto mr-3">
+                <h1 class="text-4xl font-bold text-gray-900">UPMANAGER</h1>
+            </div>
+            <p class="text-gray-600 mt-2">Sistema de Gerenciamento de Atualizações</p>
         </div>
 
         <!-- Reset Password Card -->

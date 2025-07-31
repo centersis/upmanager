@@ -90,7 +90,10 @@
 
     <!-- Powered by -->
     <div class="mt-3 text-center bg-white">
-        <p class="text-xs text-gray-400">Powered by UPMANAGER</p>
+        <div class="flex items-center justify-center">
+            <img src="{{ asset('img/logo.svg') }}" alt="UpManager" class="h-4 w-auto mr-1">
+            <p class="text-xs text-gray-400">Powered by UPMANAGER</p>
+        </div>
     </div>
 </div>
 
