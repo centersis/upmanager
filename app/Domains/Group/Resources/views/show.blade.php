@@ -20,7 +20,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('groups.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Grupos
+                        {{ __('groups.title') }}
                     </a>
                 </div>
             </li>
@@ -53,14 +53,14 @@
                 <div class="flex items-center space-x-3">
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                         {{ $group->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                        {{ $group->is_active ? 'Ativo' : 'Inativo' }}
+                        {{ $group->is_active ? __('groups.active') : __('groups.inactive') }}
                     </span>
                     <a href="{{ route('groups.edit', $group->id) }}" 
                        class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        Editar
+                        {{ __('common.edit') }}
                     </a>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="ml-5 w-0 flex-1">
                     <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">Total de Projetos</dt>
+                        <dt class="text-sm font-medium text-gray-500 truncate">{{ __('groups.total_projects') }}</dt>
                         <dd class="text-lg font-medium text-gray-900">{{ $group->projects->count() }}</dd>
                     </dl>
                 </div>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="ml-5 w-0 flex-1">
                     <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">Projetos Ativos</dt>
+                        <dt class="text-sm font-medium text-gray-500 truncate">{{ __('groups.active_projects') }}</dt>
                         <dd class="text-lg font-medium text-gray-900">{{ $group->projects->where('status', 'active')->count() }}</dd>
                     </dl>
                 </div>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="ml-5 w-0 flex-1">
                     <dl>
-                        <dt class="text-sm font-medium text-gray-500 truncate">Total de Clientes</dt>
+                        <dt class="text-sm font-medium text-gray-500 truncate">{{ __('groups.total_customers') }}</dt>
                         <dd class="text-lg font-medium text-gray-900">{{ $group->projects->flatMap->customers->unique('id')->count() }}</dd>
                     </dl>
                 </div>
@@ -152,7 +152,7 @@
     <!-- Projects List -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h2 class="text-lg font-medium text-gray-900">Projetos do Grupo</h2>
+            <h2 class="text-lg font-medium text-gray-900">{{ __('groups.group_projects') }}</h2>
         </div>
         
         @if($group->projects->count() > 0)
@@ -161,16 +161,16 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Projeto
+                                {{ __('projects.project') }}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
+                                {{ __('projects.status') }}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Clientes
+                                {{ __('projects.customers') }}
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Criado em
+                                {{ __('projects.created_at') }}
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Ações</span>
@@ -191,12 +191,12 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                         {{ $project->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                        {{ $project->status === 'active' ? 'Ativo' : 'Inativo' }}
+                                        {{ $project->status === 'active' ? __('projects.active') : __('projects.inactive') }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{ $project->customers->count() }} clientes
+                                        @choice('projects.customer_count', $project->customers->count(), ['count' => $project->customers->count()])
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -206,7 +206,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="{{ route('projects.show', $project->id) }}" 
-                                       class="text-blue-600 hover:text-blue-900">Ver</a>
+                                       class="text-blue-600 hover:text-blue-900">{{ __('common.view') }}</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -219,14 +219,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                 </svg>
                 <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhum projeto encontrado</h3>
-                <p class="mt-1 text-sm text-gray-500">Este grupo ainda não possui projetos associados.</p>
+                <p class="mt-1 text-sm text-gray-500">{{ __('groups.no_projects') }}</p>
                 <div class="mt-6">
                     <a href="{{ route('projects.create') }}" 
                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        Criar Projeto
+                        {{ __('projects.create') }}
                     </a>
                 </div>
             </div>

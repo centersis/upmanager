@@ -25,17 +25,17 @@
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div class="flex-1">
                 <p class="text-sm leading-5" style="color: #A3A3A3 !important;">
-                    Mostrando
+                    {{ __('pagination.showing') }}
                     @if ($paginator->firstItem())
                         <span class="font-medium" style="color: #737373 !important;">{{ $paginator->firstItem() }}</span>
-                        até
+                        {{ __('pagination.to') }}
                         <span class="font-medium" style="color: #737373 !important;">{{ $paginator->lastItem() }}</span>
                     @else
                         <span class="font-medium" style="color: #737373 !important;">{{ $paginator->count() }}</span>
                     @endif
-                    de
+                    {{ __('pagination.of') }}
                     <span class="font-medium" style="color: #737373 !important;">{{ $paginator->total() }}</span>
-                    {{ $paginator->total() === 1 ? 'resultado' : 'resultados' }}
+                    {{ __('pagination.results') }}
                 </p>
             </div>
 

@@ -48,8 +48,8 @@
     <!-- Form -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h1 class="text-2xl font-bold text-gray-900">Editar Projeto</h1>
-            <p class="mt-1 text-sm text-gray-600">Atualize as informações do projeto</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('projects.edit') }}</h1>
+            <p class="mt-1 text-sm text-gray-600">{{ __('projects.update_info') }}</p>
         </div>
         
         <form action="{{ route('projects.update', $project->id) }}" method="POST" class="px-6 py-6 space-y-6">
@@ -58,9 +58,9 @@
             
             <!-- Nome -->
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nome do Projeto <span class="text-red-500">*</span>
-                </label>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ __('projects.name') }} <span class="text-red-500">*</span>
+                    </label>
                 <input 
                     type="text" 
                     name="name" 
@@ -79,7 +79,7 @@
             <div>
                 <div class="flex items-center justify-between mb-2">
                     <label for="group_id" class="block text-sm font-medium text-gray-700">
-                        Grupo do Projeto
+                        {{ __('projects.group') }}
                     </label>
                     <div class="flex items-center space-x-2">
                         <button type="button" 
@@ -88,12 +88,12 @@
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            Novo Grupo
+                            {{ __('projects.new_group') }}
                         </button>
                         <a href="{{ route('groups.index') }}" 
                            class="text-xs text-blue-600 hover:text-blue-700 underline"
                            target="_blank">
-                            Gerenciar Grupos
+                            {{ __('projects.manage_groups') }}
                         </a>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     id="group_id" 
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('group_id') border-red-300 @enderror"
                 >
-                    <option value="">Selecione um grupo</option>
+                    <option value="">{{ __('projects.select_group') }}</option>
                     @foreach($groups as $group)
                         <option value="{{ $group->id }}" {{ old('group_id', $project->group_id) == $group->id ? 'selected' : '' }}>
                             {{ $group->name }}
@@ -112,7 +112,7 @@
                         </option>
                     @endforeach
                 </select>
-                <p class="mt-1 text-xs text-gray-500">Grupos ajudam a organizar projetos similares e aplicar atualizações globais</p>
+                <p class="mt-1 text-xs text-gray-500">{{ __('projects.groups_help') }}</p>
                 @error('group_id')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -121,7 +121,7 @@
             <!-- Status -->
             <div>
                 <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
-                    Status <span class="text-red-500">*</span>
+                    {{ __('projects.status') }} <span class="text-red-500">*</span>
                 </label>
                 <select 
                     name="status" 
@@ -129,9 +129,9 @@
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('status') border-red-300 @enderror"
                     required
                 >
-                    <option value="">Selecione o status</option>
-                    <option value="active" {{ old('status', $project->status) === 'active' ? 'selected' : '' }}>Ativo</option>
-                    <option value="inactive" {{ old('status', $project->status) === 'inactive' ? 'selected' : '' }}>Inativo</option>
+                    <option value="">{{ __('projects.select_status') }}</option>
+                    <option value="active" {{ old('status', $project->status) === 'active' ? 'selected' : '' }}>{{ __('projects.active') }}</option>
+                    <option value="inactive" {{ old('status', $project->status) === 'inactive' ? 'selected' : '' }}>{{ __('projects.inactive') }}</option>
                 </select>
                 @error('status')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -141,7 +141,7 @@
             <!-- Clientes - LÓGICA CORRIGIDA -->
             <div>
                 <label for="customer_ids" class="block text-sm font-medium text-gray-700 mb-2">
-                    Clientes Associados
+                    {{ __('projects.associated_customers') }}
                 </label>
                 <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
                     @php
@@ -177,16 +177,16 @@
                             @endphp
                             @if($otherProjectsCount > 0)
                                 <div class="text-xs text-gray-500">
-                                    {{ $otherProjectsCount }} {{ $otherProjectsCount === 1 ? 'outro projeto' : 'outros projetos' }}
+                                    @choice('projects.other_projects', $otherProjectsCount, ['count' => $otherProjectsCount])
                                 </div>
                             @endif
                         </div>
                     @empty
-                        <p class="text-sm text-gray-500">Nenhum cliente disponível</p>
+                        <p class="text-sm text-gray-500">{{ __('projects.no_customers_available') }}</p>
                     @endforelse
                 </div>
                 <p class="mt-1 text-xs text-gray-500">
-                    <strong>Todos os clientes</strong> estão sempre disponíveis. Clientes podem estar associados a múltiplos projetos.
+                    {{ __('projects.customers_help') }}
                 </p>
                 @error('customer_ids')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -205,7 +205,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    Cancelar
+                    {{ __('common.cancel') }}
                 </a>
                 
                 <button type="submit" 
@@ -213,7 +213,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                     </svg>
-                    Salvar Alterações
+                    {{ __('common.save_changes') }}
                 </button>
             </div>
         </form>
@@ -225,7 +225,7 @@
     <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-auto">
         <!-- Header -->
         <div class="flex items-center justify-between p-5 border-b border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900">Criar Novo Grupo</h3>
+            <h3 class="text-lg font-medium text-gray-900">{{ __('groups.create_title') }}</h3>
             <button type="button" onclick="closeNewGroupModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -241,7 +241,7 @@
                 <!-- Nome do Grupo -->
                 <div class="mb-4">
                     <label for="modal_group_name" class="block text-sm font-medium text-gray-700 mb-2">
-                        Nome do Grupo <span class="text-red-500">*</span>
+                        {{ __('groups.name') }} <span class="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -249,7 +249,7 @@
                         name="name" 
                         required
                         class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Ex: Desenvolvimento Web"
+                        placeholder="{{ __('groups.name_placeholder') }}"
                     >
                     <div id="modal_name_error" class="mt-1 text-sm text-red-600 hidden"></div>
                 </div>
@@ -257,21 +257,21 @@
                 <!-- Descrição -->
                 <div class="mb-4">
                     <label for="modal_group_description" class="block text-sm font-medium text-gray-700 mb-2">
-                        Descrição <span class="text-gray-400">(opcional)</span>
+                        {{ __('groups.description') }} <span class="text-gray-400">({{ __('common.optional') }})</span>
                     </label>
                     <textarea 
                         id="modal_group_description" 
                         name="description" 
                         rows="2"
                         class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 resize-none"
-                        placeholder="Breve descrição do grupo..."
+                        placeholder="{{ __('groups.description_placeholder') }}"
                     ></textarea>
                 </div>
 
                 <!-- Cor -->
                 <div class="mb-6">
                     <label for="modal_group_color" class="block text-sm font-medium text-gray-700 mb-2">
-                        Cor do Grupo
+                        {{ __('groups.color') }}
                     </label>
                     <div class="flex items-center space-x-3">
                         <input 
@@ -301,13 +301,13 @@
             <button type="button" 
                     onclick="closeNewGroupModal()"
                     class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                Cancelar
+                {{ __('common.cancel') }}
             </button>
             <button type="submit" 
                     form="newGroupForm"
                     id="createGroupBtn"
                     class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                <span id="createGroupBtnText">Criar Grupo</span>
+                <span id="createGroupBtnText">{{ __('groups.create_button') }}</span>
                 <svg id="createGroupBtnSpinner" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white hidden" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -318,6 +318,15 @@
 </div>
 
 <script>
+// Traduções JavaScript
+const translations = {
+    creating: '{{ __("groups.creating") }}',
+    createGroup: '{{ __("groups.create_button") }}',
+    groupCreatedSuccess: '{{ __("groups.created_success") }}',
+    createGroupError: '{{ __("groups.create_error") }}',
+    createGroupGeneralError: '{{ __("groups.create_general_error") }}'
+};
+
 function openNewGroupModal() {
     document.getElementById('newGroupModal').classList.remove('hidden');
     document.getElementById('modal_group_name').focus();
@@ -355,7 +364,7 @@ async function createGroup(event) {
     
     // Mostrar loading
     btn.disabled = true;
-    btnText.textContent = 'Criando...';
+    btnText.textContent = translations.creating;
     btnSpinner.classList.remove('hidden');
     nameError.classList.add('hidden');
     
@@ -394,7 +403,7 @@ async function createGroup(event) {
             closeNewGroupModal();
             
             // Mostrar mensagem de sucesso
-            showNotification('Grupo criado com sucesso!', 'success');
+            showNotification(translations.groupCreatedSuccess, 'success');
             
         } else if (response.status === 422) {
             const errors = await response.json();
@@ -403,16 +412,16 @@ async function createGroup(event) {
                 nameError.classList.remove('hidden');
             }
         } else {
-            throw new Error('Erro ao criar grupo');
+            throw new Error(translations.createGroupError);
         }
         
     } catch (error) {
         console.error('Erro:', error);
-        showNotification('Erro ao criar grupo. Tente novamente.', 'error');
+        showNotification(translations.createGroupGeneralError, 'error');
     } finally {
         // Restaurar botão
         btn.disabled = false;
-        btnText.textContent = 'Criar Grupo';
+        btnText.textContent = translations.createGroup;
         btnSpinner.classList.add('hidden');
     }
 }

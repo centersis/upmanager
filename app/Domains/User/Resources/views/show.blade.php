@@ -10,7 +10,7 @@
             <li>
                 <div>
                     <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-500">
-                        Dashboard
+                        {{ __('dashboard.title') }}
                     </a>
                 </div>
             </li>
@@ -20,7 +20,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('users.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Usuários
+                        {{ __('users.title') }}
                     </a>
                 </div>
             </li>
@@ -58,7 +58,7 @@
                                 {{ $user->status_display }}
                             </span>
                             <span class="text-sm text-gray-600">
-                                Usuário desde {{ $user->created_at->format('d/m/Y') }}
+                                {{ __('users.user_since') }} {{ $user->created_at->format('d/m/Y') }}
                             </span>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        Editar
+                                                    {{ __('common.edit') }}
                     </a>
                     @if($user->id !== auth()->id())
                         <form method="POST" action="{{ route('users.destroy', $user) }}" 
@@ -96,17 +96,17 @@
         <div class="lg:col-span-2">
             <div class="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900">Informações Pessoais</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('users.personal_info') }}</h2>
                 </div>
                 <div class="p-6">
                     <dl class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Nome Completo</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.name') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900">{{ $user->name }}</dd>
                         </div>
                         
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Email</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.email') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900">
                                 <a href="mailto:{{ $user->email }}" class="text-blue-600 hover:text-blue-800">
                                     {{ $user->email }}
@@ -116,7 +116,7 @@
                         
                         @if($user->phone)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Telefone</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.phone') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900">
                                 <a href="tel:{{ $user->phone }}" class="text-blue-600 hover:text-blue-800">
                                     {{ $user->phone }}
@@ -127,13 +127,13 @@
                         
                         @if($user->position)
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Cargo/Posição</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.position') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900">{{ $user->position }}</dd>
                         </div>
                         @endif
                         
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Nível de Acesso</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.role') }}</dt>
                             <dd class="mt-1">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     {{ $user->role === 'admin' ? 'bg-red-100 text-red-800' : 
@@ -144,7 +144,7 @@
                         </div>
                         
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Status</dt>
+                            <dt class="text-sm font-medium text-gray-500">{{ __('users.status') }}</dt>
                             <dd class="mt-1">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     {{ $user->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
@@ -162,18 +162,18 @@
             <!-- Activity Info -->
             <div class="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900">Atividade</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('users.activity') }}</h2>
                 </div>
                 <div class="p-6 space-y-4">
                     <div>
-                        <dt class="text-sm font-medium text-gray-500">Último Login</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('users.last_login') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                            {{ $user->last_login_at ? $user->last_login_at->format('d/m/Y H:i') : 'Nunca' }}
+                            {{ $user->last_login_at ? $user->last_login_at->format('d/m/Y H:i') : __('users.never') }}
                         </dd>
                     </div>
                     
                     <div>
-                        <dt class="text-sm font-medium text-gray-500">Membro desde</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('users.member_since') }}</dt>
                         <dd class="mt-1 text-sm text-gray-900">
                             {{ $user->created_at->format('d/m/Y H:i') }}
                         </dd>
@@ -193,7 +193,7 @@
             <!-- Permissions Info -->
             <div class="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900">Permissões</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('users.permissions') }}</h2>
                 </div>
                 <div class="p-6">
                     <div class="space-y-3">
@@ -202,57 +202,57 @@
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Acesso total ao sistema
+                                {{ __('users.full_system_access') }}
                             </div>
                             <div class="flex items-center text-sm text-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Gerenciar usuários
+                                {{ __('users.manage_users') }}
                             </div>
                             <div class="flex items-center text-sm text-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Configurações do sistema
+                                {{ __('users.system_settings') }}
                             </div>
                         @elseif($user->isManager())
                             <div class="flex items-center text-sm text-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Gerenciar projetos
+                                {{ __('users.manage_projects') }}
                             </div>
                             <div class="flex items-center text-sm text-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Criar atualizações
+                                {{ __('users.create_updates') }}
                             </div>
                             <div class="flex items-center text-sm text-gray-400">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
-                                Gerenciar usuários
+                                {{ __('users.manage_users') }}
                             </div>
                         @else
                             <div class="flex items-center text-sm text-green-600">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                Visualizar conteúdo
+                                {{ __('users.view_content') }}
                             </div>
                             <div class="flex items-center text-sm text-gray-400">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
-                                Gerenciar projetos
+                                {{ __('users.manage_projects') }}
                             </div>
                             <div class="flex items-center text-sm text-gray-400">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
-                                Gerenciar usuários
+                                {{ __('users.manage_users') }}
                             </div>
                         @endif
                     </div>

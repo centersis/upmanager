@@ -1,6 +1,6 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Nova Atualização - UPMANAGER')
+@section('title', __('updates.create') . ' - UPMANAGER')
 
 @section('head')
     <!-- jQuery (Lite only depende do jQuery) -->
@@ -64,7 +64,7 @@
             <li>
                 <div>
                     <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-500">
-                        Dashboard
+                        {{ __('dashboard.title') }}
                     </a>
                 </div>
             </li>
@@ -74,7 +74,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('updates.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Atualizações
+                        {{ __('updates.title') }}
                     </a>
                 </div>
             </li>
@@ -83,7 +83,7 @@
                     <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
-                    <span class="ml-4 text-sm font-medium text-gray-500">Nova</span>
+                    <span class="ml-4 text-sm font-medium text-gray-500">{{ __('common.new') }}</span>
                 </div>
             </li>
         </ol>
@@ -92,8 +92,8 @@
     <!-- Form -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h1 class="text-2xl font-bold text-gray-900">Nova Atualização</h1>
-            <p class="mt-1 text-sm text-gray-600">Registre uma nova atualização para um projeto</p>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ __('updates.create') }}</h1>
+        <p class="mt-1 text-sm text-gray-600">{{ __('updates.create_description') }}</p>
         </div>
         
         <form action="{{ route('updates.store') }}" method="POST" class="px-6 py-6 space-y-6" onsubmit="return validateCustomerSelection()">
@@ -102,7 +102,7 @@
             <!-- Projeto -->
             <div>
                 <label for="project_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Projeto <span class="text-red-500">*</span>
+                    {{ __('updates.project') }} <span class="text-red-500">*</span>
                 </label>
                 <select 
                     name="project_id" 
@@ -111,7 +111,7 @@
                     required
                     onchange="updateCustomerOptions()"
                 >
-                    <option value="">Selecione um projeto</option>
+                    <option value="">{{ __('updates.select_project') }}</option>
                     @foreach($projects as $project)
                         <option value="{{ $project->id }}" 
                                 data-customers="{{ $project->customers->pluck('id')->join(',') }}"
@@ -131,7 +131,7 @@
             <!-- Clientes -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Clientes <span class="text-red-500">*</span>
+                    {{ __('updates.customers') }} <span class="text-red-500">*</span>
                 </label>
                 <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
                     @foreach($customers as $customer)
@@ -148,15 +148,14 @@
                                 {{ $customer->name }}
                                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ml-2
                                     {{ $customer->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                    {{ $customer->status === 'active' ? 'Ativo' : 'Inativo' }}
+                                    {{ $customer->status === 'active' ? __('customers.active') : __('customers.inactive') }}
                                 </span>
                             </label>
                         </div>
                     @endforeach
                 </div>
                 <p class="mt-1 text-xs text-gray-500">
-                    <strong>Selecione um ou mais clientes.</strong> Uma atualização será criada para cada cliente selecionado.
-                    Apenas clientes associados ao projeto selecionado estarão disponíveis.
+                    {{ __('updates.customers_help') }}
                 </p>
                 @error('customer_ids')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -169,7 +168,7 @@
             <!-- Título -->
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
-                    Título <span class="text-red-500">*</span>
+                    {{ __('updates.title_field') }} <span class="text-red-500">*</span>
                 </label>
                 <input 
                     type="text" 
@@ -177,7 +176,7 @@
                     id="title" 
                     value="{{ old('title') }}"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-300 @enderror"
-                    placeholder="Título da atualização"
+                    placeholder="{{ __('updates.title_placeholder') }}"
                     required
                 >
                 @error('title')
@@ -188,7 +187,7 @@
             <!-- Legenda -->
             <div>
                 <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">
-                    Legenda
+                    {{ __('updates.caption') }}
                 </label>
                 <input 
                     type="text" 
@@ -196,7 +195,7 @@
                     id="caption" 
                     value="{{ old('caption') }}"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('caption') border-red-300 @enderror"
-                    placeholder="Breve descrição da atualização"
+                    placeholder="{{ __('updates.caption_placeholder') }}"
                 >
                 @error('caption')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -206,7 +205,7 @@
             <!-- Descrição -->
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                    Descrição
+                    {{ __('updates.description') }}
                 </label>
                 
                 
@@ -224,7 +223,7 @@
             <!-- Status -->
             <div>
                 <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
-                    Status <span class="text-red-500">*</span>
+                    {{ __('updates.status') }} <span class="text-red-500">*</span>
                 </label>
                 <select 
                     name="status" 
@@ -232,10 +231,10 @@
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('status') border-red-300 @enderror"
                     required
                 >
-                    <option value="">Selecione o status</option>
-                    <option value="draft" {{ old('status') === 'draft' ? 'selected' : '' }}>Rascunho</option>
-                    <option value="published" {{ old('status', 'published') === 'published' ? 'selected' : '' }}>Publicado</option>
-                    <option value="archived" {{ old('status') === 'archived' ? 'selected' : '' }}>Arquivado</option>
+                    <option value="">{{ __('updates.select_status') }}</option>
+                    <option value="draft" {{ old('status') === 'draft' ? 'selected' : '' }}>{{ __('updates.draft') }}</option>
+                    <option value="published" {{ old('status', 'published') === 'published' ? 'selected' : '' }}>{{ __('updates.published') }}</option>
+                    <option value="archived" {{ old('status') === 'archived' ? 'selected' : '' }}>{{ __('updates.archived') }}</option>
                 </select>
                 @error('status')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -251,7 +250,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    Cancelar
+                    {{ __('common.cancel') }}
                 </a>
                 
                 <button type="submit" 
@@ -259,7 +258,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    Criar Atualização
+                    {{ __('updates.create_button') }}
                 </button>
             </div>
         </form>
@@ -297,7 +296,7 @@ function initializeSummernoteRobust() {
             maxHeight: 600,
             focus: false,
             lang: 'pt-BR',
-            placeholder: 'Digite a descrição detalhada da atualização...',
+                            placeholder: '{{ __('updates.description_placeholder') }}',
             
             // Toolbar mínima para garantir funcionamento
             toolbar: [

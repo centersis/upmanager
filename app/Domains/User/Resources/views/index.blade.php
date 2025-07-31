@@ -1,12 +1,12 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Usuários - UPMANAGER')
+@section('title', __('users.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="mb-8 flex items-center justify-between">
     <div>
-        <h1 class="text-3xl font-bold text-gray-900">Usuários</h1>
-        <p class="mt-2 text-sm text-gray-600">Gerencie todos os usuários do sistema</p>
+        <h1 class="text-3xl font-bold text-gray-900">{{ __('users.title') }}</h1>
+        <p class="mt-2 text-sm text-gray-600">{{ __('users.manage_title') }}</p>
     </div>
     <div>
         <a href="{{ route('users.create') }}" 
@@ -14,7 +14,7 @@
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
-            Novo Usuário
+            {{ __('users.create') }}
         </a>
     </div>
 </div>
@@ -27,22 +27,22 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Usuário
+                            {{ __('users.user') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Cargo/Posição
+                            {{ __('users.position') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Role
+                            {{ __('users.role') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Status
+                            {{ __('users.status') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Último Login
+                            {{ __('users.last_login') }}
                         </th>
                         <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Ações</span>
+                            <span class="sr-only">{{ __('common.actions') }}</span>
                         </th>
                     </tr>
                 </thead>
@@ -84,7 +84,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $user->last_login_at ? $user->last_login_at->format('d/m/Y H:i') : 'Nunca' }}
+                            {{ $user->last_login_at ? $user->last_login_at->format('d/m/Y H:i') : __('users.never') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex items-center justify-end space-x-2">

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - UPMANAGER</title>
+    <title>{{ __('auth.login') }} - UPMANAGER</title>
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
@@ -21,14 +21,19 @@
                 <img src="{{ asset('img/logo.svg') }}" alt="UpManager" class="h-12 w-auto mr-3">
                 <h1 class="text-4xl font-bold text-gray-900">UPMANAGER</h1>
             </div>
-            <p class="text-gray-600 mt-2">Sistema de Gerenciamento de Atualizações</p>
+            <p class="text-gray-600 mt-2">{{ __('auth.system_description') }}</p>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="w-full sm:max-w-md mb-4 flex justify-end">
+            @include('shared::components.language-selector')
         </div>
 
         <!-- Login Card -->
         <div class="w-full sm:max-w-md px-6 py-8 bg-white shadow-lg rounded-lg border border-gray-200">
             <div class="mb-6">
-                <h2 class="text-2xl font-semibold text-gray-900 text-center">Fazer Login</h2>
-                <p class="text-center text-gray-600 mt-1">Entre com suas credenciais</p>
+                <h2 class="text-2xl font-semibold text-gray-900 text-center">{{ __('auth.login_title') }}</h2>
+                <p class="text-center text-gray-600 mt-1">{{ __('auth.login_subtitle') }}</p>
             </div>
 
             <!-- Session Status -->
@@ -44,7 +49,7 @@
                 <!-- Email Address -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        E-mail <span class="text-red-500">*</span>
+                        {{ __('auth.email') }} <span class="text-red-500">*</span>
                     </label>
                     <input 
                         id="email" 
@@ -55,7 +60,7 @@
                         autofocus 
                         autocomplete="username"
                         class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-300 @enderror"
-                        placeholder="seu@email.com"
+                        placeholder="{{ __('auth.email_placeholder') }}"
                     >
                     @error('email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -65,7 +70,7 @@
                 <!-- Password -->
                 <div class="mb-6">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        Senha <span class="text-red-500">*</span>
+                        {{ __('auth.password') }} <span class="text-red-500">*</span>
                     </label>
                     <input 
                         id="password" 
@@ -74,7 +79,7 @@
                         required 
                         autocomplete="current-password"
                         class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-300 @enderror"
-                        placeholder="Sua senha"
+                        placeholder="{{ __('auth.password_placeholder') }}"
                     >
                     @error('password')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -90,7 +95,7 @@
                             name="remember"
                             class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
                         >
-                        <span class="ml-2 text-sm text-gray-600">Lembrar de mim</span>
+                        <span class="ml-2 text-sm text-gray-600">{{ __('auth.remember_me') }}</span>
                     </label>
 
                     @if (Route::has('password.request'))
@@ -98,7 +103,7 @@
                             href="{{ route('password.request') }}" 
                             class="text-sm text-blue-600 hover:text-blue-500 hover:underline"
                         >
-                            Esqueceu a senha?
+                            {{ __('auth.forgot_password') }}
                         </a>
                     @endif
                 </div>
@@ -111,7 +116,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                     </svg>
-                    Entrar
+                    {{ __('auth.login_button') }}
                 </button>
             </form>
 
@@ -121,7 +126,7 @@
         <!-- Footer -->
         <div class="mt-8 text-center">
             <p class="text-xs text-gray-500">
-                © {{ date('Y') }} UPMANAGER. Todos os direitos reservados.
+                © {{ date('Y') }} UPMANAGER. {{ __('auth.all_rights_reserved') }}.
             </p>
         </div>
     </div>

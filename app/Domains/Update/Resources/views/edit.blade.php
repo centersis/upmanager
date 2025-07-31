@@ -1,6 +1,6 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Editar ' . $update->title . ' - UPMANAGER')
+@section('title', __('updates.edit') . ' ' . $update->title . ' - UPMANAGER')
 
 @section('head')
     <!-- Summernote Lite CSS (sem dependência do Bootstrap) -->
@@ -73,7 +73,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('updates.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Atualizações
+                        {{ __('updates.title') }}
                     </a>
                 </div>
             </li>
@@ -92,7 +92,7 @@
                     <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
-                    <span class="ml-4 text-sm font-medium text-gray-500">Editar</span>
+                    <span class="ml-4 text-sm font-medium text-gray-500">{{ __('common.edit') }}</span>
                 </div>
             </li>
         </ol>
@@ -101,8 +101,8 @@
     <!-- Form -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h1 class="text-2xl font-bold text-gray-900">Editar Atualização</h1>
-            <p class="mt-1 text-sm text-gray-600">Atualize as informações da atualização</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('updates.edit_title') }}</h1>
+            <p class="mt-1 text-sm text-gray-600">{{ __('updates.update_info') }}</p>
         </div>
         
         <form action="{{ route('updates.update', $update->id) }}" method="POST" class="px-6 py-6 space-y-6">
@@ -112,7 +112,7 @@
             <!-- Projeto -->
             <div>
                 <label for="project_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Projeto <span class="text-red-500">*</span>
+                    {{ __('updates.project') }} <span class="text-red-500">*</span>
                 </label>
                 <select 
                     name="project_id" 
@@ -121,7 +121,7 @@
                     required
                     onchange="updateCustomerOptions()"
                 >
-                    <option value="">Selecione um projeto</option>
+                    <option value="">{{ __('updates.select_project') }}</option>
                     @foreach($projects as $project)
                         <option value="{{ $project->id }}" 
                                 data-customers="{{ $project->customers->pluck('id')->join(',') }}"
@@ -141,7 +141,7 @@
             <!-- Cliente -->
             <div>
                 <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Cliente <span class="text-red-500">*</span>
+                    {{ __('updates.customer') }} <span class="text-red-500">*</span>
                 </label>
                 <select 
                     name="customer_id" 
@@ -149,7 +149,7 @@
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('customer_id') border-red-300 @enderror"
                     required
                 >
-                    <option value="">Selecione um cliente</option>
+                    <option value="">{{ __('updates.select_customer') }}</option>
                     @foreach($customers as $customer)
                         <option 
                             value="{{ $customer->id }}" 
@@ -161,9 +161,8 @@
                         </option>
                     @endforeach
                 </select>
-                <p class="mt-1 text-xs text-gray-500">
-                    Selecione o cliente para quem esta atualização é direcionada. 
-                    <strong>Nota:</strong> Para alterar para múltiplos clientes, considere criar uma nova atualização.
+                                <p class="mt-1 text-xs text-gray-500">
+                    {{ __('updates.edit_customer_help') }}
                 </p>
                 @error('customer_id')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -173,7 +172,7 @@
             <!-- Título -->
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
-                    Título <span class="text-red-500">*</span>
+                    {{ __('updates.title_field') }} <span class="text-red-500">*</span>
                 </label>
                 <input 
                     type="text" 
@@ -181,7 +180,7 @@
                     id="title" 
                     value="{{ old('title', $update->title) }}"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-300 @enderror"
-                    placeholder="Título da atualização"
+                    placeholder="{{ __('updates.title_placeholder') }}"
                     required
                 >
                 @error('title')
@@ -192,7 +191,7 @@
             <!-- Legenda -->
             <div>
                 <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">
-                    Legenda
+                    {{ __('updates.caption') }}
                 </label>
                 <input 
                     type="text" 
@@ -200,7 +199,7 @@
                     id="caption" 
                     value="{{ old('caption', $update->caption) }}"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('caption') border-red-300 @enderror"
-                    placeholder="Breve descrição da atualização"
+                    placeholder="{{ __('updates.caption_placeholder') }}"
                 >
                 @error('caption')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -210,15 +209,8 @@
             <!-- Descrição -->
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                    Descrição
-                </label>
-                <!-- Editor Controls -->
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <small class="text-muted">
-                        <strong>Summernote Editor:</strong> Use a toolbar para formatar texto, inserir tabelas, listas, imagens e vídeos. 
-                        Clique em <strong>"Code View"</strong> para alternar entre visual e código HTML.
-                    </small>
-                </div>
+                    {{ __('updates.description') }}
+                </label>                
                 
                 <!-- Summernote Editor -->
                 <div id="editor-container">
@@ -243,9 +235,9 @@
                     required
                 >
                     <option value="">Selecione o status</option>
-                    <option value="draft" {{ old('status', $update->status) === 'draft' ? 'selected' : '' }}>Rascunho</option>
-                    <option value="published" {{ old('status', $update->status) === 'published' ? 'selected' : '' }}>Publicado</option>
-                    <option value="archived" {{ old('status', $update->status) === 'archived' ? 'selected' : '' }}>Arquivado</option>
+                    <option value="draft" {{ old('status', $update->status) === 'draft' ? 'selected' : '' }}>{{ __('updates.draft') }}</option>
+                    <option value="published" {{ old('status', $update->status) === 'published' ? 'selected' : '' }}>{{ __('updates.published') }}</option>
+                    <option value="archived" {{ old('status', $update->status) === 'archived' ? 'selected' : '' }}>{{ __('updates.archived') }}</option>
                 </select>
                 @error('status')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -261,7 +253,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    Cancelar
+                    {{ __('common.cancel') }}
                 </a>
                 
                 <button type="submit" 
@@ -269,7 +261,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                     </svg>
-                    Salvar Alterações
+                    {{ __('common.save_changes') }}
                 </button>
             </div>
         </form>
@@ -330,7 +322,7 @@ function initializeSummernote() {
             maxHeight: 600,
             focus: false,
             lang: 'pt-BR',
-            placeholder: 'Digite a descrição detalhada da atualização...',
+                            placeholder: '{{ __('updates.description_placeholder') }}',
             
             // Toolbar simplificada mas funcional
             toolbar: [

@@ -7,14 +7,36 @@ use App\Domains\Update\Entities\Update;
 use App\Domains\Customer\Entities\Customer;
 use App\Shared\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class PublicController extends Controller
 {
     /**
+     * Set locale based on lang parameter
+     */
+    private function setLocaleFromParameter($lang = null)
+    {
+        $supportedLocales = ['en', 'pt-br', 'pt-BR', 'pt_BR'];
+        
+        if ($lang) {
+            // Normalize pt-br and pt_BR to pt-BR
+            if (strtolower($lang) === 'pt-br' || $lang === 'pt_BR') {
+                $lang = 'pt-BR';
+            }
+            
+            if (in_array($lang, $supportedLocales) || $lang === 'pt-BR') {
+                App::setLocale($lang);
+            }
+        }
+    }
+
+    /**
      * Display all updates for a project using its hash with pagination
      */
-    public function projectUpdates($projectHash)
+    public function projectUpdates(Request $request, $projectHash, $lang = null)
     {
+        $this->setLocaleFromParameter($lang);
+        
         $project = Project::where('hash', $projectHash)
             ->with(['customers', 'group'])
             ->firstOrFail();
@@ -30,8 +52,10 @@ class PublicController extends Controller
     /**
      * Display a specific update using its hash
      */
-    public function updateDetail($updateHash)
+    public function updateDetail(Request $request, $updateHash, $lang = null)
     {
+        $this->setLocaleFromParameter($lang);
+        
         $update = Update::where('hash', $updateHash)
             ->where('status', 'published')
             ->with(['project.customers', 'project.group', 'customer'])
@@ -46,8 +70,10 @@ class PublicController extends Controller
     /**
      * Display updates for a specific customer's projects with pagination
      */
-    public function customerUpdates(Request $request, $customerHash)
+    public function customerUpdates(Request $request, $customerHash, $lang = null)
     {
+        $this->setLocaleFromParameter($lang);
+        
         // First, find the customer
         $customer = Customer::where('hash', $customerHash)->firstOrFail();
         
@@ -57,7 +83,7 @@ class PublicController extends Controller
         })->with(['customers', 'group'])->get();
 
         if ($projects->isEmpty()) {
-            abort(404, 'Cliente não encontrado.');
+            abort(404, __('projects.customer_not_found'));
         }
 
         // Get all updates for these projects with pagination
@@ -73,8 +99,10 @@ class PublicController extends Controller
     /**
      * Display updates for a specific project of a specific customer
      */
-    public function customerProjectUpdates($customerHash, $projectHash)
+    public function customerProjectUpdates(Request $request, $customerHash, $projectHash, $lang = null)
     {
+        $this->setLocaleFromParameter($lang);
+        
         // Find the customer
         $customer = Customer::where('hash', $customerHash)->firstOrFail();
         
@@ -100,8 +128,10 @@ class PublicController extends Controller
     /**
      * Display iframe with last 5 updates for a specific project/customer combination
      */
-    public function iframe($customerHash, $projectHash)
+    public function iframe(Request $request, $customerHash, $projectHash, $lang = null)
     {
+        $this->setLocaleFromParameter($lang);
+        
         // Find the customer
         $customer = Customer::where('hash', $customerHash)->firstOrFail();
         

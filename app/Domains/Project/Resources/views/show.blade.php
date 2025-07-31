@@ -10,7 +10,7 @@
             <li>
                 <div>
                     <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-500">
-                        Dashboard
+                        {{ __('dashboard.title') }}
                     </a>
                 </div>
             </li>
@@ -20,7 +20,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('projects.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Projetos
+                        {{ __('projects.title') }}
                     </a>
                 </div>
             </li>
@@ -44,7 +44,7 @@
                     <div class="mt-2 flex items-center space-x-4">
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                             {{ $project->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                            {{ $project->status === 'active' ? 'Ativo' : 'Inativo' }}
+                            {{ $project->status === 'active' ? __('projects.active') : __('projects.inactive') }}
                         </span>
                         @if($project->group)
                             <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium text-white" 
@@ -53,7 +53,7 @@
                             </span>
                         @endif
                         <span class="text-sm text-gray-600">
-                            Criado em {{ $project->created_at->format('d/m/Y') }}
+                            {{ __('projects.created_at') }} {{ $project->created_at->format('d/m/Y') }}
                         </span>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
-                        Editar
+                        {{ __('common.edit') }}
                     </a>
                     <form action="{{ route('projects.destroy', $project->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Tem certeza que deseja excluir este projeto? Esta ação não pode ser desfeita.')">
                         @csrf
@@ -73,7 +73,7 @@
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
-                            Excluir
+                            {{ __('common.delete') }}
                         </button>
                     </form>
                 </div>
@@ -82,11 +82,11 @@
             <div class="mt-6">
                 <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">                    
                     <div>
-                        <dt class="text-sm font-medium text-gray-500">Total de Clientes</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('projects.total_customers') }}</dt>
                         <dd class="mt-1 text-2xl font-semibold text-gray-900">{{ $project->customers->count() }}</dd>
                     </div>
                     <div>
-                        <dt class="text-sm font-medium text-gray-500">Total de Atualizações</dt>
+                        <dt class="text-sm font-medium text-gray-500">{{ __('projects.total_updates') }}</dt>
                         <dd class="mt-1 text-2xl font-semibold text-gray-900">{{ $project->updates->count() }}</dd>
                     </div>
                 </dl>
@@ -99,7 +99,7 @@
         <div class="lg:col-span-1">
             <div class="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900">Clientes Associados</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('projects.associated_customers') }}</h2>
                 </div>
                 <div class="p-6">
                     @forelse($project->customers as $customer)
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-500 text-center py-4">Nenhum cliente associado</p>
+                        <p class="text-sm text-gray-500 text-center py-4">{{ __('projects.no_customers') }}</p>
                     @endforelse
                 </div>
             </div>
@@ -127,7 +127,7 @@
         <div class="lg:col-span-2">
             <div class="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900">Atualizações do Projeto</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ __('projects.project_updates') }}</h2>
                 </div>
                 <div class="p-6">
                     @php
@@ -168,11 +168,11 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
-                                            {{ $update->views }} visualizações
+                                            {{ $update->views }} {{ __('updates.views') }}
                                         </span>
                                         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
                                             {{ $update->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                            {{ $update->status === 'published' ? 'Publicado' : 'Rascunho' }}
+                                            {{ $update->status === 'published' ? __('updates.published') : __('updates.draft') }}
                                         </span>
                                     </div>
                                 </div>
@@ -202,9 +202,15 @@
                                     <div class="flex items-center justify-between">
                                         <div>
                                             <p class="text-sm text-gray-600">
-                                                <strong>{{ $project->updates->count() - 5 }}</strong> {{ $project->updates->count() - 5 === 1 ? 'atualização adicional' : 'atualizações adicionais' }}
+                                                @php
+                                                    $additionalCount = $project->updates->count() - 5;
+                                                    $text = $additionalCount === 1 
+                                                        ? __('projects.additional_update_singular', ['count' => $additionalCount])
+                                                        : __('projects.additional_update_plural', ['count' => $additionalCount]);
+                                                @endphp
+                                                {!! $text !!}
                                             </p>
-                                            <p class="text-xs text-gray-500 mt-1">Clique para ver todas as atualizações deste projeto</p>
+                                            <p class="text-xs text-gray-500 mt-1">{{ __('projects.click_view_all') }}</p>
                                         </div>
                                         <a href="{{ route('public.project', $project->hash) }}" 
                                            target="_blank"
@@ -212,7 +218,7 @@
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                             </svg>
-                                            Ver Todas
+                                            {{ __('projects.view_all') }}
                                         </a>
                                     </div>
                                 </div>
@@ -230,30 +236,30 @@
             <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
             </svg>
-            Links Públicos do Projeto
+            {{ __('projects.public_links') }}
         </h3>
         <p class="text-blue-700 text-sm mb-4">
-            Compartilhe estes links com clientes para que possam acessar as atualizações sem fazer login.
+            {{ __('projects.share_links_help') }}
         </p>
         
         <div class="space-y-4">
             <!-- Project Public Link -->
             <div>
                 <label class="block text-sm font-medium text-blue-900 mb-2">
-                    Link público do projeto (todas as atualizações):
+                    {{ __('projects.public_project_link') }}:
                 </label>
                 <div class="flex">
                     <input type="text" 
-                           value="{{ route('public.project', $project->hash) }}" 
+                           value="{{ public_project_link($project->hash) }}" 
                            class="flex-1 min-w-0 block w-full px-3 py-2 border border-blue-300 rounded-l-md focus:ring-blue-500 focus:border-blue-500 text-sm bg-white"
                            readonly>
-                    <button onclick="copyToClipboard('{{ route('public.project', $project->hash) }}')"
+                    <button onclick="copyToClipboard('{{ public_project_link($project->hash) }}')"
                             class="inline-flex items-center px-3 py-2 border border-l-0 border-blue-300 rounded-r-md bg-blue-100 text-blue-700 text-sm hover:bg-blue-200">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                         </svg>
                     </button>
-                    <a href="{{ route('public.project', $project->hash) }}" 
+                    <a href="{{ public_project_link($project->hash) }}" 
                        target="_blank"
                        class="inline-flex items-center px-3 py-2 border border-l-0 border-blue-300 rounded-r-md bg-blue-600 text-white text-sm hover:bg-blue-700 ml-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,7 +273,7 @@
             @if($project->customers->count() > 0)
                 <div>
                     <label class="block text-sm font-medium text-blue-900 mb-2">
-                        Links específicos por cliente:
+                        {{ __('projects.customer_specific_links') }}:
                     </label>
                     <div class="space-y-2">
                         @foreach($project->customers as $customer)
@@ -278,21 +284,22 @@
                                 </div>
                                 <div class="flex">
                                     <input type="text" 
-                                           value="{{ route('public.customer', $customer->hash) }}" 
+                                           value="{{ public_customer_link($customer->hash) }}" 
                                            class="flex-1 min-w-0 block w-full px-2 py-1 border border-gray-300 rounded-l-md focus:ring-blue-500 focus:border-blue-500 text-xs bg-gray-50"
                                            readonly>
-                                    <button onclick="copyToClipboard('{{ route('public.customer', $customer->hash) }}')"
+                                    <button onclick="copyToClipboard('{{ public_customer_link($customer->hash) }}')"
                                             class="inline-flex items-center px-2 py-1 border border-l-0 border-gray-300 rounded-r-md bg-gray-100 text-gray-600 text-xs hover:bg-gray-200">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                         </svg>
                                     </button>
-                                    <a href="{{ route('public.customer', $customer->hash) }}" 
+                                    <a href="{{ public_customer_link($customer->hash) }}" 
                                        target="_blank"
-                                       class="inline-flex items-center px-2 py-1 border border-l-0 border-gray-300 rounded-r-md bg-blue-600 text-white text-xs hover:bg-blue-700 ml-1">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md bg-gray-100 text-gray-700 text-xs hover:bg-gray-200 ml-2">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                         </svg>
+                                        {{ __('common.view') }}
                                     </a>
                                 </div>
                             </div>
@@ -303,42 +310,40 @@
 
             <!-- Iframe Code Section -->
             @if($project->customers->count() > 0)
-                <div>
+                <div class="mt-6">
                     <label class="block text-sm font-medium text-blue-900 mb-2">
-                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                        Código iframe para incorporar (últimas 5 atualizações):
+                        {{ __('projects.iframe_embed_code') }}:
                     </label>
-                    <div class="space-y-3">
+                    <div class="space-y-4">
                         @foreach($project->customers as $customer)
                             <div class="bg-white rounded-md p-3 border border-blue-200">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-sm font-medium text-gray-900">{{ $customer->name }}</span>
                                     <span class="text-xs text-gray-500">Widget iframe</span>
                                 </div>
-                                <div class="space-y-2">
+                                <div class="mb-2">
                                     <textarea 
                                         id="iframe-code-{{ $customer->id }}"
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-xs font-mono"
-                                        rows="3"
-                                        readonly><iframe src="{{ route('public.iframe', [$customer->hash, $project->hash]) }}" width="100%" height="700" frameborder="0" scrolling="auto" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;"></iframe></textarea>
+                                        class="w-full p-2 text-xs border border-gray-300 rounded-md bg-gray-50 resize-none h-16"
+                                        readonly><iframe src="{{ public_iframe_link($customer->hash, $project->hash) }}" width="100%" height="700" frameborder="0" scrolling="auto" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;"></iframe></textarea>
+                                </div>
+                                <div class="flex items-center justify-between">
                                     <div class="flex space-x-2">
                                         <button onclick="copyIframeCode('iframe-code-{{ $customer->id }}')"
-                                                class="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md bg-blue-100 text-blue-700 text-xs hover:bg-blue-200">
+                                                class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md bg-gray-100 text-gray-700 text-xs hover:bg-gray-200">
                                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                             </svg>
-                                            Copiar Código
+{{ __('projects.copy_code') }}
                                         </button>
-                                        <a href="{{ route('public.iframe', [$customer->hash, $project->hash]) }}" 
+                                        <a href="{{ public_iframe_link($customer->hash, $project->hash) }}" 
                                            target="_blank"
                                            class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md bg-gray-100 text-gray-700 text-xs hover:bg-gray-200">
                                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
-                                            Visualizar
+                                            {{ __('common.view') }}
                                         </a>
                                     </div>
                                 </div>
@@ -364,7 +369,7 @@ function copyToClipboard(text) {
             notification.remove();
         }, 3000);
     }).catch(function() {
-        alert('Erro ao copiar link. Tente selecionar e copiar manualmente.');
+                                alert('{{ __('projects.copy_link_error') }}');
     });
 }
 
@@ -397,7 +402,7 @@ function copyIframeCode(textareaId) {
                 notification.remove();
             }, 3000);
         } catch (err) {
-            alert('Erro ao copiar código. Tente selecionar e copiar manualmente.');
+                                    alert('{{ __('projects.copy_code_error') }}');
         }
     });
 }

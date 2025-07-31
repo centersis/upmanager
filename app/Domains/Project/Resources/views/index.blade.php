@@ -1,6 +1,6 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Projetos - UPMANAGER')
+@section('title', __('projects.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -11,7 +11,7 @@
                 <li>
                     <div>
                         <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-500">
-                            Dashboard
+                            {{ __('dashboard.title') }}
                         </a>
                     </div>
                 </li>
@@ -20,7 +20,7 @@
                         <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-4 text-sm font-medium text-gray-500">Projetos</span>
+                        <span class="ml-4 text-sm font-medium text-gray-500">{{ __('projects.title') }}</span>
                     </div>
                 </li>
             </ol>
@@ -28,8 +28,8 @@
         
         <div class="mt-4 flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Projetos</h1>
-                <p class="mt-2 text-sm text-gray-600">Gerencie todos os projetos dos clientes</p>
+                <h1 class="text-3xl font-bold text-gray-900">{{ __('projects.title') }}</h1>
+                <p class="mt-2 text-sm text-gray-600">{{ __('projects.manage_title') }}</p>
             </div>
             <div>
                 <a href="{{ route('projects.create') }}" 
@@ -37,7 +37,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    Novo Projeto
+                    {{ __('projects.create') }}
                 </a>
             </div>
         </div>
@@ -59,7 +59,7 @@
                         <div class="flex flex-col items-end space-y-2">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                 {{ $project->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                {{ $project->status === 'active' ? 'Ativo' : 'Inativo' }}
+                                {{ $project->status === 'active' ? __('projects.active') : __('projects.inactive') }}
                             </span>
                             @if($project->group)
                                 <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium text-white" 
@@ -75,14 +75,14 @@
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
-                            {{ $project->customers->count() }} {{ $project->customers->count() === 1 ? 'cliente' : 'clientes' }}
+                            @choice('projects.client_count', $project->customers->count(), ['count' => $project->customers->count()])
                         </div>
                         
                         <div class="flex items-center text-sm text-gray-600">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
-                            {{ $project->updates->count() }} {{ $project->updates->count() === 1 ? 'atualização' : 'atualizações' }}
+                            @choice('projects.update_count', $project->updates->count(), ['count' => $project->updates->count()])
                         </div>
                         
                         <div class="flex items-center text-sm text-gray-600">
@@ -96,7 +96,7 @@
                     <!-- Latest Update -->
                     @if($project->updates->isNotEmpty())
                         <div class="mt-4 pt-4 border-t border-gray-100">
-                            <p class="text-xs text-gray-500 mb-1">Última atualização:</p>
+                            <p class="text-xs text-gray-500 mb-1">{{ __('projects.last_update') }}:</p>
                             <p class="text-sm font-medium text-gray-900">
                                 {{ $project->updates->first()->title }}
                             </p>
@@ -114,7 +114,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            Ver Detalhes
+                            {{ __('projects.view_details') }}
                         </a>
                         
                         <div class="flex items-center space-x-2">
@@ -125,7 +125,7 @@
                                 </svg>
                             </a>
                             
-                            <form action="{{ route('projects.destroy', $project->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Tem certeza que deseja excluir este projeto?')">
+                            <form action="{{ route('projects.destroy', $project->id) }}" method="POST" class="inline-block" onsubmit="return confirm('{{ __('common.confirm_delete') }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
@@ -145,8 +145,8 @@
                     <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhum projeto encontrado</h3>
-                    <p class="mt-1 text-sm text-gray-500">Comece criando um novo projeto.</p>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('projects.no_projects') }}</h3>
+                    <p class="mt-1 text-sm text-gray-500">{{ __('projects.get_started') }}</p>
                 </div>
             </div>
         @endforelse

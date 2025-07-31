@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,24 +35,24 @@
                         <div class="hidden md:ml-8 md:flex md:space-x-4">
                             <a href="{{ route('dashboard') }}" 
                                class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('dashboard') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
-                                Dashboard
+                                {{ __('dashboard.title') }}
                             </a>
                             <a href="{{ route('customers.index') }}" 
                                class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('customers.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
-                                Clientes
+                                {{ __('dashboard.customers') }}
                             </a>
                             <a href="{{ route('projects.index') }}" 
                                class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('projects.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
-                                Projetos
+                                {{ __('dashboard.projects') }}
                             </a>
                             <a href="{{ route('updates.index') }}" 
                                class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('updates.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
-                                Atualizações
+                                {{ __('dashboard.updates') }}
                             </a>
                             {{-- @if(Auth::user()->isAdmin()) --}}
                                 <a href="{{ route('users.index') }}" 
                                    class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 {{ request()->routeIs('users.*') ? 'text-blue-600 border-b-2 border-blue-600' : '' }}">
-                                    Usuários
+                                    {{ __('dashboard.users') }}
                                 </a>
                             {{-- @endif --}}
                         </div>
@@ -61,6 +61,9 @@
 
                     <!-- User Menu -->
                     <div class="flex items-center space-x-4">
+                        <!-- Language Selector -->
+                        @include('shared::components.language-selector')
+                        
                         @auth
                             <!-- User Info -->
                             <div class="hidden md:flex md:items-center md:space-x-2">
@@ -83,7 +86,7 @@
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
-                                    Sair
+                                    {{ __('auth.logout') }}
                                 </button>
                             </form>
                         @else
@@ -94,7 +97,7 @@
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                                     </svg>
-                                    Login
+                                    {{ __('auth.login') }}
                                 </a>
                             </div>
                         @endauth

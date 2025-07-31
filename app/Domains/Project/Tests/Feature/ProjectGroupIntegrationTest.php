@@ -31,8 +31,8 @@ class ProjectGroupIntegrationTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('projects.create'));
 
         $response->assertStatus(200)
-            ->assertSee('Novo Grupo')
-            ->assertSee('Gerenciar Grupos');
+            ->assertSee(__('projects.new_group'))
+            ->assertSee(__('projects.manage_groups'));
             
         // Verificar se o grupo aparece no select (pode estar como option value ou text)
         $response->assertSee('Test Group', false);
@@ -52,8 +52,8 @@ class ProjectGroupIntegrationTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('projects.edit', $project->id));
 
         $response->assertStatus(200)
-            ->assertSee('Novo Grupo', false)  // Usar HTML bruto para encontrar o botão
-            ->assertSee('Gerenciar Grupos', false);
+            ->assertSee(__('projects.new_group'), false)  // Usar HTML bruto para encontrar o botão
+            ->assertSee(__('projects.manage_groups'), false);
         
         // Verificar se o grupo aparece no select (pode estar como selected)
         $response->assertSee('Test Group', false);

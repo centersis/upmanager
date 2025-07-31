@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Domains\User\Database\Factories\UserFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Domains\Auth\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -110,7 +111,7 @@ class User extends Authenticatable
      */
     public function getStatusDisplayAttribute(): string
     {
-        return $this->is_active ? 'Ativo' : 'Inativo';
+        return $this->is_active ? __('users.active') : __('users.inactive');
     }
 
     /**
@@ -135,5 +136,13 @@ class User extends Authenticatable
     public function updateLastLogin()
     {
         $this->update(['last_login_at' => now()]);
+    }
+
+    /**
+     * Send the password reset notification.
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 } 

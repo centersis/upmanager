@@ -1,15 +1,15 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Grupos - UPMANAGER')
+@section('title', __('groups.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Header -->
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-2xl font-bold text-gray-900">Grupos de Projetos</h1>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('groups.title') }}</h1>
             <p class="mt-2 text-sm text-gray-700">
-                Gerencie os grupos para organizar seus projetos e aplicar atualizações globais.
+                {{ __('groups.manage_title') }}
             </p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -18,7 +18,7 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
-                Novo Grupo
+                {{ __('groups.create') }}
             </a>
         </div>
     </div>
@@ -63,16 +63,16 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Grupo
+                                    {{ __('groups.name') }}
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Descrição
+                                    {{ __('groups.description') }}
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Projetos
+                                    {{ __('groups.projects') }}
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status
+                                    {{ __('groups.status') }}
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Ações</span>
@@ -101,30 +101,30 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
-                                            {{ $group->projects->count() }} projetos
+                                            @choice('groups.projects_count', $group->projects->count(), ['count' => $group->projects->count()])
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                             {{ $group->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                            {{ $group->is_active ? 'Ativo' : 'Inativo' }}
+                                            {{ $group->is_active ? __('groups.active') : __('groups.inactive') }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end space-x-2">
                                             <a href="{{ route('groups.show', $group->id) }}" 
-                                               class="text-blue-600 hover:text-blue-900">Ver</a>
+                                               class="text-blue-600 hover:text-blue-900">{{ __('common.view') }}</a>
                                             <a href="{{ route('groups.edit', $group->id) }}" 
-                                               class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                                               class="text-indigo-600 hover:text-indigo-900">{{ __('common.edit') }}</a>
                                             @if($group->projects->count() == 0)
                                                 <form action="{{ route('groups.destroy', $group->id) }}" 
                                                       method="POST" 
                                                       class="inline"
-                                                      onsubmit="return confirm('Tem certeza que deseja excluir este grupo?')">
+                                                      onsubmit="return confirm('{{ __('groups.confirm_delete') }}')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">
-                                                        Excluir
+                                                        {{ __('common.delete') }}
                                                     </button>
                                                 </form>
                                             @endif
@@ -139,14 +139,14 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                                             </svg>
                                             <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhum grupo encontrado</h3>
-                                            <p class="mt-1 text-sm text-gray-500">Comece criando um novo grupo para organizar seus projetos.</p>
+                                            <p class="mt-1 text-sm text-gray-500">{{ __('groups.no_groups') }}</p>
                                             <div class="mt-6">
                                                 <a href="{{ route('groups.create') }}" 
                                                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                                     </svg>
-                                                    Novo Grupo
+                                                    {{ __('groups.create') }}
                                                 </a>
                                             </div>
                                         </div>

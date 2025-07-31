@@ -1,12 +1,12 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Clientes - UPMANAGER')
+@section('title', __('customers.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="mb-8 flex items-center justify-between">
     <div>
-        <h1 class="text-3xl font-bold text-gray-900">Clientes</h1>
-        <p class="mt-2 text-sm text-gray-600">Gerencie todos os seus clientes</p>
+        <h1 class="text-3xl font-bold text-gray-900">{{ __('customers.title') }}</h1>
+        <p class="mt-2 text-sm text-gray-600">{{ __('customers.manage_title') }}</p>
     </div>
     <div>
         <a href="{{ route('customers.create') }}" 
@@ -14,7 +14,7 @@
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
-            Novo Cliente
+            {{ __('customers.create') }}
         </a>
     </div>
 </div>
@@ -31,7 +31,7 @@
                         </a>
                     </h3>
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $customer->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                        {{ $customer->status === 'active' ? 'Ativo' : 'Inativo' }}
+                        {{ $customer->status === 'active' ? __('customers.active') : __('customers.inactive') }}
                     </span>
                 </div>
                 
@@ -40,19 +40,19 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                                                    {{ $customer->projects->count() }} {{ $customer->projects->count() === 1 ? 'projeto' : 'projetos' }}
+                        @choice('customers.project_count', $customer->projects->count(), ['count' => $customer->projects->count()])
                     </div>
                     <div class="flex items-center text-sm text-gray-500">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        Cliente desde {{ $customer->created_at->format('d/m/Y') }}
+                        {{ __('customers.client_since') }} {{ $customer->created_at->format('d/m/Y') }}
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <a href="{{ route('customers.show', $customer->id) }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Ver Detalhes
+                        {{ __('customers.view_details') }}
                         <svg class="ml-2 -mr-0.5 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -64,8 +64,8 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhum cliente encontrado</h3>
-                <p class="mt-1 text-sm text-gray-500">Comece criando um novo cliente.</p>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('customers.no_customers') }}</h3>
+                <p class="mt-1 text-sm text-gray-500">{{ __('customers.get_started') }}</p>
             </div>
             @endforelse
         </div>

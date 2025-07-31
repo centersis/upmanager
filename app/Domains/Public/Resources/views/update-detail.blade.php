@@ -99,7 +99,7 @@
         <ol class="flex items-center space-x-4">
             <li>
                 <div>
-                    <a href="{{ route('public.project', $update->project->hash) }}" class="text-gray-400 hover:text-gray-500">
+                    <a href="{{ public_project_link($update->project->hash) }}" class="text-gray-400 hover:text-gray-500">
                         {{ $update->project->name }}
                     </a>
                 </div>
@@ -131,33 +131,36 @@
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Publicado em {{ $update->created_at->format('d/m/Y') }} às {{ $update->created_at->format('H:i') }}
+                            {{ __('public.published_on_date', [
+                                'date' => $update->created_at->format('d/m/Y'),
+                                'time' => $update->created_at->format('H:i')
+                            ]) }}
                         </span>
-                        <span class="flex items-center">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            {{ $update->views }} {{ $update->views === 1 ? 'visualização' : 'visualizações' }}
-                        </span>
+                            {{ $update->views }} {{ $update->views === 1 ? __('public.view_singular') : __('public.view_plural') }}
+                        </div>
                         @if($update->customer)
                             <span class="flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
-                                Cliente: {{ $update->customer->name }}
+                                {{ __('public.client') }} {{ $update->customer->name }}
                             </span>
                         @endif
                     </div>
                 </div>
                 
                 <div class="ml-6 flex-shrink-0">
-                    <a href="{{ route('public.project', $update->project->hash) }}" 
-                       class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <a href="{{ public_project_link($update->project->hash) }}" 
+                       class="inline-flex items-center px-4 py-2 border border-blue-300 rounded-md shadow-sm text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
-                        Ver todas as atualizações
+                        {{ __('public.view_all_updates') }}
                     </a>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('shared::layouts.public')
 
-@section('title', $project->name . ' - Atualizações - UPMANAGER')
+@section('title', $project->name . ' - ' . __('public.updates_title') . ' - UPMANAGER')
 
 @section('content')
 <div class="mb-8">
@@ -20,13 +20,13 @@
                             {{ ucfirst($project->status) }}
                         </span>
                         <span class="text-sm text-gray-600">
-                            {{ $updates->total() }} {{ $updates->total() === 1 ? 'atualização' : 'atualizações' }}
+                            {{ $updates->total() }} {{ $updates->total() === 1 ? __('public.update_singular') : __('public.update_plural') }}
                         </span>
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-sm text-gray-500">Portal Público</div>
-                    <div class="text-xs text-gray-400">Última atualização: {{ $updates->count() > 0 ? $updates->first()->created_at->format('d/m/Y H:i') : 'Nenhuma' }}</div>
+                    <div class="text-sm text-gray-500">{{ __('public.public_portal') }}</div>
+                    <div class="text-xs text-gray-400">{{ __('public.last_update') }} {{ $updates->count() > 0 ? $updates->first()->created_at->format('d/m/Y H:i') : __('public.none') }}</div>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
     <!-- Clients Info -->
     @if($project->customers->count() > 0)
     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-        <h3 class="text-sm font-medium text-blue-900 mb-2">Clientes do Projeto:</h3>
+        <h3 class="text-sm font-medium text-blue-900 mb-2">{{ __('public.project_customers') }}:</h3>
         <div class="flex flex-wrap gap-2">
             @foreach($project->customers as $customer)
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -77,7 +77,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
-                                {{ $update->views }} {{ $update->views === 1 ? 'visualização' : 'visualizações' }}
+                                {{ $update->views }} {{ $update->views === 1 ? __('public.view_singular') : __('public.view_plural') }}
                             </span>
                             @if($update->customer)
                                 <span class="flex items-center">
@@ -93,7 +93,7 @@
                     <div class="ml-6 flex-shrink-0">
                         <a href="{{ route('public.update', $update->hash) }}" 
                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Ver Detalhes
+                            {{ __('public.view_details') }}
                             <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -116,23 +116,23 @@
         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhuma atualização publicada</h3>
-        <p class="mt-1 text-sm text-gray-500">Este projeto ainda não possui atualizações públicas.</p>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('public.no_updates_published') }}</h3>
+        <p class="mt-1 text-sm text-gray-500">{{ __('public.no_updates_description') }}</p>
     </div>
 @endif
 
 <!-- Share Links -->
 <div class="mt-12 bg-gray-50 rounded-lg p-6">
-    <h3 class="text-lg font-medium text-gray-900 mb-4">Compartilhar este projeto</h3>
+    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('public.share_project') }}</h3>
     <div class="space-y-3">
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Link público do projeto:</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('public.public_project_link') }}</label>
             <div class="flex">
                 <input type="text" 
-                       value="{{ route('public.project', $project->hash) }}" 
+                       value="{{ public_project_link($project->hash) }}" 
                        class="flex-1 min-w-0 block w-full px-3 py-2 border border-gray-300 rounded-l-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                        readonly>
-                <button onclick="copyToClipboard('{{ route('public.project', $project->hash) }}')"
+                <button onclick="copyToClipboard('{{ public_project_link($project->hash) }}')"
                         class="inline-flex items-center px-3 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 text-gray-500 text-sm hover:bg-gray-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -147,7 +147,7 @@
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
         // Feedback visual simples
-        alert('Link copiado para a área de transferência!');
+        alert('{{ __('public.link_copied') }}');
     });
 }
 </script>

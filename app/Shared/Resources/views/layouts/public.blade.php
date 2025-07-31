@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +25,7 @@
                             <span class="text-xl font-bold text-gray-900">UPMANAGER</span>
                         </div>
                         <div class="text-sm text-gray-500">
-                            Portal Público de Atualizações
+                            {{ __('public.public_portal_title') }}
                         </div>
                     </div>                                    
                 </div>
@@ -42,7 +42,7 @@
         <footer class="bg-white border-t border-gray-200 mt-12">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div class="text-center text-sm text-gray-500">
-                    <p>&copy; {{ date('Y') }} UPMANAGER. Portal de atualizações de projetos.</p>
+                    <p>&copy; {{ date('Y') }} UPMANAGER. {{ __('public.footer_text') }}</p>
                 </div>
             </div>
         </footer>

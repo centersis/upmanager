@@ -1,6 +1,6 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Atualizações - UPMANAGER')
+@section('title', __('updates.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -11,7 +11,7 @@
                 <li>
                     <div>
                         <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-500">
-                            Dashboard
+                            {{ __('dashboard.title') }}
                         </a>
                     </div>
                 </li>
@@ -20,7 +20,7 @@
                         <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-4 text-sm font-medium text-gray-500">Atualizações</span>
+                        <span class="ml-4 text-sm font-medium text-gray-500">{{ __('updates.title') }}</span>
                     </div>
                 </li>
             </ol>
@@ -28,15 +28,15 @@
         
         <div class="mt-4 flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Atualizações</h1>
-                <p class="mt-2 text-sm text-gray-600">Todas as atualizações dos projetos</p>
+                <h1 class="text-3xl font-bold text-gray-900">{{ __('updates.title') }}</h1>
+                <p class="mt-2 text-sm text-gray-600">{{ __('updates.manage_title') }}</p>
             </div>
             <a href="{{ route('updates.create') }}" 
                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
-                Nova Atualização
+                {{ __('updates.create') }}
             </a>
         </div>
     </div>
@@ -56,7 +56,7 @@
                                 </h3>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     {{ $update->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                    {{ $update->status === 'published' ? 'Publicado' : 'Rascunho' }}
+                                    {{ $update->status === 'published' ? __('updates.published') : __('updates.draft') }}
                                 </span>
                             </div>
                             
@@ -86,7 +86,7 @@
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
-                                        <span class="text-blue-600 font-medium">Global</span>
+                                        <span class="text-blue-600 font-medium">{{ __('updates.global') }}</span>
                                     </div>
                                 @endif
                                 
@@ -95,7 +95,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
-                                    {{ $update->views }} visualizações
+                                    {{ $update->views }} {{ __('updates.views_count') }}
                                 </div>                                                            
                                 
                                 <div class="flex items-center">
@@ -110,13 +110,13 @@
                         <!-- Project Info Sidebar -->
                         <div class="ml-6 flex-shrink-0">
                             <div class="text-right">
-                                <p class="text-sm text-gray-500">Projeto</p>
+                                <p class="text-sm text-gray-500">{{ __('updates.project') }}</p>
                                 <p class="font-medium text-gray-900">{{ $update->project->name }}</p>
                                 <p class="text-xs text-gray-500 mt-1">
-                                    Status: 
+                                    {{ __('updates.status') }}: 
                                     <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
                                         {{ $update->project->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                        {{ $update->project->status === 'active' ? 'Ativo' : 'Inativo' }}
+                                        {{ $update->project->status === 'active' ? __('updates.active') : __('updates.inactive') }}
                                     </span>
                                 </p>
                             </div>
@@ -132,18 +132,18 @@
                                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
-                                Ver Detalhes
+                                {{ __('updates.view_details') }}
                             </a>
                             
                                                          @if($update->status === 'published')
-                                <a href="{{ route('public.update', $update->hash) }}" 
+                                <a href="{{ public_update_link($update->hash) }}" 
                                    target="_blank"
                                    class="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md shadow-sm text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                                     <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
-                                    Link Público
+                                    {{ __('updates.public_link') }}
                                     <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -151,14 +151,14 @@
 
                                 <div x-data="{copied:false}" class="inline-flex items-center">
                                     <button type="button"
-                                        data-link="{{ route('public.update', $update->hash) }}"
+                                        data-link="{{ public_update_link($update->hash) }}"
                                         @click="navigator.clipboard.writeText($event.target.dataset.link).then(() => { copied=true; setTimeout(() => copied=false, 2000); });"
                                         class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h13M8 12h13M8 17h13M3 7h.01M3 12h.01M3 17h.01" />
                                         </svg>
-                                        <span x-show="!copied">Copiar Link</span>
-                                        <span x-show="copied" x-transition.opacity.duration.300ms>Copiado!</span>
+                                        <span x-show="!copied">{{ __('updates.copy_link') }}</span>
+                                        <span x-show="copied" x-transition.opacity.duration.300ms>{{ __('common.copied') }}</span>
                                     </button>
                                 </div>
                              @endif

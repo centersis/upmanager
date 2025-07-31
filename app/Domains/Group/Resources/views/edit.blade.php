@@ -1,6 +1,6 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Editar ' . $group->name . ' - UPMANAGER')
+@section('title', __('groups.edit_title') . ' ' . $group->name . ' - UPMANAGER')
 
 @section('content')
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -20,7 +20,7 @@
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
                     <a href="{{ route('groups.index') }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
-                        Grupos
+                        {{ __('groups.title') }}
                     </a>
                 </div>
             </li>
@@ -39,7 +39,7 @@
                     <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                     </svg>
-                    <span class="ml-4 text-sm font-medium text-gray-500">Editar</span>
+                    <span class="ml-4 text-sm font-medium text-gray-500">{{ __('common.edit') }}</span>
                 </div>
             </li>
         </ol>
@@ -48,8 +48,8 @@
     <!-- Form -->
     <div class="bg-white shadow-sm rounded-lg border border-gray-200">
         <div class="px-6 py-4 border-b border-gray-200">
-            <h1 class="text-2xl font-bold text-gray-900">Editar Grupo</h1>
-            <p class="mt-1 text-sm text-gray-600">Atualize as informações do grupo</p>
+            <h1 class="text-2xl font-bold text-gray-900">{{ __('groups.edit_title') }}</h1>
+            <p class="mt-1 text-sm text-gray-600">{{ __('groups.fill_info') }}</p>
         </div>
         
         <form action="{{ route('groups.update', $group->id) }}" method="POST" class="px-6 py-6 space-y-6">
@@ -59,7 +59,7 @@
             <!-- Nome -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nome do Grupo <span class="text-red-500">*</span>
+                    {{ __('groups.name') }} <span class="text-red-500">*</span>
                 </label>
                 <input 
                     type="text" 
@@ -67,7 +67,7 @@
                     id="name" 
                     value="{{ old('name', $group->name) }}"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-300 @enderror"
-                    placeholder="Digite o nome do grupo"
+                    placeholder="{{ __('groups.name_placeholder') }}"
                     required
                 >
                 @error('name')
@@ -78,7 +78,7 @@
             <!-- Descrição -->
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                    Descrição
+                    {{ __('groups.description') }}
                 </label>
                 <textarea 
                     name="description" 
@@ -95,7 +95,7 @@
             <!-- Cor -->
             <div>
                 <label for="color" class="block text-sm font-medium text-gray-700 mb-2">
-                    Cor do Grupo
+                    {{ __('groups.color') }}
                 </label>
                 <div class="flex items-center space-x-3">
                     <input 
@@ -116,7 +116,7 @@
                         >
                     </div>
                 </div>
-                <p class="mt-1 text-xs text-gray-500">Escolha uma cor para identificar o grupo visualmente</p>
+                <p class="mt-1 text-xs text-gray-500">{{ __('groups.color_help') }}</p>
                 @error('color')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -138,7 +138,7 @@
                             {{ old('is_active', $group->is_active) == '1' ? 'checked' : '' }}
                         >
                         <label for="active" class="ml-2 text-sm text-gray-700">
-                            Ativo
+                            {{ __('groups.active') }}
                         </label>
                     </div>
                     <div class="flex items-center">
@@ -151,7 +151,7 @@
                             {{ old('is_active', $group->is_active) == '0' ? 'checked' : '' }}
                         >
                         <label for="inactive" class="ml-2 text-sm text-gray-700">
-                            Inativo
+                            {{ __('groups.inactive') }}
                         </label>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    Cancelar
+                    {{ __('common.cancel') }}
                 </a>
                 
                 <button type="submit" 

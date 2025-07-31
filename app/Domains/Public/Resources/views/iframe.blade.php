@@ -1,6 +1,6 @@
 @extends('shared::layouts.iframe')
 
-@section('title', $customer->name . ' - ' . $project->name . ' - Atualizações')
+@section('title', $customer->name . ' - ' . $project->name . ' - ' . __('public.updates_title'))
 
 @section('content')
 <div class="p-4 bg-white min-h-full">
@@ -78,13 +78,13 @@
 
     <!-- Footer with "Ver Mais" button -->
     <div class="mt-4 pt-3 border-t border-gray-200 bg-white">
-        <a href="{{ route('public.customer.project', [$customer->hash, $project->hash]) }}" 
+        <a href="{{ public_customer_project_link($customer->hash, $project->hash) }}" 
            target="_blank"
            class="w-full flex justify-center items-center px-4 py-2 border border-blue-300 rounded-md shadow-sm text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>
-            Ver Todas as Atualizações
+            {{ __('public.view_more') }}
         </a>
     </div>
 

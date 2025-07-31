@@ -1,6 +1,6 @@
 @extends('shared::layouts.public')
 
-@section('title', $customer->name . ' - ' . $project->name . ' - Atualizações - UPMANAGER')
+@section('title', $customer->name . ' - ' . $project->name . ' - ' . __('public.updates_title') . ' - UPMANAGER')
 
 @section('content')
 <div class="mb-8">
@@ -8,7 +8,7 @@
     <nav class="flex mb-6" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
-                <a href="{{ route('public.customer', $customer->hash) }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <a href="{{ public_customer_link($customer->hash) }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
                     <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                     </svg>
@@ -32,7 +32,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">{{ $project->name }}</h1>
-                    <p class="text-lg text-gray-600 mt-1">Cliente: {{ $customer->name }}</p>
+                    <p class="text-lg text-gray-600 mt-1">{{ __('public.client') }} {{ $customer->name }}</p>
                     <div class="mt-3 flex items-center space-x-4">
                         @if($project->group)
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
@@ -43,13 +43,13 @@
                             {{ ucfirst($project->status) }}
                         </span>
                         <span class="text-sm text-gray-600">
-                            {{ $updates->total() }} {{ $updates->total() === 1 ? 'atualização' : 'atualizações' }}
+                            {{ $updates->total() }} {{ $updates->total() === 1 ? __('public.update_singular') : __('public.update_plural') }}
                         </span>
                     </div>
                 </div>
                 <div class="text-right">
-                    <div class="text-sm text-gray-500">Portal do Cliente</div>
-                    <div class="text-xs text-gray-400">Última atualização: {{ $updates->first()?->created_at?->format('d/m/Y H:i') ?? 'Nenhuma' }}</div>
+                    <div class="text-sm text-gray-500">{{ __('public.client_portal') }}</div>
+                    <div class="text-xs text-gray-400">{{ __('public.last_update') }} {{ $updates->first()?->created_at?->format('d/m/Y H:i') ?? __('public.none') }}</div>
                 </div>
             </div>
         </div>
@@ -57,20 +57,20 @@
 
     <!-- Project Info -->
     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-        <h3 class="text-sm font-medium text-blue-900 mb-2">Informações do Projeto:</h3>
+        <h3 class="text-sm font-medium text-blue-900 mb-2">{{ __('public.project_info') }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-                <span class="text-xs text-blue-700 font-medium">Cliente</span>
+                <span class="text-xs text-blue-700 font-medium">{{ __('public.client') }}</span>
                 <p class="text-sm text-blue-900">{{ $customer->name }}</p>
             </div>
             @if($project->group)
             <div>
-                <span class="text-xs text-blue-700 font-medium">Grupo</span>
+                <span class="text-xs text-blue-700 font-medium">{{ __('public.group') }}</span>
                 <p class="text-sm text-blue-900">{{ $project->group->name }}</p>
             </div>
             @endif
             <div>
-                <span class="text-xs text-blue-700 font-medium">Status</span>
+                <span class="text-xs text-blue-700 font-medium">{{ __('public.status') }}</span>
                 <p class="text-sm text-blue-900">{{ ucfirst($project->status) }}</p>
             </div>
         </div>
@@ -93,11 +93,11 @@
                                 </h2>
                                 @if($update->is_global)
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
-                                        Global
+                                        {{ __('public.global') }}
                                     </span>
                                 @else
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                        Específica
+                                        {{ __('public.specific') }}
                                     </span>
                                 @endif
                             </div>
@@ -128,13 +128,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                     </svg>
-                                    {{ $update->views }} {{ $update->views === 1 ? 'visualização' : 'visualizações' }}
+                                    {{ $update->views }} {{ $update->views === 1 ? __('public.view_singular') : __('public.view_plural') }}
                                 </span>
                             </div>
                             
                             <a href="{{ route('public.update', $update->hash) }}" 
                                class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 transition-colors">
-                                Ler mais
+                                {{ __('public.read_more') }}
                                 <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
@@ -157,8 +157,8 @@
         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
         </svg>
-        <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhuma atualização</h3>
-        <p class="mt-1 text-sm text-gray-500">Este projeto ainda não possui atualizações publicadas para este cliente.</p>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('public.no_updates') }}</h3>
+        <p class="mt-1 text-sm text-gray-500">{{ __('public.no_project_updates_for_client') }}</p>
     </div>
 @endif
 

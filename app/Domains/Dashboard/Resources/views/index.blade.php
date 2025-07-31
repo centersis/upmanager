@@ -1,11 +1,11 @@
 @extends('shared::layouts.app')
 
-@section('title', 'Dashboard - UPMANAGER')
+@section('title', __('dashboard.title') . ' - UPMANAGER')
 
 @section('content')
 <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-    <p class="mt-2 text-sm text-gray-600">Visão geral do sistema</p>
+    <h1 class="text-3xl font-bold text-gray-900">{{ __('dashboard.title') }}</h1>
+    <p class="mt-2 text-sm text-gray-600">{{ __('dashboard.welcome_message') }}</p>
 </div>
 
 <!-- Stats Cards -->
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-500">Total de Clientes</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('dashboard.stats.customers') }}</p>
                     <p class="text-2xl font-semibold text-gray-900">{{ $stats['customers'] ?? 0 }}</p>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-500">Total de Projetos</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('dashboard.stats.projects') }}</p>
                     <p class="text-2xl font-semibold text-gray-900">{{ $stats['projects'] ?? 0 }}</p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-500">Total de Atualizações</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('dashboard.stats.updates') }}</p>
                     <p class="text-2xl font-semibold text-gray-900">{{ $stats['updates'] ?? 0 }}</p>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-500">Clientes Ativos</p>
+                    <p class="text-sm font-medium text-gray-500">{{ __('dashboard.stats.active_customers') }}</p>
                     <p class="text-2xl font-semibold text-gray-900">{{ $stats['active_customers'] ?? 0 }}</p>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 <!-- Recent Updates -->
 <div class="bg-white shadow-sm rounded-lg border border-gray-200">
     <div class="px-6 py-4 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900">Atualizações Recentes</h2>
+        <h2 class="text-lg font-semibold text-gray-900">{{ __('dashboard.recent_updates') }}</h2>
     </div>
     <div class="p-6">
         @if(isset($recentUpdates) && $recentUpdates->count() > 0)
@@ -114,7 +114,7 @@
                             </div>
                             <div class="text-right text-sm whitespace-nowrap text-gray-500">
                                 <time datetime="{{ $update->created_at->format('Y-m-d') }}">{{ $update->created_at->format('d/m/Y') }}</time>
-                                <div class="text-xs">{{ $update->views }} visualizações</div>
+                                <div class="text-xs">{{ $update->views }} {{ __('updates.views') }}</div>
                             </div>
                         </div>
                     </div>
@@ -126,15 +126,15 @@
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
-            <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhuma atualização encontrada</h3>
-            <p class="mt-1 text-sm text-gray-500">Comece criando sua primeira atualização.</p>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('dashboard.no_recent_updates') }}</h3>
+            <p class="mt-1 text-sm text-gray-500">{{ __('dashboard.create_first_update') }}</p>
             <div class="mt-6">
                 <a href="{{ route('updates.create') }}" 
                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    Nova Atualização
+                    {{ __('dashboard.new_update') }}
                 </a>
             </div>
         </div>
@@ -156,10 +156,10 @@
         <div class="mt-8">
             <h3 class="text-lg font-medium">
                 <span class="absolute inset-0" aria-hidden="true"></span>
-                Novo Cliente
+                {{ __('dashboard.new_customer') }}
             </h3>
             <p class="mt-2 text-sm text-gray-500">
-                Adicione um novo cliente ao sistema
+                {{ __('dashboard.new_customer_desc') }}
             </p>
         </div>
         <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
@@ -181,10 +181,10 @@
         <div class="mt-8">
             <h3 class="text-lg font-medium">
                 <span class="absolute inset-0" aria-hidden="true"></span>
-                Novo Projeto
+                {{ __('dashboard.new_project') }}
             </h3>
             <p class="mt-2 text-sm text-gray-500">
-                Crie um novo projeto para seus clientes
+                {{ __('dashboard.new_project_desc') }}
             </p>
         </div>
         <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
@@ -206,10 +206,10 @@
         <div class="mt-8">
             <h3 class="text-lg font-medium">
                 <span class="absolute inset-0" aria-hidden="true"></span>
-                Nova Atualização
+                {{ __('dashboard.new_update') }}
             </h3>
             <p class="mt-2 text-sm text-gray-500">
-                Publique uma nova atualização para seus projetos
+                {{ __('dashboard.new_update_desc') }}
             </p>
         </div>
         <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
