@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Domains\System\Http\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Http\Middleware\TrustProxies as Middleware;

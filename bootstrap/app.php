@@ -12,11 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append([
-            \App\Http\Middleware\TrustProxies::class,
+            \App\Domains\System\Http\Middleware\TrustProxies::class,
         ]);
         $middleware->alias([
-            'active' => \App\Http\Middleware\EnsureUserIsActive::class,
-            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'active' => \App\Domains\User\Http\Middleware\EnsureUserIsActive::class,
+            'admin' => \App\Domains\User\Http\Middleware\EnsureUserIsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
