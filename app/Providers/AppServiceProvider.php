@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Blade;
+use App\Shared\View\Components\AppLayout;
+use App\Shared\View\Components\GuestLayout;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +32,14 @@ class AppServiceProvider extends ServiceProvider
         // Register Shared views (layouts, components, etc.)
         $this->loadViewsFrom(app_path('Shared/Resources/views'), 'shared');
 
-        // Register Auth domain views (para resolver auth::*)
+        // Register domain views
         $this->loadViewsFrom(app_path('Domains/Auth/Resources/views'), 'auth');
+        $this->loadViewsFrom(app_path('Domains/User/Resources/views'), 'user');
+        $this->loadViewsFrom(app_path('Domains/Public/Resources/views'), 'public');
+        
+        // Register view components
+        Blade::component('app-layout', AppLayout::class);
+        Blade::component('guest-layout', GuestLayout::class);
     }
 
     /**

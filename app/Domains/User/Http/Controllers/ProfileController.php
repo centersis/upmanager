@@ -18,8 +18,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        // Para fins de teste, retornamos uma view simples sem dependências de componentes complexos
-        return view('shared::welcome');
+        $user = $request->user();
+        return view('user::profile.edit', compact('user'));
     }
 
     /**
