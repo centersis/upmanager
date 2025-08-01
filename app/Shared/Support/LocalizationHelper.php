@@ -11,10 +11,10 @@ class LocalizationHelper
      * Idiomas suportados pela aplicação
      */
     public const SUPPORTED_LOCALES = [
-        'pt-BR' => [
+        'pt_BR' => [
             'name' => 'Português (BR)',
             'flag' => '🇧🇷',
-            'short' => 'pt-BR'
+            'short' => 'pt_BR'
         ],
         'en' => [
             'name' => 'English',
@@ -26,7 +26,7 @@ class LocalizationHelper
     /**
      * Idioma padrão da aplicação
      */
-    public const DEFAULT_LOCALE = 'pt-BR';
+    public const DEFAULT_LOCALE = 'pt_BR';
 
     /**
      * Obter todos os idiomas suportados
@@ -113,14 +113,14 @@ class LocalizationHelper
         // Definir formatos baseados no idioma
         if (!$format) {
             $format = match ($locale) {
-                'pt-BR' => 'd/m/Y H:i',
+                'pt_BR' => 'd/m/Y H:i',
                 'en' => 'm/d/Y H:i',
                 default => 'd/m/Y H:i'
             };
         }
 
         // Definir nomes dos meses/dias em português
-        if ($locale === 'pt-BR') {
+        if ($locale === 'pt_BR') {
             $carbon->locale('pt_BR');
         }
 
@@ -152,7 +152,7 @@ class LocalizationHelper
         $locale = $locale ?: App::getLocale();
         
         return match ($locale) {
-            'pt-BR' => 'America/Sao_Paulo',
+            'pt_BR' => 'America/Sao_Paulo',
             'en' => 'UTC',
             default => 'UTC'
         };

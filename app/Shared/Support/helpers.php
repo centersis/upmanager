@@ -97,7 +97,7 @@ if (!function_exists('public_project_link')) {
         $locale = $locale ?: app()->getLocale();
         
         // For default Portuguese, don't include language parameter
-        if ($locale === 'pt-BR' || $locale === 'pt_BR') {
+        if ($locale === 'pt_BR') {
             return route('public.project', $projectHash);
         }
         
@@ -114,7 +114,7 @@ if (!function_exists('public_customer_link')) {
         $locale = $locale ?: app()->getLocale();
         
         // For default Portuguese, don't include language parameter
-        if ($locale === 'pt-BR' || $locale === 'pt_BR') {
+        if ($locale === 'pt_BR') {
             return route('public.customer', $customerHash);
         }
         
@@ -131,7 +131,7 @@ if (!function_exists('public_customer_project_link')) {
         $locale = $locale ?: app()->getLocale();
         
         // For default Portuguese, don't include language parameter
-        if ($locale === 'pt-BR' || $locale === 'pt_BR') {
+        if ($locale === 'pt_BR') {
             return route('public.customer.project', [$customerHash, $projectHash]);
         }
         
@@ -148,7 +148,7 @@ if (!function_exists('public_iframe_link')) {
         $locale = $locale ?: app()->getLocale();
         
         // For default Portuguese, don't include language parameter
-        if ($locale === 'pt-BR' || $locale === 'pt_BR') {
+        if ($locale === 'pt_BR') {
             return route('public.iframe', [$customerHash, $projectHash]);
         }
         
@@ -165,7 +165,7 @@ if (!function_exists('public_update_link')) {
         $locale = $locale ?: app()->getLocale();
         
         // For default Portuguese, don't include language parameter
-        if ($locale === 'pt-BR' || $locale === 'pt_BR') {
+        if ($locale === 'pt_BR') {
             return route('public.update', $updateHash);
         }
         

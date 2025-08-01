@@ -25,7 +25,7 @@ class LocaleMiddleware
     
     private function determineLocale(Request $request): string
     {
-        $supportedLocales = ['en', 'pt-BR', 'pt_BR'];
+        $supportedLocales = ['en', 'pt_BR'];
         
         // 1. Check if user is authenticated and has locale preference
         if ($request->user() && $request->user()->locale) {
@@ -59,12 +59,12 @@ class LocaleMiddleware
         }
         
         // 5. Check Accept-Language header
-        $preferredLanguage = $request->getPreferredLanguage(['en', 'pt-BR', 'pt']);
-        if ($preferredLanguage === 'pt' || $preferredLanguage === 'pt-BR') {
-            return 'pt-BR';
+        $preferredLanguage = $request->getPreferredLanguage(['en', 'pt_BR', 'pt']);
+        if ($preferredLanguage === 'pt' || $preferredLanguage === 'pt_BR') {
+            return 'pt_BR';
         }
         
         // 6. Default fallback
-        return config('app.locale', 'pt-BR');
+        return config('app.locale', 'pt_BR');
     }
 } 

@@ -16,15 +16,15 @@ class PublicController extends Controller
      */
     private function setLocaleFromParameter($lang = null)
     {
-        $supportedLocales = ['en', 'pt-br', 'pt-BR', 'pt_BR'];
+        $supportedLocales = ['en', 'pt_BR'];
         
         if ($lang) {
-            // Normalize pt-br and pt_BR to pt-BR
-            if (strtolower($lang) === 'pt-br' || $lang === 'pt_BR') {
-                $lang = 'pt-BR';
+            // Normalize pt-br and pt-BR to pt_BR
+            if (strtolower($lang) === 'pt-br' || $lang === 'pt-BR') {
+                $lang = 'pt_BR';
             }
             
-            if (in_array($lang, $supportedLocales) || $lang === 'pt-BR') {
+            if (in_array($lang, $supportedLocales)) {
                 App::setLocale($lang);
             }
         }
