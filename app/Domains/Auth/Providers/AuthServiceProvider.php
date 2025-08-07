@@ -21,5 +21,10 @@ class AuthServiceProvider extends ServiceProvider
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
         });
+
+        // Register Auth API routes
+        Route::prefix('api')->middleware('api')->group(function () {
+            $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
+        });
     }
 } 
