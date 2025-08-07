@@ -35,6 +35,7 @@ class User extends Authenticatable
         'position',
         'role',
         'is_active',
+        'last_login_at',
     ];
 
     /**

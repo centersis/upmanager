@@ -18,7 +18,8 @@ class UpdateService
 
     public function getUpdateById(int $id)
     {
-        return $this->updateRepository->find($id)->load(['project', 'customer']);
+        $update = $this->updateRepository->find($id);
+        return $update ? $update->load(['project', 'customer']) : null;
     }
 
     public function createUpdate(array $data)

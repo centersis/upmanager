@@ -21,5 +21,10 @@ class DashboardServiceProvider extends ServiceProvider
         Route::middleware('web')->group(function () {
             $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
         });
+
+        // Register Dashboard API routes
+        Route::prefix('api')->middleware('api')->group(function () {
+            $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
+        });
     }
 } 
