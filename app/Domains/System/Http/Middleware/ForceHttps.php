@@ -17,9 +17,13 @@ class ForceHttps
     {
         // Forçar HTTPS apenas em produção
         if (config('app.env') === 'production') {
-            // Verificar se já está usando HTTPS
-            if (!$request->secure() && !$request->header('X-Forwarded-Proto')) {
-                // Redirecionar para HTTPS apenas se não estiver seguro
+            // Verificar se já está usando HTTPS através de headers de proxy
+            $isSecure = $request->secure() || 
+                       $request->header('X-Forwarded-Proto') === 'https' ||
+                       $request->header('X-Forwarded-Ssl') === 'on';
+            
+            // Se não estiver seguro, redirecionar para HTTPS
+            if (!$isSecure) {
                 $secureUrl = 'https://' . $request->getHost() . $request->getRequestUri();
                 return redirect($secureUrl, 301);
             }
