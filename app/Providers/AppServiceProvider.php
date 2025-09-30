@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Forçar HTTPS em produção
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
+        
         // Forçar HTTP em desenvolvimento
         if (app()->environment('local', 'development')) {
             URL::forceScheme('http');
