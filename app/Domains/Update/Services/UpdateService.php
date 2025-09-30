@@ -61,4 +61,14 @@ class UpdateService
     {
         return $this->updateRepository->incrementViews($id);
     }
+
+    public function getUpdatesBySharedHash(string $sharedHash)
+    {
+        return $this->updateRepository->findBySharedHash($sharedHash);
+    }
+
+    public function updateUpdatesBySharedHash(string $sharedHash, array $data)
+    {
+        return $this->updateRepository->updateBySharedHash($sharedHash, $data);
+    }
 } 

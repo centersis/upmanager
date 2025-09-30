@@ -39,10 +39,14 @@ class UpdateWebController extends Controller
             $customerIds = $data['customer_ids'];
             $createdUpdates = [];
             
+            // Gerar shared_hash único para vincular todas as atualizações relacionadas
+            $sharedHash = uniqid('shared_', true);
+            
             // Criar uma atualização para cada cliente selecionado
             foreach ($customerIds as $customerId) {
                 $updateData = $data;
                 $updateData['customer_id'] = $customerId;
+                $updateData['shared_hash'] = $sharedHash;
                 
                 // Gerar hash único para cada atualização
                 $updateData['hash'] = uniqid('upd_', true);
@@ -62,7 +66,7 @@ class UpdateWebController extends Controller
             } else {
                 return redirect()
                     ->route('updates.index')
-                    ->with('success', "Foram criadas {$count} atualizações com sucesso!");
+                    ->with('success', "Foram criadas {$count} atualizações vinculadas com sucesso!");
             }
         } catch (\Exception $e) {
             return redirect()
@@ -83,7 +87,13 @@ class UpdateWebController extends Controller
         // Incrementar visualizações
         $this->updateService->incrementUpdateViews($id);
         
-        return view('update::show', compact('update'));
+        // Carregar atualizações vinculadas se existir shared_hash
+        $linkedUpdates = null;
+        if ($update->shared_hash) {
+            $linkedUpdates = $this->updateService->getUpdatesBySharedHash($update->shared_hash);
+        }
+        
+        return view('update::show', compact('update', 'linkedUpdates'));
     }
 
     public function edit($id)
@@ -103,15 +113,27 @@ class UpdateWebController extends Controller
     {
         try {
             $data = $request->validated();
-            $update = $this->updateService->updateUpdate($id, $data);
+            $update = $this->updateService->getUpdateById($id);
             
             if (!$update) {
                 abort(404, 'Atualização não encontrada');
             }
             
-            return redirect()
-                ->route('updates.show', $update->id)
-                ->with('success', 'Atualização atualizada com sucesso!');
+            // Se a atualização tem shared_hash, atualizar todas as atualizações vinculadas
+            if ($update->shared_hash) {
+                $updatedCount = $this->updateService->updateUpdatesBySharedHash($update->shared_hash, $data);
+                
+                return redirect()
+                    ->route('updates.show', $update->id)
+                    ->with('success', "Atualização e {$updatedCount} atualizações vinculadas foram atualizadas com sucesso!");
+            } else {
+                // Atualização individual (comportamento antigo)
+                $updatedUpdate = $this->updateService->updateUpdate($id, $data);
+                
+                return redirect()
+                    ->route('updates.show', $updatedUpdate->id)
+                    ->with('success', 'Atualização atualizada com sucesso!');
+            }
         } catch (\Exception $e) {
             return redirect()
                 ->back()

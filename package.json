@@ -4,19 +4,47 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "mcp-docker": "tsx mcp-docker-server.ts",
+        "mcp-docker:dev": "tsx --watch mcp-docker-server.ts"
     },
     "devDependencies": {
-        "@tailwindcss/forms": "^0.5.2",
+        "@tailwindcss/forms": "^0.5.10",
         "@tailwindcss/postcss": "^4.1.11",
         "@tailwindcss/vite": "^4.0.0",
         "alpinejs": "^3.4.2",
-        "autoprefixer": "^10.4.2",
+        "autoprefixer": "^10.4.21",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^2.0.0",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.1.0",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^3.4.17",
         "vite": "^7.0.4"
+    },
+    "name": "upmanager",
+    "version": "1.0.0",
+    "description": "Usando laravel sail para rodar a aplicação",
+    "main": "postcss.config.js",
+    "directories": {
+        "doc": "docs",
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/centersis/upmanager.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/centersis/upmanager/issues"
+    },
+    "homepage": "https://github.com/centersis/upmanager#readme",
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.18.2",
+        "@types/node": "^24.6.0",
+        "dockerode": "^4.0.9",
+        "tsx": "^4.20.6",
+        "typescript": "^5.9.2"
     }
 }

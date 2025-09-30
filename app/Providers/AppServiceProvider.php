@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (app()->environment('production')) {
-            URL::forceScheme('https');
+        // Forçar HTTP em desenvolvimento
+        if (app()->environment('local', 'development')) {
+            URL::forceScheme('http');
         }
 
         $this->configureRoutes();

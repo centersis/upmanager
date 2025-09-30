@@ -137,6 +137,14 @@
                             {{ $update->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                             {{ $update->status === 'published' ? __('updates.published') : __('updates.draft') }}
                         </span>
+                        @if($update->shared_hash)
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                </svg>
+                                Vinculada
+                            </span>
+                        @endif
                     </div>
                     
                     <p class="text-xl text-gray-700 font-medium mb-4">{{ $update->caption }}</p>
@@ -213,6 +221,51 @@
             </dl>
         </div>
     </article>
+
+    @if($linkedUpdates && $linkedUpdates->count() > 1)
+    <!-- Linked Updates Information -->
+    <div class="mt-8 bg-white shadow-sm rounded-lg border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900">Atualizações Vinculadas</h2>
+            <p class="mt-1 text-sm text-gray-600">Esta atualização está vinculada a outras atualizações. Qualquer alteração será aplicada a todas.</p>
+        </div>
+        <div class="px-6 py-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach($linkedUpdates as $linkedUpdate)
+                    <div class="border border-gray-200 rounded-lg p-4 {{ $linkedUpdate->id === $update->id ? 'bg-blue-50 border-blue-200' : 'bg-gray-50' }}">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-sm font-medium text-gray-900">
+                                @if($linkedUpdate->id === $update->id)
+                                    <span class="text-blue-600">{{ $linkedUpdate->title }}</span>
+                                    <span class="text-xs text-blue-500">(Atual)</span>
+                                @else
+                                    <a href="{{ route('updates.show', $linkedUpdate->id) }}" class="hover:text-blue-600">
+                                        {{ $linkedUpdate->title }}
+                                    </a>
+                                @endif
+                            </h3>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            <div class="flex items-center mb-1">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                {{ $linkedUpdate->customer->name }}
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                {{ $linkedUpdate->views }} visualizações
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
 
     <!-- Project Information -->
     <div class="mt-8 bg-white shadow-sm rounded-lg border border-gray-200">

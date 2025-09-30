@@ -103,6 +103,20 @@
         <div class="px-6 py-4 border-b border-gray-200">
             <h1 class="text-2xl font-bold text-gray-900">{{ __('updates.edit_title') }}</h1>
             <p class="mt-1 text-sm text-gray-600">{{ __('updates.update_info') }}</p>
+            
+            @if($update->shared_hash)
+                <div class="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-sm text-blue-700">
+                            <strong>Atualização vinculada:</strong> Esta atualização está vinculada a outras atualizações. 
+                            Qualquer alteração será aplicada a todas as atualizações relacionadas.
+                        </p>
+                    </div>
+                </div>
+            @endif
         </div>
         
         <form action="{{ route('updates.update', $update->id) }}" method="POST" class="px-6 py-6 space-y-6">

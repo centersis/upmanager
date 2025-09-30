@@ -59,4 +59,14 @@ class UpdateRepository implements UpdateRepositoryInterface
         }
         return null;
     }
+
+    public function findBySharedHash(string $sharedHash)
+    {
+        return Update::where('shared_hash', $sharedHash)->with(['project', 'customer'])->get();
+    }
+
+    public function updateBySharedHash(string $sharedHash, array $data)
+    {
+        return Update::where('shared_hash', $sharedHash)->update($data);
+    }
 } 

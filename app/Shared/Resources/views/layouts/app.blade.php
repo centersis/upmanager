@@ -11,7 +11,8 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('img/logo.svg') }}">
     
-    @vite(['resources/css/app.css', 'resources/js/app.js'])        
+    <link rel="stylesheet" href="/build/assets/app-BSDPyD84.css">
+    <script type="module" src="/build/assets/app-DtCVKgHt.js"></script>        
     
     @yield('head')
 </head>

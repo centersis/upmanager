@@ -126,6 +126,11 @@ class UpdateApiController extends Controller
                 $data['hash'] = Str::uuid()->toString();
             }
 
+            // Generate shared_hash if not provided
+            if (!isset($data['shared_hash'])) {
+                $data['shared_hash'] = uniqid('shared_', true);
+            }
+
             // Set default status if not provided
             if (!isset($data['status'])) {
                 $data['status'] = 'pending';
@@ -245,32 +250,67 @@ class UpdateApiController extends Controller
             }
 
             $data = $request->validated();
-            $updatedUpdate = $this->updateService->updateUpdate($id, $data);
-            $updatedUpdate->load(['project', 'customer']);
+            
+            // Se a atualização tem shared_hash, atualizar todas as atualizações vinculadas
+            if ($update->shared_hash) {
+                $updatedCount = $this->updateService->updateUpdatesBySharedHash($update->shared_hash, $data);
+                $updatedUpdate = $this->updateService->getUpdateById($id);
+                $updatedUpdate->load(['project', 'customer']);
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => "Atualização e {$updatedCount} atualizações vinculadas foram atualizadas com sucesso",
+                    'data' => [
+                        'id' => $updatedUpdate->id,
+                        'title' => $updatedUpdate->title,
+                        'caption' => $updatedUpdate->caption,
+                        'description' => $updatedUpdate->description,
+                        'status' => $updatedUpdate->status,
+                        'views' => $updatedUpdate->views,
+                        'hash' => $updatedUpdate->hash,
+                        'shared_hash' => $updatedUpdate->shared_hash,
+                        'created_at' => $updatedUpdate->created_at->toISOString(),
+                        'updated_at' => $updatedUpdate->updated_at->toISOString(),
+                        'project' => $updatedUpdate->project ? [
+                            'id' => $updatedUpdate->project->id,
+                            'name' => $updatedUpdate->project->name,
+                        ] : null,
+                        'customer' => $updatedUpdate->customer ? [
+                            'id' => $updatedUpdate->customer->id,
+                            'name' => $updatedUpdate->customer->name,
+                        ] : null,
+                    ]
+                ], 200);
+            } else {
+                // Atualização individual (comportamento antigo)
+                $updatedUpdate = $this->updateService->updateUpdate($id, $data);
+                $updatedUpdate->load(['project', 'customer']);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Atualização atualizada com sucesso',
-                'data' => [
-                    'id' => $updatedUpdate->id,
-                    'title' => $updatedUpdate->title,
-                    'caption' => $updatedUpdate->caption,
-                    'description' => $updatedUpdate->description,
-                    'status' => $updatedUpdate->status,
-                    'views' => $updatedUpdate->views,
-                    'hash' => $updatedUpdate->hash,
-                    'created_at' => $updatedUpdate->created_at->toISOString(),
-                    'updated_at' => $updatedUpdate->updated_at->toISOString(),
-                    'project' => $updatedUpdate->project ? [
-                        'id' => $updatedUpdate->project->id,
-                        'name' => $updatedUpdate->project->name,
-                    ] : null,
-                    'customer' => $updatedUpdate->customer ? [
-                        'id' => $updatedUpdate->customer->id,
-                        'name' => $updatedUpdate->customer->name,
-                    ] : null,
-                ]
-            ], 200);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Atualização atualizada com sucesso',
+                    'data' => [
+                        'id' => $updatedUpdate->id,
+                        'title' => $updatedUpdate->title,
+                        'caption' => $updatedUpdate->caption,
+                        'description' => $updatedUpdate->description,
+                        'status' => $updatedUpdate->status,
+                        'views' => $updatedUpdate->views,
+                        'hash' => $updatedUpdate->hash,
+                        'shared_hash' => $updatedUpdate->shared_hash,
+                        'created_at' => $updatedUpdate->created_at->toISOString(),
+                        'updated_at' => $updatedUpdate->updated_at->toISOString(),
+                        'project' => $updatedUpdate->project ? [
+                            'id' => $updatedUpdate->project->id,
+                            'name' => $updatedUpdate->project->name,
+                        ] : null,
+                        'customer' => $updatedUpdate->customer ? [
+                            'id' => $updatedUpdate->customer->id,
+                            'name' => $updatedUpdate->customer->name,
+                        ] : null,
+                    ]
+                ], 200);
+            }
 
         } catch (\Exception $e) {
             return response()->json([
