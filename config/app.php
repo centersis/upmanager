@@ -100,6 +100,7 @@ return [
     'key' => env('APP_KEY'),
 
     'previous_keys' => [
+        // Simplificado para evitar problemas com env()
         ...array_filter(
             explode(',', (string) env('APP_PREVIOUS_KEYS', ''))
         ),

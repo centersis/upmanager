@@ -16,8 +16,16 @@ class ForceHttps
     public function handle(Request $request, Closure $next): Response
     {
         // Forçar HTTPS apenas em produção
-        if (app()->environment('production') && !$request->secure()) {
-            return redirect()->secure($request->getRequestUri());
+        if (config('app.env') === 'production') {
+            // Verificar se já está usando HTTPS
+            if (!$request->secure() && !$request->header('X-Forwarded-Proto')) {
+                // Redirecionar para HTTPS apenas se não estiver seguro
+                $secureUrl = 'https://' . $request->getHost() . $request->getRequestUri();
+                return redirect($secureUrl, 301);
+            }
+            
+            // Configurar cookies seguros em produção
+            config(['session.secure' => true]);
         }
 
         return $next($request);

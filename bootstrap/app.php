@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->append([
             \App\Domains\System\Http\Middleware\TrustProxies::class,
-            \App\Http\Middleware\ForceHttps::class,
+            \App\Domains\System\Http\Middleware\ForceHttps::class,
         ]);
         $middleware->alias([
             'active' => \App\Domains\User\Http\Middleware\EnsureUserIsActive::class,
