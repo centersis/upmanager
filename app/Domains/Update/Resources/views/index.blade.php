@@ -41,6 +41,99 @@
         </div>
     </div>
 
+    <!-- Filters Section -->
+    <div class="bg-white shadow-sm rounded-lg border border-gray-200 p-6 mb-6">
+        <form method="GET" action="{{ route('updates.index') }}" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Status Filter -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ __('updates.status') }}
+                    </label>
+                    <select name="status" id="status" 
+                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="">{{ __('common.all') }}</option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                            {{ __('updates.pending') }}
+                        </option>
+                        <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>
+                            {{ __('updates.published') }}
+                        </option>
+                        <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>
+                            {{ __('updates.draft') }}
+                        </option>
+                        <option value="archived" {{ request('status') == 'archived' ? 'selected' : '' }}>
+                            {{ __('updates.archived') }}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Project Filter -->
+                <div>
+                    <label for="project_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ __('updates.project') }}
+                    </label>
+                    <select name="project_id" id="project_id" 
+                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="">{{ __('common.all') }}</option>
+                        @foreach($projects as $project)
+                            <option value="{{ $project->id }}" {{ request('project_id') == $project->id ? 'selected' : '' }}>
+                                {{ $project->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Customer Filter -->
+                <div>
+                    <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ __('customers.customer') }}
+                    </label>
+                    <select name="customer_id" id="customer_id" 
+                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="">{{ __('common.all') }}</option>
+                        @foreach($customers as $customer)
+                            <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>
+                                {{ $customer->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Search Filter -->
+                <div>
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ __('common.search') }}
+                    </label>
+                    <input type="text" 
+                           name="search" 
+                           id="search" 
+                           value="{{ request('search') }}"
+                           placeholder="{{ __('common.search_placeholder') }}"
+                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex items-center justify-end space-x-3">
+                <a href="{{ route('updates.index') }}" 
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    {{ __('common.clear') }}
+                </a>
+                <button type="submit" 
+                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    </svg>
+                    {{ __('common.filter') }}
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- Updates List -->
     <div class="space-y-6">
         @forelse($updates as $update)

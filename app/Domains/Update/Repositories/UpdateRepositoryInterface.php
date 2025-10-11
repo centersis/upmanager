@@ -15,4 +15,6 @@ interface UpdateRepositoryInterface extends RepositoryInterface
     public function findBySharedHash(string $sharedHash);
     
     public function updateBySharedHash(string $sharedHash, array $data);
+    
+    public function allWithFilters(array $filters);
 } 

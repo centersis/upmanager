@@ -64,6 +64,7 @@ return [
     'recent_updates' => 'Atualizações Recentes',
     
     // Status
+    'pending' => 'Pendente',
     'published' => 'Publicado',
     'draft' => 'Rascunho',
     'archived' => 'Arquivado',

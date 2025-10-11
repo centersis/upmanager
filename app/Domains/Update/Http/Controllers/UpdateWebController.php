@@ -19,9 +19,22 @@ class UpdateWebController extends Controller
 
     public function index()
     {
-        $updates = $this->updateService->getAllUpdates();
+        // Capturar filtros do request
+        $filters = request()->only(['status', 'project_id', 'customer_id', 'search']);
         
-        return view('update::index', compact('updates'));
+        // Remover valores vazios do array de filtros
+        $filters = array_filter($filters, function($value) {
+            return $value !== null && $value !== '';
+        });
+        
+        // Buscar updates com filtros aplicados
+        $updates = $this->updateService->getAllUpdates($filters);
+        
+        // Buscar projetos e clientes para os selects
+        $projects = $this->projectService->getAllProjects();
+        $customers = $this->customerService->getAllCustomers();
+        
+        return view('update::index', compact('updates', 'projects', 'customers', 'filters'));
     }
 
     public function create()

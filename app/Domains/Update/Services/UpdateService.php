@@ -11,8 +11,14 @@ class UpdateService
         private UpdateRepositoryInterface $updateRepository
     ) {}
 
-    public function getAllUpdates()
+    public function getAllUpdates(array $filters = [])
     {
+        // Se houver filtros, usar o método específico
+        if (!empty($filters)) {
+            return $this->updateRepository->allWithFilters($filters);
+        }
+
+        // Comportamento padrão quando não há filtros
         return $this->updateRepository->all()->load(['project', 'customer'])->sortByDesc('created_at');
     }
 

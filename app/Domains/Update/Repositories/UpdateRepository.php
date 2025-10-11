@@ -69,4 +69,36 @@ class UpdateRepository implements UpdateRepositoryInterface
     {
         return Update::where('shared_hash', $sharedHash)->update($data);
     }
+
+    public function allWithFilters(array $filters)
+    {
+        $query = Update::with(['project', 'customer']);
+
+        // Filtro por status
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        // Filtro por projeto
+        if (!empty($filters['project_id'])) {
+            $query->where('project_id', $filters['project_id']);
+        }
+
+        // Filtro por cliente
+        if (!empty($filters['customer_id'])) {
+            $query->where('customer_id', $filters['customer_id']);
+        }
+
+        // Busca por texto em título, caption e description
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('caption', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        return $query->orderBy('created_at', 'desc')->get();
+    }
 } 
