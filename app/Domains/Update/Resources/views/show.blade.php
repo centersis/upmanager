@@ -4,46 +4,213 @@
 
 @section('head')
     <style>
-        /* Content display styles */
+        /* Content display styles - Complete Summernote compatibility */
         .content-display {
             line-height: 1.6;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
+
+        /* Text formatting - inline styles */
+        .content-display strong,
+        .content-display b {
+            font-weight: bold;
+        }
+        
+        .content-display em,
+        .content-display i {
+            font-style: italic;
+        }
+        
+        .content-display u {
+            text-decoration: underline;
+        }
+        
+        .content-display s,
+        .content-display strike,
+        .content-display del {
+            text-decoration: line-through;
+        }
+        
+        .content-display sub {
+            vertical-align: sub;
+            font-size: smaller;
+        }
+        
+        .content-display sup {
+            vertical-align: super;
+            font-size: smaller;
+        }
+
+        /* Text alignment */
+        .content-display [style*="text-align: left"],
+        .content-display .text-left {
+            text-align: left !important;
+        }
+        
+        .content-display [style*="text-align: center"],
+        .content-display .text-center {
+            text-align: center !important;
+        }
+        
+        .content-display [style*="text-align: right"],
+        .content-display .text-right {
+            text-align: right !important;
+        }
+        
+        .content-display [style*="text-align: justify"],
+        .content-display .text-justify {
+            text-align: justify !important;
+        }
+
+        /* Headings */
+        .content-display h1, 
+        .content-display h2, 
+        .content-display h3, 
+        .content-display h4, 
+        .content-display h5, 
+        .content-display h6 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        
+        .content-display h1 { font-size: 2rem; }
+        .content-display h2 { font-size: 1.75rem; }
+        .content-display h3 { font-size: 1.5rem; }
+        .content-display h4 { font-size: 1.25rem; }
+        .content-display h5 { font-size: 1.125rem; }
+        .content-display h6 { font-size: 1rem; }
+
+        /* Paragraphs */
+        .content-display p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+        
+        .content-display p:first-child {
+            margin-top: 0;
+        }
+        
+        .content-display p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Lists */
+        .content-display ul, 
+        .content-display ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        
+        .content-display ul {
+            list-style-type: disc;
+        }
+        
+        .content-display ol {
+            list-style-type: decimal;
+        }
+        
+        .content-display ul ul {
+            list-style-type: circle;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .content-display ul ul ul {
+            list-style-type: square;
+        }
+        
+        .content-display ol ol {
+            list-style-type: lower-alpha;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .content-display ol ol ol {
+            list-style-type: lower-roman;
+        }
+        
+        .content-display li {
+            margin: 4px 0;
+            line-height: 1.6;
+        }
+
+        /* Links */
+        .content-display a {
+            color: #3b82f6;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        
+        .content-display a:hover {
+            color: #2563eb;
+        }
+
+        /* Images */
         .content-display img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin: 10px 0;
+            display: inline-block;
         }
+
+        /* Videos */
         .content-display video {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin: 10px 0;
+            display: block;
         }
+
+        /* iFrames (for embedded content) */
         .content-display iframe {
             max-width: 100%;
             height: 315px;
             border-radius: 8px;
             margin: 10px 0;
+            border: none;
         }
+
+        /* Tables */
         .content-display table {
             border-collapse: collapse;
             width: 100%;
             margin: 15px 0;
             border: 1px solid #ddd;
+            background-color: white;
         }
+        
         .content-display table td, 
         .content-display table th {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 8px 12px;
             text-align: left;
+            vertical-align: top;
         }
+        
         .content-display table th {
             background-color: #f5f5f5;
             font-weight: bold;
         }
+        
+        /* Preserve inline table styles */
+        .content-display table td[style*="background-color"],
+        .content-display table th[style*="background-color"] {
+            background-color: inherit !important;
+        }
+        
+        .content-display table td[style*="text-align"],
+        .content-display table th[style*="text-align"] {
+            text-align: inherit !important;
+        }
+
+        /* Blockquotes */
         .content-display blockquote {
             border-left: 4px solid #e2e8f0;
             padding-left: 16px;
@@ -51,43 +218,86 @@
             color: #6b7280;
             font-style: italic;
         }
+
+        /* Code blocks */
         .content-display code {
             background-color: #f3f4f6;
-            padding: 2px 4px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
         }
+        
         .content-display pre {
             background-color: #f3f4f6;
             padding: 16px;
             border-radius: 8px;
             overflow-x: auto;
+            margin: 16px 0;
         }
+        
         .content-display pre code {
             background-color: transparent;
             padding: 0;
+            border-radius: 0;
         }
-        .content-display ul, .content-display ol {
-            margin: 12px 0;
-            padding-left: 24px;
+
+        /* Horizontal rule */
+        .content-display hr {
+            border: none;
+            border-top: 2px solid #e5e7eb;
+            margin: 24px 0;
         }
-        .content-display li {
-            margin: 4px 0;
+
+        /* Preserve all inline styles from Summernote */
+        .content-display [style*="font-size"] {
+            /* Font sizes are preserved via inline styles */
         }
-        .content-display h1, .content-display h2, .content-display h3, 
-        .content-display h4, .content-display h5, .content-display h6 {
-            margin-top: 24px;
-            margin-bottom: 12px;
-            font-weight: bold;
+        
+        .content-display [style*="color"] {
+            /* Colors are preserved via inline styles */
         }
-        .content-display h1 { font-size: 2rem; }
-        .content-display h2 { font-size: 1.75rem; }
-        .content-display h3 { font-size: 1.5rem; }
-        .content-display h4 { font-size: 1.25rem; }
-        .content-display h5 { font-size: 1.125rem; }
-        .content-display h6 { font-size: 1rem; }
-        .content-display p {
-            margin: 12px 0;
+        
+        .content-display [style*="background-color"] {
+            /* Background colors are preserved via inline styles */
+        }
+        
+        .content-display [style*="font-family"] {
+            /* Font families are preserved via inline styles */
+        }
+
+        /* Line breaks */
+        .content-display br {
+            display: block;
+            content: "";
+            margin-top: 0.5em;
+        }
+
+        /* Divs (for custom formatting) */
+        .content-display div {
+            margin: 0;
+        }
+
+        /* Spans (for inline formatting) */
+        .content-display span {
+            /* Preserve inline styles */
+        }
+
+        /* Font sizes (common Summernote values) */
+        .content-display [style*="font-size: 8px"] { font-size: 8px !important; }
+        .content-display [style*="font-size: 9px"] { font-size: 9px !important; }
+        .content-display [style*="font-size: 10px"] { font-size: 10px !important; }
+        .content-display [style*="font-size: 11px"] { font-size: 11px !important; }
+        .content-display [style*="font-size: 12px"] { font-size: 12px !important; }
+        .content-display [style*="font-size: 14px"] { font-size: 14px !important; }
+        .content-display [style*="font-size: 16px"] { font-size: 16px !important; }
+        .content-display [style*="font-size: 18px"] { font-size: 18px !important; }
+        .content-display [style*="font-size: 24px"] { font-size: 24px !important; }
+        .content-display [style*="font-size: 36px"] { font-size: 36px !important; }
+
+        /* Ensure nested formatting works */
+        .content-display * {
+            /* Allow all inline styles to cascade properly */
         }
     </style>
 @endsection

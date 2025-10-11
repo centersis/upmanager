@@ -18,7 +18,7 @@ class UpdateUpdateRequest extends FormRequest
             'customer_id' => 'sometimes|required|exists:customers,id',
             'title' => 'sometimes|required|string|max:255',
             'caption' => 'sometimes|nullable|string|max:255',
-            'description' => 'sometimes|nullable|string|max:10000',
+            'description' => 'sometimes|nullable|string',
             'status' => 'sometimes|string|in:draft,published,archived',
             'views' => 'sometimes|integer|min:0',
         ];
@@ -37,7 +37,6 @@ class UpdateUpdateRequest extends FormRequest
             'caption.string' => 'A legenda deve ser um texto válido.',
             'caption.max' => 'A legenda não pode ter mais de 255 caracteres.',
             'description.string' => 'A descrição deve ser um texto válido.',
-            'description.max' => 'A descrição não pode ter mais de 10.000 caracteres.',
             'status.string' => 'O status deve ser um texto válido.',
             'status.in' => 'O status deve ser: draft, published ou archived.',
             'views.integer' => 'O número de visualizações deve ser um número inteiro.',
